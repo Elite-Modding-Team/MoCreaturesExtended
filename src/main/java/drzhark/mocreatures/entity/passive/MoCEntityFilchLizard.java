@@ -160,7 +160,7 @@ public class MoCEntityFilchLizard extends MoCEntityAnimal {
         }
         ItemStack stack = this.getHeldItemMainhand();
         if (!stack.isEmpty() && !getEntityWorld().isRemote) {
-            ItemStack newStack = new ItemStack(stack.getItem(), 1, stack.getMetadata());
+            ItemStack newStack = stack.copy();
             this.dropItemStack(newStack, 1);
             this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, ItemStack.EMPTY);
         }

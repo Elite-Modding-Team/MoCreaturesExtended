@@ -110,29 +110,28 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
         super.onLivingUpdate();
 
         if (!this.world.isRemote) {
-            if (getGolemState() == 0) // just spawned
-            {
-                EntityPlayer entityplayer1 = this.world.getClosestPlayerToEntity(this, 8D);
-                if (entityplayer1 != null) setGolemState(1); // activated
-            }
+            if (getGolemState() != 4) {
+                if (getGolemState() == 0) // just spawned
+                {
+                    EntityPlayer entityplayer1 = this.world.getClosestPlayerToEntity(this, 8D);
+                    if (entityplayer1 != null) setGolemState(1); // activated
+                }
 
-            if (getGolemState() == 1 && !isMissingCubes()) setGolemState(2); // is complete
+                if (getGolemState() == 1 && !isMissingCubes()) setGolemState(2); // is complete
 
-            if (getGolemState() > 2 && getGolemState() != 4 && this.getAttackTarget() == null) setGolemState(1);
+                if (getGolemState() > 2 && this.getAttackTarget() == null) setGolemState(1);
 
-            if (getGolemState() > 1 && this.getAttackTarget() != null && this.rand.nextInt(20) == 0) {
-                if (getHealth() >= 30) setGolemState(2);
-                if (getHealth() < 30 && getHealth() >= 10) setGolemState(3); // more dangerous
-                if (getHealth() < 10) setGolemState(4); // dying
-            }
+                if (getGolemState() > 1 && this.getAttackTarget() != null && this.rand.nextInt(20) == 0) {
+                    if (getHealth() >= 30) setGolemState(2);
+                    if (getHealth() < 30) setGolemState(3); // More dangerous
+                }
 
-            if (getGolemState() != 0 && getGolemState() != 4 && isMissingCubes()) {
-                int freq = 42 - (getGolemState() * this.world.getDifficulty().getId());
-                if (getGolemState() == 1) freq = 20;
-                if (this.rand.nextInt(freq) == 0) acquireRock(2);
-            }
-
-            if (getGolemState() == 4) {
+                if (getGolemState() != 0 && getGolemState() != 4 && isMissingCubes()) {
+                    int freq = 42 - (getGolemState() * this.world.getDifficulty().getId());
+                    if (getGolemState() == 1) freq = 20;
+                    if (this.rand.nextInt(freq) == 0) acquireRock(2);
+                }
+            } else {
                 this.getNavigator().clearPath();
                 this.dCounter++;
 
@@ -160,22 +159,35 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
                 this.tCounter = 1;
                 MoCMessageHandler.INSTANCE.sendToAllAround(new MoCMessageAnimation(this.getEntityId(), 0), new TargetPoint(this.world.provider.getDimensionType().getId(), this.posX, this.posY, this.posZ, 64));
             }
-
         }
+
         if (this.tCounter != 0) {
             if (this.tCounter++ == 70 && this.getAttackTarget() != null && this.canShoot() && !this.getAttackTarget().isDead && this.canEntityBeSeen(this.getAttackTarget())) {
                 shootBlock(this.getAttackTarget());
             } else if (this.tCounter > 90) this.tCounter = 0;
         }
 
+        if (this.sCounter != 0) {
+            this.sCounter++;
+            if (this.sCounter > 90) {
+                this.sCounter = 0;
+            }
+        }
+
+        // TODO: Fix particle positioning
         if (MoCreatures.proxy.getParticleFX() > 0 && getGolemState() == 4 && this.sCounter > 0) {
             for (int i = 0; i < 10; i++) {
-                this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX, this.posY, this.posZ, this.rand.nextGaussian(), this.rand.nextGaussian(), this.rand.nextGaussian());
+                this.world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, this.posX, this.posY + 0.5D, this.posZ, this.rand.nextGaussian(), this.rand.nextGaussian(), this.rand.nextGaussian());
             }
         }
     }
 
     private void destroyGolem() {
+        if (!this.world.isRemote && this.world instanceof WorldServer) {
+            WorldServer worldServer = (WorldServer) this.world;
+            worldServer.spawnParticle(EnumParticleTypes.EXPLOSION_HUGE, this.posX, this.posY + (this.height / 2.0F), this.posZ, 20, 1.0D, 2.0D, 1.0D, 0.2D);
+        }
+
         List<Integer> usedBlocks = usedCubes();
         if (!usedBlocks.isEmpty() && MoCTools.mobGriefing(this.world) && MoCreatures.proxy.golemDestroyBlocks) {
             for (Integer usedBlock : usedBlocks) {
@@ -302,7 +314,16 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
 
     @Override
     public boolean attackEntityFrom(DamageSource damagesource, float i) {
-        if (getGolemState() == 4) return false;
+        if (getGolemState() == 4) {
+            return false;
+        }
+
+        if (this.getHealth() - i <= 0) {
+            this.setHealth(1.0F);
+            this.setGolemState(4);
+            this.getNavigator().clearPath();
+            return true;
+        }
 
         List<Integer> missingChestBlocks = missingChestCubes();
         boolean uncoveredChest = (missingChestBlocks.size() == 4);
@@ -571,6 +592,7 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
             List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(2D));
             for (Entity entity1 : list) {
                 if (entity1 instanceof MoCEntityThrowableRock) {
+                    // TODO: Fix particle positioning
                     if (MoCreatures.proxy.getParticleFX() > 0) MoCreatures.proxy.VacuumFX(this);
                     return true;
                 }

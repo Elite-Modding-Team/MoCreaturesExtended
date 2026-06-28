@@ -104,11 +104,9 @@ public class MoCModelTurkey extends ModelBase {
         if (this.isChild) {
             // All children rendered as Female
             GlStateManager.pushMatrix();
-            GlStateManager.translate(0.0F, 5.0F * f5, 2.0F * f5);
-            GlStateManager.popMatrix();
-            GlStateManager.pushMatrix();
-            GlStateManager.scale(0.5F, 0.5F, 0.5F);
             GlStateManager.translate(0.0F, 24.0F * f5, 0.0F);
+            GlStateManager.scale(0.5F, 0.5F, 0.5F);
+            GlStateManager.translate(0.0F, -24.0F * f5, 0.0F);
             this.Beak.render(f5);
             this.Head.render(f5);
             this.Neck.render(f5);
@@ -136,11 +134,10 @@ public class MoCModelTurkey extends ModelBase {
             this.RFoot.render(f5);
             this.LLeg.render(f5);
             this.LFoot.render(f5);
-            if (male) {
+            if (this.male) {
                 this.UBody.render(f5);
                 this.Body.render(f5);
                 this.Chest.render(f5);
-
             } else {
                 GlStateManager.pushMatrix();
                 GlStateManager.scale(0.8F, 0.8F, 1F);
@@ -176,7 +173,7 @@ public class MoCModelTurkey extends ModelBase {
         this.LWing.rotateAngleY = wingF;
         this.RWing.rotateAngleY = -wingF;
 
-        if (this.male) {
+        if (this.male && !this.isChild) {
             this.Tail.rotateAngleX = -0.2974289F + wingF;
             this.Tail.rotationPointY = 14F;
             this.Tail.rotationPointZ = 6F;

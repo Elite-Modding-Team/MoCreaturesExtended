@@ -442,7 +442,7 @@ public class MoCTools {
     public static void moveToWater(EntityCreature entity) {
         int[] ai = MoCTools.returnNearestMaterialCoord(entity, Material.WATER, 20D, 2D);
         if (ai[0] > -1000) {
-            MoCTools.moveCreatureToXYZ(entity, ai[0], ai[1], ai[2], 24F);
+            MoCTools.moveCreatureToXYZ(entity, ai[0], ai[1], ai[2], 1.3F);
         }
     }
 

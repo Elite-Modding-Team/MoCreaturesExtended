@@ -40,7 +40,6 @@ import java.util.List;
 import java.util.UUID;
 
 public abstract class MoCEntityAquatic extends EntityCreature implements IMoCEntity {
-
     protected static final DataParameter<Boolean> ADULT = EntityDataManager.createKey(MoCEntityAquatic.class, DataSerializers.BOOLEAN);
     protected static final DataParameter<Integer> TYPE = EntityDataManager.createKey(MoCEntityAquatic.class, DataSerializers.VARINT);
     protected static final DataParameter<Integer> AGE = EntityDataManager.createKey(MoCEntityAquatic.class, DataSerializers.VARINT);
@@ -319,7 +318,7 @@ public abstract class MoCEntityAquatic extends EntityCreature implements IMoCEnt
 
     @Override
     public boolean isInWater() {
-        return this.world.handleMaterialAcceleration(this.getEntityBoundingBox().grow(0.0D, -0.2D, 0.0D), Material.WATER, this);
+        return this.world.isMaterialInBB(this.getEntityBoundingBox().grow(0.0D, -0.2D, 0.0D), Material.WATER);
     }
 
     @Override

@@ -3,6 +3,12 @@
   "variants": {
     "normal": {
       "model": "mocreatures:tall_wyvgrass"
+    },
+    "inventory": {
+      "model": "item/generated",
+      "textures": {
+        "layer0": "mocreatures:blocks/tall_grass_wyvern"
+      }
     }
   }
 }

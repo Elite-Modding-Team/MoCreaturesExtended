@@ -38,7 +38,6 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber(modid = MoCConstants.MOD_ID)
 @GameRegistry.ObjectHolder(MoCConstants.MOD_ID)
 public class MoCBlocks {
-
     @GameRegistry.ObjectHolder("ancient_ore")
     public static MoCBlockOre ancientOre;
     @GameRegistry.ObjectHolder("ancient_silver_block")
@@ -68,7 +67,7 @@ public class MoCBlocks {
     @GameRegistry.ObjectHolder("deep_wyvstone")
     public static Block deepWyvstone;
     @GameRegistry.ObjectHolder("deep_wyvwstone_button")
-    public static MoCBlockButtonStone deepWyvwstoneButton;
+    public static MoCBlockButtonStone deepWyvstoneButton;
     @GameRegistry.ObjectHolder("deep_wyvstone_pressure_plate")
     public static MoCBlockPressurePlateStone deepWyvstonePressurePlate;
     @GameRegistry.ObjectHolder("deep_wyvstone_slab")
@@ -280,6 +279,11 @@ public class MoCBlocks {
             if (item.getRegistryName().getNamespace().equals(MoCConstants.MOD_ID)) {
                 ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "normal"));
             }
+        }
+
+        if (Item.getItemFromBlock(tallWyvgrass) != null) {
+            ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(tallWyvgrass), 0, new ModelResourceLocation(tallWyvgrass.getRegistryName(), "inventory")
+            );
         }
 
         // All doors, fence gates, slabs, and walls go here

@@ -102,7 +102,7 @@ public class MoCreatures {
         MoCEventHooksTerrain.addBiomeTypes();
         MoCEntities.registerSpawns();
         MoCEventHooksTerrain.buildWorldGenSpawnLists();
-        MoCRecipes.registerOreDictionaries();
+        MoCRecipes.RegistrationHandler.registerOreDictionaries();
         CompatHandler.init();
         ModFixs modFixer = FMLCommonHandler.instance().getDataFixer().init(MoCConstants.MOD_ID, MoCConstants.DATAFIXER_VERSION);
         modFixer.registerFix(FixTypes.BLOCK_ENTITY, new BlockIDFixer());

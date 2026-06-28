@@ -21,10 +21,8 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @ObjectHolder(MoCConstants.MOD_ID)
 public class MoCRecipes {
-
     @Mod.EventBusSubscriber(modid = MoCConstants.MOD_ID)
     public static class RegistrationHandler {
-
         @SubscribeEvent
         public static void registerFuels(FurnaceFuelBurnTimeEvent event) {
             if (event.getItemStack().getItem() == Item.getItemFromBlock(MoCBlocks.wyvwoodSapling)) {

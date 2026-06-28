@@ -14,15 +14,15 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
 
 public class MoCItemKittyBed extends MoCItem {
+    private final int sheetType;
 
-    private int sheetType;
-
-    public MoCItemKittyBed(String name) {
-        super(name);
+    public MoCItemKittyBed() {
+        super();
+        this.sheetType = 0;
     }
 
     public MoCItemKittyBed(String name, int type) {
-        this(name);
+        super();
         this.sheetType = type;
     }
 
@@ -30,7 +30,9 @@ public class MoCItemKittyBed extends MoCItem {
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
         final ItemStack stack = player.getHeldItem(hand);
         if (!world.isRemote) {
-            if (!player.capabilities.isCreativeMode) stack.shrink(1);
+            if (!player.capabilities.isCreativeMode) {
+                stack.shrink(1);
+            }
             MoCEntityKittyBed kittyBed = new MoCEntityKittyBed(world, this.sheetType);
             kittyBed.setPosition(player.posX, player.posY, player.posZ);
             world.spawnEntity(kittyBed);

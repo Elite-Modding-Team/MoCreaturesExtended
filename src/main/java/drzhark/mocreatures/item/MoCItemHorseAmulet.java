@@ -50,8 +50,8 @@ public class MoCItemHorseAmulet extends MoCItem {
     private String ownerName;
     private int PetId;
 
-    public MoCItemHorseAmulet(String name) {
-        super(name);
+    public MoCItemHorseAmulet() {
+        super();
         this.maxStackSize = 1;
         setHasSubtypes(true);
         this.ageCounter = 0;

@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.item;
 
-import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.MoCreatures;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,10 +28,8 @@ public class MoCItemBow extends ItemBow {
     public float drawTimeMult;
     public Ingredient repairMaterial;
 
-    public MoCItemBow(String name, int durability, float damageMult, float velocityMult, float drawTimeMult, float inaccuracy, Ingredient repairMaterial) {
+    public MoCItemBow(int durability, float damageMult, float velocityMult, float drawTimeMult, float inaccuracy, Ingredient repairMaterial) {
         this.setCreativeTab(MoCreatures.tabMoC);
-        this.setRegistryName(MoCConstants.MOD_ID, name);
-        this.setTranslationKey(name);
         this.maxStackSize = 1;
         this.setMaxDamage(durability);
         this.damageMult = damageMult;

@@ -44,8 +44,8 @@ import com.google.common.collect.Multimap;
 public class MoCItemWhip extends MoCItemSword {
     private float AttackSpeed;
 
-    public MoCItemWhip(String name, Item.ToolMaterial material, float attackSpeedIn) {
-        super(name, 0, material);
+    public MoCItemWhip(Item.ToolMaterial material, float attackSpeedIn) {
+        super(0, material);
         this.maxStackSize = 1;
         this.AttackSpeed = attackSpeedIn;
     }

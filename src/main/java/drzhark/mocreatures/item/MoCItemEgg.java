@@ -77,8 +77,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MoCItemEgg extends MoCItem {
 
-    public MoCItemEgg(String name) {
-        super(name);
+    public MoCItemEgg() {
+    	super();
         this.maxStackSize = 16;
         setHasSubtypes(true);
     }

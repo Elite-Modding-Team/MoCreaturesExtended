@@ -43,16 +43,16 @@ public class MoCItemWeapon extends MoCItem {
     private final float attackDamage;
     private int specialWeaponType = 0;
 
-    public MoCItemWeapon(String name, Item.ToolMaterial material) {
-        super(name);
+    public MoCItemWeapon(Item.ToolMaterial material) {
+        super();
         this.material = material;
         this.maxStackSize = 1;
         this.setMaxDamage(material.getMaxUses());
         this.attackDamage = 3F + material.getAttackDamage();
     }
 
-    public MoCItemWeapon(String name, ToolMaterial par2ToolMaterial, int damageType) {
-        this(name, par2ToolMaterial);
+    public MoCItemWeapon(ToolMaterial material, int damageType) {
+        this(material);
         this.specialWeaponType = damageType;
     }
 
@@ -170,7 +170,6 @@ public class MoCItemWeapon extends MoCItem {
      */
     public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
-
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND) {
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.attackDamage, 0));
         }
@@ -179,7 +178,7 @@ public class MoCItemWeapon extends MoCItem {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World world, List<String> tooltip, ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         if (MoCreatures.proxy.weaponEffects) {
             switch (this.specialWeaponType) {
                 case 1: // Poison 2

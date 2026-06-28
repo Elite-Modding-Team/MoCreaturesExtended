@@ -16,7 +16,5 @@ public class MoCItemRecord extends ItemRecord {
     public MoCItemRecord(String name, SoundEvent soundEvent) {
         super(name, soundEvent);
         this.setCreativeTab(MoCreatures.tabMoC);
-        this.setRegistryName(MoCConstants.MOD_ID, name);
-        this.setTranslationKey(name);
     }
 }

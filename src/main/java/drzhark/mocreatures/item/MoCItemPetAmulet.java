@@ -47,14 +47,14 @@ public class MoCItemPetAmulet extends MoCItem {
     private boolean adult;
     private int PetId;
 
-    public MoCItemPetAmulet(String name) {
-        super(name);
+    public MoCItemPetAmulet() {
+        super();
         this.maxStackSize = 1;
         setHasSubtypes(true);
     }
 
-    public MoCItemPetAmulet(String name, int type) {
-        this(name);
+    public MoCItemPetAmulet(int type) {
+        this();
         this.amuletType = type;
     }
 

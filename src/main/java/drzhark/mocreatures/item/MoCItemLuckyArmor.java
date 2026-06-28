@@ -13,8 +13,8 @@ import com.google.common.collect.Multimap;
 public class MoCItemLuckyArmor extends MoCItemArmor {
     public AttributeModifier luck;
 
-    public MoCItemLuckyArmor(String name, float luck, ItemArmor.ArmorMaterial materialIn, int renderIndex, EntityEquipmentSlot equipmentSlotIn) {
-        super(name, materialIn, renderIndex, equipmentSlotIn);
+    public MoCItemLuckyArmor(float luck, ItemArmor.ArmorMaterial materialIn, int renderIndex, EntityEquipmentSlot equipmentSlotIn) {
+        super(materialIn, renderIndex, equipmentSlotIn);
         this.luck = new AttributeModifier("F34BB326-D435-4B63-8254-0B6CB57A8E6F", (double) luck, 0);
     }
 

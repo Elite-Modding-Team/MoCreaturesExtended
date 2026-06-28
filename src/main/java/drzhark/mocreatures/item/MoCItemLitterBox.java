@@ -15,8 +15,8 @@ import net.minecraft.world.World;
 
 public class MoCItemLitterBox extends MoCItem {
 
-    public MoCItemLitterBox(String name) {
-        super(name);
+    public MoCItemLitterBox() {
+        super();
         this.maxStackSize = 16;
     }
 

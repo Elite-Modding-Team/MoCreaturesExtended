@@ -29,19 +29,17 @@ public class MoCItemAxe extends ItemAxe {
 
     private int specialWeaponType = 0;
 
-    public MoCItemAxe(String name, Item.ToolMaterial material, float damage, float speed) {
-        this(name, 0, material, damage, speed);
+    public MoCItemAxe(Item.ToolMaterial material, float damage, float speed) {
+        this(0, material, damage, speed);
     }
 
-    public MoCItemAxe(String name, int meta, Item.ToolMaterial material, float damage, float speed) {
+    public MoCItemAxe(int meta, Item.ToolMaterial material, float damage, float speed) {
         super(material, damage - 1.0F, speed - 4.0F);
         this.setCreativeTab(MoCreatures.tabMoC);
-        this.setRegistryName(MoCConstants.MOD_ID, name);
-        this.setTranslationKey(name);
     }
 
-    public MoCItemAxe(String name, Item.ToolMaterial material, float damage, float speed, int damageType) {
-        this(name, material, damage, speed);
+    public MoCItemAxe(Item.ToolMaterial material, float damage, float speed, int damageType) {
+        this(material, damage, speed);
         this.specialWeaponType = damageType;
     }
 

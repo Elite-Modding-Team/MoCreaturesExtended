@@ -15,6 +15,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -25,6 +26,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 // TODO: Fix hitbox
 public class MoCEntityKittyBed extends EntityLiving {
@@ -163,9 +165,27 @@ public class MoCEntityKittyBed extends EntityLiving {
         if (this.getRidingEntity() == null) {
             if (player.isSneaking()) {
                 final int color = getSheetColor();
-                player.inventory.addItemStackToInventory(new ItemStack(MoCItems.kittybed[color], 1));
-                if (getHasFood()) player.inventory.addItemStackToInventory(new ItemStack(MoCItems.petfood, 1));
-                else if (getHasMilk()) player.inventory.addItemStackToInventory(new ItemStack(Items.MILK_BUCKET, 1));
+
+                String colorName = net.minecraft.item.EnumDyeColor.byMetadata(color).getTranslationKey().toLowerCase();
+                if (colorName.equalsIgnoreCase("lightblue")) {
+                    colorName = "light_blue";
+                }
+
+                ResourceLocation loc = new ResourceLocation(drzhark.mocreatures.MoCConstants.MOD_ID, "kittybed_" + colorName);
+                Item bedItem = ForgeRegistries.ITEMS.getValue(loc);
+
+                if (bedItem == null) {
+                    bedItem = MoCItems.kittybed_white;
+                }
+
+                player.inventory.addItemStackToInventory(new ItemStack(bedItem, 1));
+
+                if (getHasFood()) {
+                    player.inventory.addItemStackToInventory(new ItemStack(MoCItems.petfood, 1));
+                } else if (getHasMilk()) {
+                    player.inventory.addItemStackToInventory(new ItemStack(Items.MILK_BUCKET, 1));
+                }
+
                 MoCTools.playCustomSound(this, SoundEvents.ENTITY_ITEM_PICKUP, 0.2F);
                 setDead();
             } else {

@@ -18,9 +18,13 @@ import drzhark.mocreatures.init.MoCBlocks;
 import drzhark.mocreatures.init.MoCItems;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 // Courtesy of SokyranTheDragon for a good portion of recipes
 public class ThermalExpansionIntegration {
@@ -128,8 +132,20 @@ public class ThermalExpansionIntegration {
         SawmillManager.addRecipe(energy, new ItemStack(MoCItems.elephantHowdah), new ItemStack(Items.STRING, 12));
         SawmillManager.addRecipe(energy, new ItemStack(MoCItems.mammothPlatform), ItemHelper.cloneStack(ItemMaterial.dustWood, 16), new ItemStack(Items.LEAD, 1), 150);
         SawmillManager.addRecipe(energy, new ItemStack(MoCItems.litterbox), new ItemStack(Blocks.PLANKS, 2), new ItemStack(Blocks.SAND), 25);
-        for (int i = 0; i < MoCItems.kittybed.length; i++)
-            SawmillManager.addRecipe(energy, new ItemStack(MoCItems.kittybed[i]), new ItemStack(Blocks.PLANKS, 1), new ItemStack(Blocks.WOOL, 1, i));
+        // Kitty Beds
+        for (int i = 0; i < 16; i++) {
+            String colorName = EnumDyeColor.byMetadata(i).getTranslationKey().toLowerCase();
+            if (colorName.equalsIgnoreCase("lightblue")) {
+                colorName = "light_blue";
+            }
+
+            ResourceLocation loc = new ResourceLocation(drzhark.mocreatures.MoCConstants.MOD_ID, "kittybed_" + colorName);
+            Item bedItem = ForgeRegistries.ITEMS.getValue(loc);
+
+            if (bedItem != null) {
+                SawmillManager.addRecipe(energy, new ItemStack(bedItem), new ItemStack(Blocks.PLANKS, 1), new ItemStack(Blocks.WOOL, 1, i));
+            }
+        }
         // Reptile Hide
         SawmillManager.addRecycleRecipe(energy, new ItemStack(MoCItems.helmetCroc), new ItemStack(MoCItems.hideCroc), 2);
         SawmillManager.addRecycleRecipe(energy, new ItemStack(MoCItems.plateCroc), new ItemStack(MoCItems.hideCroc), 4);

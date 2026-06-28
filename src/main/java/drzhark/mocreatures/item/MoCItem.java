@@ -22,14 +22,14 @@ import java.util.List;
 public class MoCItem extends Item {
     protected String tooltip = null;
 
-    public MoCItem(String name) {
-        this(name, 0, false);
+    public MoCItem() {
+        super();
+        this.setCreativeTab(MoCreatures.tabMoC);
     }
 
-    public MoCItem(String name, int meta, boolean hasTooltip) {
+    public MoCItem(String name, boolean hasTooltip) {
+        super();
         this.setCreativeTab(MoCreatures.tabMoC);
-        this.setRegistryName(MoCConstants.MOD_ID, name);
-        this.setTranslationKey(name);
 
         if (hasTooltip) {
             this.tooltip = "info." + MoCConstants.MOD_ID + "." + name;

@@ -9,8 +9,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -41,20 +39,18 @@ import java.util.Set;
 public class MoCItemMattock extends ItemPickaxe {
     private int specialWeaponType = 0;
 
-    public MoCItemMattock(String name, Item.ToolMaterial material, float damage, float speed) {
-        this(name, 0, material, damage, speed);
+    public MoCItemMattock(Item.ToolMaterial material, float damage, float speed) {
+        this(0, material, damage, speed);
     }
 
-    public MoCItemMattock(String name, int meta, Item.ToolMaterial material, float damage, float speed) {
+    public MoCItemMattock(int meta, Item.ToolMaterial material, float damage, float speed) {
         super(material);
         this.setCreativeTab(MoCreatures.tabMoC);
-        this.setRegistryName(MoCConstants.MOD_ID, name);
-        this.setTranslationKey(name);
         this.attackSpeed = -4.0F + speed;
     }
 
-    public MoCItemMattock(String name, Item.ToolMaterial material, float damage, float speed, int damageType) {
-        this(name, material, damage, speed);
+    public MoCItemMattock(Item.ToolMaterial material, float damage, float speed, int damageType) {
+        this(material, damage, speed);
         this.specialWeaponType = damageType;
     }
 
@@ -93,20 +89,16 @@ public class MoCItemMattock extends ItemPickaxe {
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         if (MoCreatures.proxy.weaponEffects) {
-            EnumHand hand = attacker.getActiveHand() == null ? EnumHand.MAIN_HAND : attacker.getActiveHand();
             int timer = 10; // In seconds
-            int fire_aspect = 5 * EnchantmentHelper.getFireAspectModifier(attacker); // Fire Aspect
-            int poisonous = 5 * EnchantmentHelper.getEnchantmentLevel(Enchantment.getEnchantmentByLocation("mod_lavacow:poisonous"), attacker.getHeldItem(hand)); // Poisonous (Fish's Undead Rising)
-
             switch (this.specialWeaponType) {
                 case 1: // Poison 2
-                    target.addPotionEffect(new PotionEffect(MobEffects.POISON, (timer * 20) + poisonous, 1));
+                    target.addPotionEffect(new PotionEffect(MobEffects.POISON, timer * 20, 1));
                     break;
                 case 2: // Slowness
                     target.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, timer * 20, 0));
                     break;
                 case 3: // Fire
-                    target.setFire(timer + fire_aspect);
+                    target.setFire(timer);
                     break;
                 case 4: // Weakness (Nausea for players)
                     target.addPotionEffect(new PotionEffect(target instanceof EntityPlayer ? MobEffects.NAUSEA : MobEffects.WEAKNESS, timer * 20, 0));

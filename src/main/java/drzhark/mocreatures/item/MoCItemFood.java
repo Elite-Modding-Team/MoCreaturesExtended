@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.item;
 
-import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.init.MoCItems;
 import net.minecraft.entity.player.EntityPlayer;
@@ -17,25 +16,19 @@ public class MoCItemFood extends ItemFood {
     public int itemUseDuration;
     public boolean alwaysEdible;
 
-    public MoCItemFood(String name, int amount) {
+    public MoCItemFood(int amount) {
         super(amount, 0.6F, false);
         this.setCreativeTab(MoCreatures.tabMoC);
-        this.setRegistryName(MoCConstants.MOD_ID, name);
-        this.setTranslationKey(name);
     }
 
-    public MoCItemFood(String name, int amount, float saturation, boolean isWolfFood) {
+    public MoCItemFood(int amount, float saturation, boolean isWolfFood) {
         super(amount, saturation, isWolfFood);
         this.setCreativeTab(MoCreatures.tabMoC);
-        this.setRegistryName(MoCConstants.MOD_ID, name);
-        this.setTranslationKey(name);
     }
 
-    public MoCItemFood(String name, int amount, float saturation, boolean isWolfFood, int eatingSpeed) {
+    public MoCItemFood(int amount, float saturation, boolean isWolfFood, int eatingSpeed) {
         super(amount, saturation, isWolfFood);
         this.setCreativeTab(MoCreatures.tabMoC);
-        this.setRegistryName(MoCConstants.MOD_ID, name);
-        this.setTranslationKey(name);
         itemUseDuration = eatingSpeed; // 32 by default
     }
 

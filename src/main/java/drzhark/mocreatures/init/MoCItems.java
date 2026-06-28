@@ -83,8 +83,6 @@ public class MoCItems {
     public static MoCItem bigcatclaw;
     @GameRegistry.ObjectHolder("bo")
     public static MoCItemSword bo;
-    @GameRegistry.ObjectHolder("brackish_claw")
-    public static MoCItemCrabClaw brackishClaw;
     @GameRegistry.ObjectHolder("chitin")
     public static MoCItem chitin;
     @GameRegistry.ObjectHolder("chitinblack")

@@ -56,6 +56,14 @@ public class MoCRecipes {
                         .setRegistryName(MoCConstants.MOD_ID, "crafted_saddle"));
             }
 
+            if (MoCreatures.proxy.enableFineSilver) {
+                GameRegistry.addSmelting(MoCItems.ancientSilverScrap, new ItemStack(MoCItems.ancientSilverIngot), 1.0F);
+                GameRegistry.addSmelting(MoCItems.ancientSilverIngot, new ItemStack(MoCItems.fineSilverIngot), 1.0F);
+                GameRegistry.addSmelting(MoCItems.ancientSilverNugget, new ItemStack(MoCItems.fineSilverNugget), 0.1F);
+
+                GameRegistry.addSmelting(new ItemStack(MoCBlocks.ancientSilverBlock), new ItemStack(MoCBlocks.fineSilverBlock), 1.0F);
+            }
+
             GameRegistry.addSmelting(new ItemStack(MoCBlocks.ancientOre), new ItemStack(Items.DYE, 3, 15), 0.2F);
             GameRegistry.addSmelting(new ItemStack(MoCBlocks.cobbledDeepWyvstone), new ItemStack(MoCBlocks.deepWyvstone), 0.1F);
             GameRegistry.addSmelting(new ItemStack(MoCBlocks.cobbledWyvstone), new ItemStack(MoCBlocks.wyvstone), 0.1F);
@@ -67,9 +75,6 @@ public class MoCRecipes {
             GameRegistry.addSmelting(new ItemStack(MoCBlocks.wyvernLapisOre), new ItemStack(Items.DYE, 1, 4), 0.4F);
             GameRegistry.addSmelting(new ItemStack(MoCBlocks.wyvwoodLog), new ItemStack(Items.COAL, 1, 1), 0.15F);
 
-            GameRegistry.addSmelting(MoCItems.ancientSilverScrap, new ItemStack(MoCItems.ancientSilverIngot), 1.0F);
-            GameRegistry.addSmelting(MoCItems.ancientSilverIngot, new ItemStack(MoCItems.fineSilverIngot), 1.0F);
-            GameRegistry.addSmelting(MoCItems.ancientSilverNugget, new ItemStack(MoCItems.fineSilverNugget), 0.1F);
             GameRegistry.addSmelting(MoCItems.crabraw, new ItemStack(MoCItems.crabcooked), 0.35F);
             GameRegistry.addSmelting(MoCItems.duckRaw, new ItemStack(MoCItems.duckCooked), 0.35F);
             GameRegistry.addSmelting(MoCItems.ratRaw, new ItemStack(MoCItems.ratCooked), 0.35F);
@@ -90,10 +95,15 @@ public class MoCRecipes {
         }
 
         public static void registerOreDictionaries() {
+            if (MoCreatures.proxy.enableFineSilver) {
+                OreDictionary.registerOre("blockSilver", new ItemStack(MoCBlocks.fineSilverBlock));
+                OreDictionary.registerOre("ingotSilver", MoCItems.fineSilverIngot);
+                OreDictionary.registerOre("nuggetSilver", MoCItems.fineSilverNugget);
+            }
+
             OreDictionary.registerOre("blockGlass", new ItemStack(MoCBlocks.gleamingGlass));
             OreDictionary.registerOre("blockGlassColorless", new ItemStack(MoCBlocks.gleamingGlass));
             OreDictionary.registerOre("blockAncientSilver", new ItemStack(MoCBlocks.ancientSilverBlock));
-            OreDictionary.registerOre("blockSilver", new ItemStack(MoCBlocks.fineSilverBlock));
             OreDictionary.registerOre("cobblestone", new ItemStack(MoCBlocks.cobbledDeepWyvstone));
             OreDictionary.registerOre("cobblestone", new ItemStack(MoCBlocks.cobbledWyvstone));
             OreDictionary.registerOre("dirt", new ItemStack(MoCBlocks.wyvdirt));
@@ -133,8 +143,6 @@ public class MoCRecipes {
             OreDictionary.registerOre("hideSmall", Items.RABBIT_HIDE);
             OreDictionary.registerOre("ingotAncientSilver", MoCItems.ancientSilverIngot);
             OreDictionary.registerOre("nuggetAncientSilver", MoCItems.ancientSilverNugget);
-            OreDictionary.registerOre("ingotSilver", MoCItems.fineSilverIngot);
-            OreDictionary.registerOre("nuggetSilver", MoCItems.fineSilverNugget);
             OreDictionary.registerOre("record", MoCItems.recordshuffle);
             OreDictionary.registerOre("stingerScorpion", MoCItems.scorpStingCave);
             OreDictionary.registerOre("stingerScorpion", MoCItems.scorpStingDirt);

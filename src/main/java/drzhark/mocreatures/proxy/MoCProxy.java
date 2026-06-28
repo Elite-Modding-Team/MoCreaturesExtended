@@ -59,6 +59,7 @@ public class MoCProxy implements IGuiHandler {
     public boolean easyHorseBreeding;
     public boolean eggWarningMessages;
     public boolean elephantBulldozer;
+    public boolean enableFineSilver;
     public boolean enableHunters;
     public boolean enableOwnership;
     public boolean foggyWyvernLair;
@@ -281,6 +282,7 @@ public class MoCProxy implements IGuiHandler {
         this.easyHorseBreeding = this.mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "EasyHorseBreeding", false, "Guarantees a new horse mix on every breed.").getBoolean(false);
         this.eggWarningMessages = this.mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "EggWarningMessages", true, "Displays a chat message that warns about an egg hatching alongside its coordinates.").getBoolean(true);
         this.elephantBulldozer = this.mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "ElephantBulldozer", true, "Makes elephants destroy blocks in front of them when riding.").getBoolean(true);
+        this.enableFineSilver = this.mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "EnableFineSilver", true, "Adds Fine Silver that is obtainable by smelting Ancient Silver. Fine Silver can be used on any recipes that require silver.").getBoolean(true);
         this.enableHunters = this.mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "EnableHunters", true, "Allows creatures to attack other creatures. Not recommended if despawning is off.").getBoolean(true);
         this.enableOwnership = this.mocSettingsConfig.get(CATEGORY_OWNERSHIP_SETTINGS, "EnableOwnership", false, "Assigns the player as the owner for each creature they tame. Only the owner can interact with the tamed creature.").getBoolean(false);
         this.filchLizardSpawnItemChance = this.mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "FilchLizardSpawnItemChance", 25, "The percentage for filch lizards to spawn with an item.").getInt();

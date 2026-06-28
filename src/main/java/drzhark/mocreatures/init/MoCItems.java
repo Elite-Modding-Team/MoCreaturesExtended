@@ -451,8 +451,6 @@ public class MoCItems {
                         setup(new MoCItem(), "ancientsilverscrap"),
                         setup(new MoCItem(), "ancientsilveringot"),
                         setup(new MoCItem(), "ancientsilvernugget"),
-                        setup(new MoCItem(), "fine_silver_ingot"),
-                        setup(new MoCItem(), "fine_silver_nugget"),
                         setup(new MoCItemArmor(silverARMOR, 4, EntityEquipmentSlot.HEAD), "ancient_silver_helmet"),
                         setup(new MoCItemArmor(silverARMOR, 4, EntityEquipmentSlot.CHEST), "ancient_silver_chestplate"),
                         setup(new MoCItemArmor(silverARMOR, 4, EntityEquipmentSlot.LEGS), "ancient_silver_leggings"),
@@ -591,6 +589,13 @@ public class MoCItems {
                         setup(new MoCItemFood(2, 0.1F, true).setPotionEffect(new PotionEffect(MobEffects.HUNGER, 30 * 20, 0), 0.8F), "crabraw"),
                         setup(new MoCItemFood(4, 0.6F, true), "crabcooked")
                 );
+
+        if (MoCreatures.proxy.enableFineSilver) {
+            registry.registerAll(
+                    setup(new MoCItem(), "fine_silver_ingot"),
+                    setup(new MoCItem(), "fine_silver_nugget")
+            );
+        }
 
         for (int i = 0; i < 16; i++) {
             String colorName = EnumDyeColor.byMetadata(i).getTranslationKey().toLowerCase();

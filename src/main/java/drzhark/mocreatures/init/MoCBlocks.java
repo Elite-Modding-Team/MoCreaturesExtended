@@ -193,7 +193,6 @@ public class MoCBlocks {
                 setup(new MoCBlockLeaf(MapColor.DIAMOND, true, 100), "wyvwood_leaves").setHardness(0.2F).setLightOpacity(1),
                 setup(new MoCBlockLog(MapColor.CYAN_STAINED_HARDENED_CLAY, true), "wyvwood_log").setHardness(2.0F),
                 setup(new MoCBlockMetal(MapColor.IRON), "ancient_silver_block").setHardness(3.0F).setResistance(10.0F),
-                setup(new MoCBlockMetal(MapColor.CLAY), "fine_silver_block").setHardness(3.0F).setResistance(10.0F),
                 setup(new MoCBlockNest(), "wyvern_nest_block").setHardness(0.5F),
                 setup(new MoCBlockOre(MapColor.STONE), "ancient_ore").setHardness(3.0F).setResistance(5.0F),
                 setup(new MoCBlockOre(MapColor.STONE), "wyvern_diamond_ore").setHardness(4.5F).setResistance(5.0F),
@@ -251,6 +250,12 @@ public class MoCBlocks {
                 setup(new MoCBlockWall(new MoCBlockRock(MapColor.STONE), false), "mossy_cobbled_wyvstone_wall").setHardness(2.0F).setResistance(10.0F),
                 setup(new MoCBlockWall(new MoCBlockRock(MapColor.STONE), false), "wyvstone_wall").setHardness(1.5F).setResistance(10.0F)
         );
+
+        if (MoCreatures.proxy.enableFineSilver) {
+            event.getRegistry().registerAll(
+                    setup(new MoCBlockMetal(MapColor.CLAY), "fine_silver_block").setHardness(3.0F).setResistance(10.0F)
+            );
+        }
     }
 
     @SubscribeEvent

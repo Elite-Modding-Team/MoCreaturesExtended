@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "minecraft:item_exists",
+      "item": "mocreatures:fine_silver_ingot"
+    }
+  ],
   "type": "forge:ore_shapeless",
   "ingredients": [
     {

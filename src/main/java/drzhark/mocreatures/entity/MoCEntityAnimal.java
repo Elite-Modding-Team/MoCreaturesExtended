@@ -16,6 +16,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.EntityMoveHelper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -47,7 +48,6 @@ import java.util.List;
 import java.util.UUID;
 
 public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity {
-
     protected static final DataParameter<Boolean> ADULT = EntityDataManager.createKey(MoCEntityAnimal.class, DataSerializers.BOOLEAN);
     protected static final DataParameter<Integer> TYPE = EntityDataManager.createKey(MoCEntityAnimal.class, DataSerializers.VARINT);
     protected static final DataParameter<Integer> AGE = EntityDataManager.createKey(MoCEntityAnimal.class, DataSerializers.VARINT);
@@ -66,14 +66,19 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     private double divingDepth;
     private boolean randomAttributesUpdated; //used to update divingDepth on world load
 
-    protected MoCEntityAnimal(World world) {
+    public MoCEntityAnimal(World world) {
         super(world);
         this.riderIsDisconnecting = false;
         this.isTameable = false;
         this.texture = "blank.jpg";
         this.navigatorWater = new PathNavigateSwimmer(this, world);
-        this.moveHelper = new EntityAIMoverHelperMoC(this);
         this.navigatorFlyer = new PathNavigateFlyer(this, world);
+
+        if (this.isAmphibian() || this.swimmerEntity() || this.isFlyer()) {
+            this.moveHelper = new EntityAIMoverHelperMoC(this);
+        } else {
+            this.moveHelper = new EntityMoveHelper(this);
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -360,7 +365,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
     @Override
     public boolean isInWater() {
-        if (isAmphibian()) {
+        if (this.isAmphibian()) {
             return this.world.handleMaterialAcceleration(this.getEntityBoundingBox().grow(0.0D, -0.2D, 0.0D), Material.WATER, this);
         }
         return super.isInWater();
@@ -538,13 +543,13 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
      */
     @Override
     public void travel(float strafe, float vertical, float forward) {
-
         if (this.isBeingRidden()) {
             EntityLivingBase passenger = (EntityLivingBase) this.getControllingPassenger();
-            if (passenger != null) this.moveWithRider(strafe, vertical, forward, passenger); //riding movement
+            if (passenger != null) this.moveWithRider(strafe, vertical, forward, passenger); // Keep riding features
             return;
         }
-        if ((this.isAmphibian() && isInWater()) || (this.isFlyer() && getIsFlying())) { //amphibian in water movement
+
+        if ((this.isAmphibian() && isInWater()) || (this.isFlyer() && getIsFlying())) {
             this.moveRelative(strafe, vertical, forward, 0.1F);
             this.move(MoverType.SELF, this.motionX, this.motionY, this.motionZ);
             this.motionX *= 0.8999999761581421D;
@@ -553,11 +558,9 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
             if (this.getAttackTarget() == null) {
                 this.motionY -= 0.005D;
             }
-        } else // regular movement
-        {
+        } else {
             super.travel(strafe, vertical, forward);
         }
-
     }
 
     /**
@@ -944,13 +947,15 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
 
     @Override
     public PathNavigate getNavigator() {
-        if (this.isInWater() && this.isAmphibian()) {
+        if (this.isAmphibian() && this.isInWater()) {
             return this.navigatorWater;
         }
-        if (this.isFlyer() && getIsFlying()) {
+
+        if (this.isFlyer() && this.getIsFlying()) {
             return this.navigatorFlyer;
         }
-        return this.navigator;
+
+        return super.getNavigator();
     }
 
     public boolean isAmphibian() {

@@ -72,7 +72,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 
     @Override
     protected void initEntityAI() {
-        this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIPanicMoC(this, 1.0D));
         this.tasks.addTask(4, new EntityAIFollowAdult(this, 1.0D));
         this.tasks.addTask(5, new EntityAIAttackMelee(this, 1.0D, false));

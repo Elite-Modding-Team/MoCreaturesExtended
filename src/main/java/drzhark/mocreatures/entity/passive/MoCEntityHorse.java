@@ -104,7 +104,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
 
     @Override
     protected void initEntityAI() {
-        this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(3, new EntityAIFollowAdult(this, 1.0D));
         this.tasks.addTask(4, this.wander = new EntityAIWanderMoC2(this, 1.0D, 80));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));

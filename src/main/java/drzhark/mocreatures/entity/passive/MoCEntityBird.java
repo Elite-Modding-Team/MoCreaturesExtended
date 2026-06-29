@@ -70,7 +70,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
 
     @Override
     protected void initEntityAI() {
-        this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIFleeFromEntityMoC(this, entity -> !(entity instanceof MoCEntityBird) && (entity.height > 0.4F || entity.width > 0.4F), 6.0F, 1.D, 1.3D));
         this.tasks.addTask(3, new EntityAIFollowOwnerPlayer(this, 0.8D, 2F, 10F));
         this.tasks.addTask(4, this.wander = new EntityAIWanderMoC2(this, 1.0D, 80));

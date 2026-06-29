@@ -39,7 +39,7 @@ public class MoCEntityBoar extends MoCEntityAnimal {
 
     @Override
     protected void initEntityAI() {
-        this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIFleeFromPlayer(this, 1.0D, 4D));
         this.tasks.addTask(3, new EntityAIFollowAdult(this, 1.0D));
         this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));

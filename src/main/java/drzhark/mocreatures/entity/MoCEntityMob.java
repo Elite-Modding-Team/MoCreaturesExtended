@@ -54,11 +54,16 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity {
     protected MoCEntityMob(World world) {
         super(world);
         this.texture = "blank.jpg";
-        this.moveHelper = new EntityAIMoverHelperMoC(this);
         this.navigatorWater = new PathNavigateSwimmer(this, world);
         this.navigatorFlyer = new PathNavigateFlyer(this, world);
         this.wander = new EntityAIWanderMoC2(this, 1.0D, 80);
         this.tasks.addTask(4, this.wander);
+
+        if (this.isAmphibian() || this.isFlyer()) {
+            this.moveHelper = new EntityAIMoverHelperMoC(this);
+        } else {
+            this.moveHelper = new net.minecraft.entity.ai.EntityMoveHelper(this);
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -457,13 +462,13 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity {
 
     @Override
     public PathNavigate getNavigator() {
-        if (this.isInWater() && this.isAmphibian()) {
+        if (this.isAmphibian() && this.isInWater()) {
             return this.navigatorWater;
         }
-        if (this.isFlyer()) {
+        if (this.isFlyer() && this.getIsFlying()) {
             return this.navigatorFlyer;
         }
-        return this.navigator;
+        return super.getNavigator();
     }
 
     public boolean isAmphibian() {

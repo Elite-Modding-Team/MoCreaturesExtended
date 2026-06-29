@@ -6,11 +6,13 @@ package drzhark.mocreatures.client.model;
 import drzhark.mocreatures.entity.passive.MoCEntityDuck;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+// TODO: We might not even need this class at all, ducks use the exact same model as chickens
 @SideOnly(Side.CLIENT)
 public class MoCModelDuck extends ModelBase {
 
@@ -60,15 +62,33 @@ public class MoCModelDuck extends ModelBase {
         boolean fly = !entityDuck.onGround;
         this.setRotationAngles(par2, par3, par4, par5, par6, par7, fly);
 
-        this.head.render(par7);
-        this.bill.render(par7);
-        this.chin.render(par7);
-        this.body.render(par7);
-        this.rightLeg.render(par7);
-        this.leftLeg.render(par7);
-        this.rightWing.render(par7);
-        this.leftWing.render(par7);
+        if (entityDuck.isChild()) {
+            GlStateManager.pushMatrix();
+            GlStateManager.translate(0.0F, 5.0F * par7, 2.0F * par7);
+            this.head.render(par7);
+            this.bill.render(par7);
+            this.chin.render(par7);
+            GlStateManager.popMatrix();
 
+            GlStateManager.pushMatrix();
+            GlStateManager.scale(0.5F, 0.5F, 0.5F);
+            GlStateManager.translate(0.0F, 24.0F * par7, 0.0F);
+            this.body.render(par7);
+            this.rightLeg.render(par7);
+            this.leftLeg.render(par7);
+            this.rightWing.render(par7);
+            this.leftWing.render(par7);
+            GlStateManager.popMatrix();
+        } else {
+            this.head.render(par7);
+            this.bill.render(par7);
+            this.chin.render(par7);
+            this.body.render(par7);
+            this.rightLeg.render(par7);
+            this.leftLeg.render(par7);
+            this.rightWing.render(par7);
+            this.leftWing.render(par7);
+        }
     }
 
     /**

@@ -3,8 +3,10 @@
  */
 package drzhark.mocreatures.entity.passive;
 
+import com.google.common.collect.Sets;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.entity.ai.EntityAIFollowAdult;
 import drzhark.mocreatures.entity.ai.EntityAIFollowOwnerPlayer;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAnimal;
@@ -12,13 +14,18 @@ import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIMate;
+import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -32,11 +39,13 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Set;
 
 public class MoCEntityTurtle extends MoCEntityTameableAnimal {
-
     private static final DataParameter<Boolean> IS_UPSIDE_DOWN = EntityDataManager.createKey(MoCEntityTurtle.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IS_HIDING = EntityDataManager.createKey(MoCEntityTurtle.class, DataSerializers.BOOLEAN);
+
+    private static final Set<Item> BREEDING_ITEMS = Sets.newHashSet(Items.REEDS);
 
     private static final float TURTLE_ARMOR = 4.0F;
     private boolean isSwinging;
@@ -47,14 +56,15 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         super(world);
         setSize(0.6F, 0.425F);
         setAdult(true);
-        // TODO: Make hitboxes adjust depending on size
-        //setAge(60 + this.rand.nextInt(50));
         setAge(90);
     }
 
     @Override
     protected void initEntityAI() {
         this.tasks.addTask(1, new EntityAIFollowOwnerPlayer(this, 0.8D, 2F, 10F));
+        this.tasks.addTask(2, new EntityAIMate(this, 1.0D));
+        this.tasks.addTask(3, new EntityAITempt(this, 0.8D, false, BREEDING_ITEMS));
+        this.tasks.addTask(4, new EntityAIFollowAdult(this, 0.8D));
         this.tasks.addTask(5, new EntityAIWanderMoC2(this, 0.8D, 50));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
     }
@@ -74,6 +84,34 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         // rideable: 0 nothing, 1 saddle
         this.dataManager.register(IS_HIDING, Boolean.FALSE);
         // rideable: 0 nothing, 1 saddle
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return isMyHealFood(stack);
+    }
+
+    @Override
+    public EntityAgeable createChild(EntityAgeable entity) {
+        MoCEntityTurtle baby = new MoCEntityTurtle(entity.world);
+        baby.setGrowingAge(-24000);
+        baby.setAdult(false);
+        if (this.getIsTamed()) {
+            baby.setTamed(true);
+            baby.setOwnerId(this.getOwnerId());
+        }
+        return baby;
+    }
+
+    @Override
+    public boolean canMateWith(EntityAnimal otherAnimal) {
+        if (otherAnimal == this) {
+            return false;
+        } else if (otherAnimal.getClass() != this.getClass()) {
+            return false;
+        } else {
+            return this.isInLove() && otherAnimal.isInLove();
+        }
     }
 
     @Override
@@ -133,10 +171,25 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
 
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
-        // Only process one hand to prevent double interactions
         if (hand != EnumHand.MAIN_HAND) {
             return false;
         }
+
+        ItemStack stack = player.getHeldItem(hand);
+        if (!stack.isEmpty() && this.isBreedingItem(stack)) {
+            if (this.isChild()) {
+                this.consumeItemFromStack(player, stack);
+                this.ageUp((int) ((float) (-this.getGrowingAge() / 20) * 0.1F), true);
+                return true;
+            }
+
+            if (this.getIsTamed() && this.getGrowingAge() == 0 && this.inLove <= 0) {
+                this.consumeItemFromStack(player, stack);
+                this.setInLove(player);
+                return true;
+            }
+        }
+
         final Boolean tameResult = this.processTameInteract(player, hand);
         if (tameResult != null) {
             return tameResult;
@@ -155,7 +208,10 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
             return true;
         }
 
-        flipflop(!getIsUpsideDown());
+        if (stack.isEmpty()) {
+            flipflop(!getIsUpsideDown());
+            return true;
+        }
 
         return super.processInteract(player, hand);
     }

@@ -6,6 +6,7 @@ package drzhark.mocreatures.client.model;
 import drzhark.mocreatures.entity.passive.MoCEntityTurtle;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -13,7 +14,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCModelTurtle extends ModelBase {
-
     public boolean isHiding;
     public boolean upsidedown;
     public float swingProgress;
@@ -80,7 +80,19 @@ public class MoCModelTurtle extends ModelBase {
         this.TMNT = entityturtle.isTMNT();
         this.turtleHat = entityturtle.getRidingEntity() != null;
         this.isSwimming = entityturtle.isInWater();
+
         setRotationAngles(f, f1, f2, f3, f4, f5);
+        GlStateManager.pushMatrix();
+
+        if (entityturtle.isChild()) {
+            GlStateManager.scale(0.5F, 0.5F, 0.5F);
+            if (entityturtle.getIsHiding() && !entityturtle.isInWater()) {
+                GlStateManager.translate(0.0F, 21.0F * f5, 0.0F);
+            } else {
+                GlStateManager.translate(0.0F, 24.0F * f5, 0.0F);
+            }
+        }
+
         this.Shell.render(f5);
         this.ShellUp.render(f5);
         if (!this.TMNT) {
@@ -93,6 +105,7 @@ public class MoCModelTurtle extends ModelBase {
         this.Leg4.render(f5);
         this.Head.render(f5);
         this.Tail.render(f5);
+        GlStateManager.popMatrix();
     }
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5) {

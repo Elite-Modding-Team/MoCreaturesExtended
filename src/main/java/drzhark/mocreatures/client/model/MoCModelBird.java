@@ -6,6 +6,7 @@ package drzhark.mocreatures.client.model;
 import drzhark.mocreatures.entity.passive.MoCEntityBird;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -59,6 +60,14 @@ public class MoCModelBird extends ModelBase {
         MoCEntityBird bird = (MoCEntityBird) entity;
         this.isOnAir = bird.isOnAir() && bird.getRidingEntity() == null;
         setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+
+        GlStateManager.pushMatrix();
+
+        if (bird.isChild()) {
+            GlStateManager.scale(0.5F, 0.5F, 0.5F);
+            GlStateManager.translate(0.0F, 24.0F * f5, 0.0F);
+        }
+
         this.head.render(f5);
         this.beak.render(f5);
         this.body.render(f5);
@@ -67,6 +76,8 @@ public class MoCModelBird extends ModelBase {
         this.rwing.render(f5);
         this.lwing.render(f5);
         this.tail.render(f5);
+
+        GlStateManager.popMatrix();
     }
 
     @Override

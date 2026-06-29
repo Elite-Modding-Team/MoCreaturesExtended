@@ -209,7 +209,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
             if (this.isChild()) {
                 this.consumeItemFromStack(player, stack);
                 this.ageUp((int) ((float) (-this.getGrowingAge() / 20) * 0.1F), true);
-                MoCTools.playCustomSound(this, MoCSoundEvents.ENTITY_GENERIC_EAT);
+                //MoCTools.playCustomSound(this, MoCSoundEvents.ENTITY_GENERIC_EAT);
                 return true;
             }
 
@@ -217,7 +217,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
                 this.consumeItemFromStack(player, stack);
                 this.setInLove(player);
                 setHasEaten(true);
-                MoCTools.playCustomSound(this, MoCSoundEvents.ENTITY_GENERIC_EAT);
+                //MoCTools.playCustomSound(this, MoCSoundEvents.ENTITY_GENERIC_EAT);
                 return true;
             }
         }

@@ -3,11 +3,10 @@
  */
 package drzhark.mocreatures.entity.passive;
 
+import com.google.common.collect.Sets;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
-import drzhark.mocreatures.entity.ai.EntityAIFleeFromEntityMoC;
-import drzhark.mocreatures.entity.ai.EntityAIFollowOwnerPlayer;
-import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
+import drzhark.mocreatures.entity.ai.*;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAnimal;
 import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
@@ -15,14 +14,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -40,10 +43,14 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Set;
 
 public class MoCEntityBird extends MoCEntityTameableAnimal {
     private static final DataParameter<Boolean> PRE_TAMED = EntityDataManager.createKey(MoCEntityBird.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IS_FLYING = EntityDataManager.createKey(MoCEntityBird.class, DataSerializers.BOOLEAN);
+
+    private static final Set<Item> BREEDING_ITEMS = Sets.newHashSet(Items.WHEAT_SEEDS, Items.MELON_SEEDS, Items.PUMPKIN_SEEDS, Items.BEETROOT_SEEDS);
+
     public float wingb;
     public float wingc;
     public float wingd;
@@ -70,9 +77,12 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     @Override
     protected void initEntityAI() {
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIFleeFromEntityMoC(this, entity -> !(entity instanceof MoCEntityBird) && (entity.height > 0.4F || entity.width > 0.4F), 6.0F, 1.D, 1.3D));
-        this.tasks.addTask(3, new EntityAIFollowOwnerPlayer(this, 0.8D, 2F, 10F));
-        this.tasks.addTask(4, this.wander = new EntityAIWanderMoC2(this, 1.0D, 80));
+        this.tasks.addTask(1, new EntityAIMateMoC(this, 1.0D));
+        this.tasks.addTask(2, new EntityAITempt(this, 1.0D, false, BREEDING_ITEMS));
+        this.tasks.addTask(3, new EntityAIFleeFromEntityMoC(this, entity -> !(entity instanceof MoCEntityBird) && (entity.height > 0.4F || entity.width > 0.4F), 6.0F, 1.D, 1.3D));
+        this.tasks.addTask(4, new EntityAIFollowOwnerPlayer(this, 0.8D, 2F, 10F));
+        this.tasks.addTask(5, this.wander = new EntityAIWanderMoC2(this, 1.0D, 80));
+        this.tasks.addTask(6, new EntityAIFollowAdult(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
     }
 
@@ -150,6 +160,36 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
 
     @Override
     public void fall(float f, float f1) {
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return !stack.isEmpty() && BREEDING_ITEMS.contains(stack.getItem());
+    }
+
+    @Override
+    public EntityAgeable createChild(EntityAgeable entity) {
+        MoCEntityBird baby = new MoCEntityBird(entity.world);
+        baby.setGrowingAge(-24000);
+
+        if (entity instanceof MoCEntityBird) {
+            baby.setType(this.rand.nextBoolean() ? this.getType() : ((MoCEntityBird) entity).getType());
+        } else {
+            baby.setType(this.getType());
+        }
+
+        return baby;
+    }
+
+    @Override
+    public boolean canMateWith(EntityAnimal otherAnimal) {
+        if (otherAnimal == this) {
+            return false;
+        } else if (otherAnimal.getClass() != this.getClass()) {
+            return false;
+        } else {
+            return this.isInLove() && otherAnimal.isInLove();
+        }
     }
 
     private int[] FindTreeTop(int i, int j, int k) {
@@ -292,6 +332,9 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
 
     @Nullable
     protected ResourceLocation getLootTable() {
+        if (!getIsAdult()) {
+            return null;
+        }
         return MoCLootTables.BIRD;
     }
 
@@ -306,12 +349,25 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
 
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
-        final Boolean tameResult = this.processTameInteract(player, hand);
-        if (tameResult != null) {
-            return tameResult;
+        ItemStack stack = player.getHeldItem(hand);
+
+        if (!stack.isEmpty() && this.isBreedingItem(stack)) {
+            if (this.isChild()) {
+                this.consumeItemFromStack(player, stack);
+                this.ageUp((int) ((float) (-this.getGrowingAge() / 20) * 0.1F), true);
+                this.playSound(SoundEvents.ENTITY_PARROT_EAT, 1.0F, 1.0F);
+                return true;
+            }
+
+            if (this.getGrowingAge() == 0 && this.inLove <= 0) {
+                this.consumeItemFromStack(player, stack);
+                this.setInLove(player);
+                this.playSound(SoundEvents.ENTITY_PARROT_EAT, 1.0F, 1.0F);
+                return true;
+            }
         }
 
-        final ItemStack stack = player.getHeldItem(hand);
+        // TODO: Replace wheat seeds with another item
         if (!stack.isEmpty() && getPreTamed() && !getIsTamed() && stack.getItem() == Items.WHEAT_SEEDS) {
             if (!player.capabilities.isCreativeMode) stack.shrink(1);
             if (!this.world.isRemote) {
@@ -320,14 +376,10 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
             return true;
         }
 
-        if (!getIsTamed()) {
-            return false;
-        }
-        if (this.getRidingEntity() == null) {
+        if (getIsTamed() && this.getRidingEntity() == null && stack.isEmpty()) {
             if (this.startRidingPlayer(player)) {
                 this.rotationYaw = player.rotationYaw;
             }
-
             return true;
         }
 
@@ -357,8 +409,10 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
         }
         this.wingb += this.wingh * 2.0F;
 
-        //check added to avoid duplicating behavior on client / server
         if (!this.world.isRemote) {
+            if (this.isInLove() && getIsFlying()) {
+                setIsFlying(false);
+            }
 
             if (isMovementCeased() && getIsFlying()) {
                 setIsFlying(false);
@@ -382,7 +436,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
                 }
             }
 
-            if (!isMovementCeased() && !getIsFlying() && this.rand.nextInt(getIsTamed() ? 1000 : 400) == 0) {
+            if (!isMovementCeased() && !getIsFlying() && !this.isInLove() && this.rand.nextInt(getIsTamed() ? 1000 : 400) == 0) {
                 setIsFlying(true);
                 this.wander.makeUpdate();
             }
@@ -395,7 +449,6 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
                 this.fleeing = false;
             }
 
-            //TODO move to new AI
             if (!this.fleeing) {
                 EntityItem entityitem = getClosestItem(this, 12D, Items.WHEAT_SEEDS, Items.MELON_SEEDS);
                 if (entityitem != null) {

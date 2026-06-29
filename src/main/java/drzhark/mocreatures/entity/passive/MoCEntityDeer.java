@@ -3,29 +3,39 @@
  */
 package drzhark.mocreatures.entity.passive;
 
+import com.google.common.collect.Sets;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.EntityAIFleeFromEntityMoC;
 import drzhark.mocreatures.entity.ai.EntityAIFollowAdult;
+import drzhark.mocreatures.entity.ai.EntityAIMateMoC;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAnimal;
 import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.Set;
 
 public class MoCEntityDeer extends MoCEntityTameableAnimal {
-
+    private static final Set<Item> BREEDING_ITEMS = Sets.newHashSet(Items.WHEAT);
     private int readyToJumpTimer;
 
     public MoCEntityDeer(World world) {
@@ -39,11 +49,13 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
     @Override
     protected void initEntityAI() {
         this.tasks.addTask(0, new EntityAISwimming(this));
-        this.tasks.addTask(1, new EntityAIFleeFromEntityMoC(this, entity -> !(entity instanceof MoCEntityDeer) && (entity.height > 0.8F || entity.width > 0.8F), 6.0F, this.getMyAISpeed(), this.getMyAISpeed() * 1.2D));
-        this.tasks.addTask(2, new EntityAIPanic(this, this.getMyAISpeed() * 1.2D));
-        this.tasks.addTask(4, new EntityAIFollowAdult(this, getMyAISpeed()));
-        this.tasks.addTask(5, new EntityAIWanderMoC2(this, getMyAISpeed()));
-        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        this.tasks.addTask(1, new EntityAIMateMoC(this, 1.0D));
+        this.tasks.addTask(2, new EntityAITempt(this, 1.0D, false, BREEDING_ITEMS));
+        this.tasks.addTask(3, new EntityAIFleeFromEntityMoC(this, entity -> !(entity instanceof MoCEntityDeer) && (entity.height > 0.8F || entity.width > 0.8F), 6.0F, this.getMyAISpeed(), this.getMyAISpeed() * 1.2D));
+        this.tasks.addTask(4, new EntityAIPanic(this, this.getMyAISpeed() * 1.2D));
+        this.tasks.addTask(5, new EntityAIFollowAdult(this, getMyAISpeed()));
+        this.tasks.addTask(6, new EntityAIWanderMoC2(this, getMyAISpeed()));
+        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
     }
 
     @Override
@@ -51,6 +63,59 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         super.applyEntityAttributes();
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.35D);
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return !stack.isEmpty() && BREEDING_ITEMS.contains(stack.getItem());
+    }
+
+    @Override
+    public boolean canMateWith(EntityAnimal otherAnimal) {
+        if (otherAnimal == this) {
+            return false;
+        } else if (otherAnimal.getClass() != this.getClass()) {
+            return false;
+        } else {
+            MoCEntityDeer otherDeer = (MoCEntityDeer) otherAnimal;
+
+            // Type 1 is Stag (Male), Type 2 is Doe (Female)
+            if (this.getType() == otherDeer.getType()) {
+                return false;
+            }
+
+            return this.isInLove() && otherDeer.isInLove();
+        }
+    }
+
+    @Override
+    public EntityAgeable createChild(EntityAgeable entity) {
+        MoCEntityDeer baby = new MoCEntityDeer(entity.world);
+        baby.setGrowingAge(-24000);
+        baby.setAdult(false);
+        baby.setType(3); // Type 3 is Fawn (Baby)
+        return baby;
+    }
+
+    @Override
+    public boolean processInteract(EntityPlayer player, EnumHand hand) {
+        ItemStack stack = player.getHeldItem(hand);
+
+        if (!stack.isEmpty() && this.isBreedingItem(stack)) {
+            if (this.isChild()) {
+                this.consumeItemFromStack(player, stack);
+                this.ageUp((int) ((float) (-this.getGrowingAge() / 20) * 0.1F), true);
+                return true;
+            }
+
+            if (this.getGrowingAge() == 0 && this.inLove <= 0) {
+                this.consumeItemFromStack(player, stack);
+                this.setInLove(player);
+                return true;
+            }
+        }
+
+        return super.processInteract(player, hand);
     }
 
     @Override

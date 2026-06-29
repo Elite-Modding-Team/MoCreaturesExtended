@@ -3,19 +3,24 @@
  */
 package drzhark.mocreatures.entity.passive;
 
+import com.google.common.collect.Sets;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.*;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAnimal;
 import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
+import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAITempt;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -33,10 +38,11 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
 import javax.annotation.Nullable;
+import java.util.Set;
 
 public class MoCEntityBunny extends MoCEntityTameableAnimal {
-
     private static final DataParameter<Boolean> HAS_EATEN = EntityDataManager.createKey(MoCEntityBunny.class, DataSerializers.BOOLEAN);
+    private static final Set<Item> BREEDING_ITEMS = Sets.newHashSet(Items.CARROT, Items.GOLDEN_CARROT);
     public int bunnyReproduceTickerA;
     public int bunnyReproduceTickerB;
     private int jumpTimer;
@@ -46,9 +52,6 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         setAdult(true);
         setTamed(false);
         setAge(50 + getRNG().nextInt(15));
-        if (getRNG().nextInt(4) == 0) {
-            setAdult(false);
-        }
         setSize(0.5F, 0.5F);
         this.bunnyReproduceTickerA = getRNG().nextInt(64);
         this.bunnyReproduceTickerB = 0;
@@ -59,11 +62,13 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIFollowOwnerPlayer(this, 0.8D, 6F, 5F));
         this.tasks.addTask(2, new EntityAIPanicMoC(this, 1.0D));
-        this.tasks.addTask(3, new EntityAIFleeFromPlayer(this, 1.0D, 4D));
-        this.tasks.addTask(4, new EntityAIFollowAdult(this, 1.0D));
-        this.tasks.addTask(5, new EntityAIBunnyReproduce(this));
-        this.tasks.addTask(6, new EntityAIWanderMoC2(this, 0.8D));
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
+        this.tasks.addTask(3, new EntityAIMateMoC(this, 1.0D));
+        this.tasks.addTask(4, new EntityAITempt(this, 1.0D, false, BREEDING_ITEMS));
+        this.tasks.addTask(5, new EntityAIFleeFromPlayer(this, 1.0D, 4D));
+        this.tasks.addTask(6, new EntityAIFollowAdult(this, 1.0D));
+        this.tasks.addTask(7, new EntityAIBunnyReproduce(this)); // MoC specific wild reproduction ticker
+        this.tasks.addTask(8, new EntityAIWanderMoC2(this, 0.8D));
+        this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 6.0F));
     }
 
     @Override
@@ -83,6 +88,12 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
     @Override
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData entityLivingData) {
         if (this.world.provider.getDimension() == MoCreatures.proxy.wyvernDimension) this.enablePersistence();
+
+        if (getRNG().nextInt(4) == 0) {
+            this.setGrowingAge(-24000);
+            this.setAdult(false);
+        }
+
         return super.onInitialSpawn(difficulty, entityLivingData);
     }
 
@@ -92,6 +103,30 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
 
     public void setHasEaten(boolean flag) {
         this.dataManager.set(HAS_EATEN, flag);
+    }
+
+    @Override
+    public boolean isBreedingItem(ItemStack stack) {
+        return !stack.isEmpty() && BREEDING_ITEMS.contains(stack.getItem());
+    }
+
+    @Override
+    public EntityAgeable createChild(EntityAgeable entity) {
+        MoCEntityBunny baby = new MoCEntityBunny(entity.world);
+        baby.setGrowingAge(-24000);
+        baby.setAdult(false);
+        return baby;
+    }
+
+    @Override
+    public boolean canMateWith(EntityAnimal otherAnimal) {
+        if (otherAnimal == this) {
+            return false;
+        } else if (otherAnimal.getClass() != this.getClass()) {
+            return false;
+        } else {
+            return this.isInLove() && otherAnimal.isInLove();
+        }
     }
 
     @Override
@@ -168,25 +203,32 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
 
     @Override
     public boolean processInteract(EntityPlayer player, EnumHand hand) {
-        final Boolean tameResult = this.processTameInteract(player, hand);
-        if (tameResult != null) {
-            return tameResult;
-        }
+        ItemStack stack = player.getHeldItem(hand);
 
-        final ItemStack stack = player.getHeldItemMainhand();
-        if (!stack.isEmpty()) {
-            if (stack.getItem() == Items.CARROT && !getHasEaten()) {
-                if (!player.capabilities.isCreativeMode) stack.shrink(1);
-                setHasEaten(true);
+        if (!stack.isEmpty() && this.isBreedingItem(stack)) {
+            if (this.isChild()) {
+                this.consumeItemFromStack(player, stack);
+                this.ageUp((int) ((float) (-this.getGrowingAge() / 20) * 0.1F), true);
                 MoCTools.playCustomSound(this, MoCSoundEvents.ENTITY_GENERIC_EAT);
-                if (!getIsTamed() && !this.world.isRemote) {
-                    MoCTools.tameWithName(player, this);
-                }
                 return true;
             }
-        } else if (getRidingEntity() == null) {
+
+            if (this.getGrowingAge() == 0 && this.inLove <= 0) {
+                this.consumeItemFromStack(player, stack);
+                this.setInLove(player);
+                setHasEaten(true);
+                MoCTools.playCustomSound(this, MoCSoundEvents.ENTITY_GENERIC_EAT);
+                return true;
+            }
+        }
+
+        if (stack.isEmpty() && player.isSneaking() && getRidingEntity() == null) {
             if (startRidingPlayer(player)) {
                 this.rotationYaw = player.rotationYaw;
+            }
+            // TODO: Should be tameable in another way, otherwise this will be very annoying
+            if (!getIsTamed() && !this.world.isRemote) {
+                MoCTools.tameWithName(player, this);
             }
             return true;
         }

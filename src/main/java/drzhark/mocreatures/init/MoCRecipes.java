@@ -107,7 +107,6 @@ public class MoCRecipes {
             OreDictionary.registerOre("cobblestone", new ItemStack(MoCBlocks.cobbledDeepWyvstone));
             OreDictionary.registerOre("cobblestone", new ItemStack(MoCBlocks.cobbledWyvstone));
             OreDictionary.registerOre("dirt", new ItemStack(MoCBlocks.wyvdirt));
-            OreDictionary.registerOre("doorWood", new ItemStack(MoCBlocks.wyvwoodDoor));
             OreDictionary.registerOre("fenceWood", new ItemStack(MoCBlocks.wyvwoodFence));
             OreDictionary.registerOre("fenceGateWood", new ItemStack(MoCBlocks.wyvwoodFenceGate));
             OreDictionary.registerOre("grass", new ItemStack(MoCBlocks.wyvgrass));

@@ -5,7 +5,13 @@ package drzhark.mocreatures.entity.hunter;
 
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.entity.ai.*;
+import drzhark.mocreatures.entity.aquatic.MoCEntityMediumFish;
 import drzhark.mocreatures.entity.inventory.MoCAnimalChest;
+import drzhark.mocreatures.entity.neutral.MoCEntityGoat;
+import drzhark.mocreatures.entity.passive.MoCEntityBoar;
+import drzhark.mocreatures.entity.passive.MoCEntityDeer;
+import drzhark.mocreatures.entity.passive.MoCEntityDuck;
+import drzhark.mocreatures.entity.passive.MoCEntityTurkey;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAnimal;
 import drzhark.mocreatures.init.MoCItems;
 import drzhark.mocreatures.init.MoCSoundEvents;
@@ -20,6 +26,10 @@ import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -38,6 +48,9 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MoCEntityBear extends MoCEntityTameableAnimal {
 
@@ -62,6 +75,19 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
 
     @Override
     protected void initEntityAI() {
+        List<Class<? extends EntityLivingBase>> hunterTargets = new ArrayList<>();
+        hunterTargets.add(EntityChicken.class);
+        hunterTargets.add(EntityCow.class);
+        hunterTargets.add(EntityPig.class);
+        hunterTargets.add(EntityPlayer.class);
+        hunterTargets.add(EntitySheep.class);
+        hunterTargets.add(MoCEntityBoar.class);
+        hunterTargets.add(MoCEntityDeer.class);
+        hunterTargets.add(MoCEntityDuck.class);
+        hunterTargets.add(MoCEntityGoat.class);
+        hunterTargets.add(MoCEntityMediumFish.class);
+        hunterTargets.add(MoCEntityTurkey.class);
+
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIPanicMoC(this, 1.0D));
         this.tasks.addTask(3, new EntityAIFollowOwnerPlayer(this, 1D, 2F, 10F));
@@ -70,8 +96,7 @@ public class MoCEntityBear extends MoCEntityTameableAnimal {
         this.tasks.addTask(6, new EntityAIWanderMoC2(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        //this.targetTasks.addTask(2, new EntityAIHunt<>(this, EntityAnimal.class, false));
-        this.targetTasks.addTask(3, new EntityAIHunt<>(this, EntityPlayer.class, false));
+        this.targetTasks.addTask(2, new EntityAIHunt<>(this, hunterTargets, false));
     }
 
     @Override

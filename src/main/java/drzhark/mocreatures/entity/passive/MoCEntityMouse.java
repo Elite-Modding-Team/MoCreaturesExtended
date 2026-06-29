@@ -192,10 +192,15 @@ public class MoCEntityMouse extends MoCEntityAnimal {
     @Override
     public void onLivingUpdate() {
         super.onLivingUpdate();
+
         if (!this.onGround && (this.getRidingEntity() != null)) {
             this.rotationYaw = this.getRidingEntity().rotationYaw;
         }
 
+        if (!this.world.isRemote && this.isBesideClimbableBlock()) {
+            this.rotationYaw = this.renderYawOffset;
+            this.rotationYawHead = this.rotationYaw;
+        }
     }
 
     public boolean upsideDown() {

@@ -42,7 +42,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class MoCEntityBird extends MoCEntityTameableAnimal {
-
     private static final DataParameter<Boolean> PRE_TAMED = EntityDataManager.createKey(MoCEntityBird.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IS_FLYING = EntityDataManager.createKey(MoCEntityBird.class, DataSerializers.BOOLEAN);
     public float wingb;

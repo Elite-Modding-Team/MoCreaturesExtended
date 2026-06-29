@@ -4,11 +4,9 @@
 package drzhark.mocreatures.entity.aquatic;
 
 import drzhark.mocreatures.MoCreatures;
-import drzhark.mocreatures.entity.MoCEntityAquatic;
-import drzhark.mocreatures.entity.ai.EntityAITargetNonTamedMoC;
+import drzhark.mocreatures.entity.ai.EntityAIHuntAquatic;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
-import drzhark.mocreatures.entity.item.MoCEntityEgg;
-import drzhark.mocreatures.entity.passive.MoCEntityHorse;
+import drzhark.mocreatures.entity.passive.*;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAquatic;
 import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
@@ -17,7 +15,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.passive.EntityWolf;
+import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -27,6 +25,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MoCEntityShark extends MoCEntityTameableAquatic {
@@ -43,12 +42,20 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
 
     @Override
     protected void initEntityAI() {
+        List<Class<? extends EntityLivingBase>> hunterTargets = new ArrayList<>();
+        hunterTargets.add(EntityPlayer.class);
+        hunterTargets.add(EntitySquid.class);
+        hunterTargets.add(MoCEntityDolphin.class);
+        hunterTargets.add(MoCEntityFishy.class);
+        hunterTargets.add(MoCEntityMantaRay.class);
+        hunterTargets.add(MoCEntityMediumFish.class);
+        hunterTargets.add(MoCEntitySmallFish.class);
+        hunterTargets.add(MoCEntityStingRay.class);
+
         this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
         this.tasks.addTask(5, new EntityAIWanderMoC2(this, 1.0D, 30));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAITargetNonTamedMoC<>(this, EntityPlayer.class, false));
-        // Currently doesn't function
-        //this.targetTasks.addTask(3, new EntityAIHuntAquatic<>(this, EntityPlayer.class, false));
+        this.targetTasks.addTask(2, new EntityAIHuntAquatic(this, hunterTargets, false));
     }
 
     @Override
@@ -105,35 +112,9 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
         return MoCLootTables.SHARK;
     }
 
-    protected Entity findPlayerToAttack() {
-        if ((this.world.getDifficulty().getId() > 0) && (getAge() >= 100)) {
-            EntityPlayer entityplayer = this.world.getClosestPlayerToEntity(this, 16D);
-            if ((entityplayer != null) && entityplayer.isInWater() && !getIsTamed()) {
-                return entityplayer;
-            }
-        }
-        return null;
-    }
-
-    public EntityLivingBase FindTarget(Entity entity, double d) {
-        double d1 = -1D;
-        EntityLivingBase entityliving = null;
-        List<Entity> list = this.world.getEntitiesWithinAABBExcludingEntity(this, getEntityBoundingBox().grow(d));
-        for (Entity o : list) {
-            if (!(o instanceof EntityLivingBase) || (o instanceof MoCEntityAquatic) || (o instanceof MoCEntityEgg) || (o instanceof EntityPlayer) || ((o instanceof EntityWolf) && !(MoCreatures.proxy.attackWolves)) || ((o instanceof MoCEntityHorse) && !(MoCreatures.proxy.attackHorses))) {
-                continue;
-            } else {
-                if ((o instanceof MoCEntityDolphin)) {
-                    getIsTamed();
-                }
-            }
-            double d2 = o.getDistanceSq(entity.posX, entity.posY, entity.posZ);
-            if (((d < 0.0D) || (d2 < (d * d))) && ((d1 == -1D) || (d2 < d1)) && ((EntityLivingBase) o).canEntityBeSeen(entity)) {
-                d1 = d2;
-                entityliving = (EntityLivingBase) o;
-            }
-        }
-        return entityliving;
+    @Override
+    public boolean isReadyToHunt() {
+        return getIsAdult() && isInWater();
     }
 
     @Override
@@ -200,7 +181,7 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
     public float getEyeHeight() {
         return this.height * 0.61F;
     }
-    
+
     @Override
     protected SoundEvent getDeathSound() {
         return MoCSoundEvents.ENTITY_FISH_FLOP;

@@ -6,7 +6,12 @@ package drzhark.mocreatures.entity.hostile;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityMob;
+import drzhark.mocreatures.entity.ai.EntityAIHunt;
+import drzhark.mocreatures.entity.ambient.MoCEntityCrab;
 import drzhark.mocreatures.entity.hunter.MoCEntityPetScorpion;
+import drzhark.mocreatures.entity.hunter.MoCEntitySnake;
+import drzhark.mocreatures.entity.neutral.MoCEntityGoat;
+import drzhark.mocreatures.entity.passive.*;
 import drzhark.mocreatures.init.MoCItems;
 import drzhark.mocreatures.init.MoCSoundEvents;
 import drzhark.mocreatures.network.MoCMessageHandler;
@@ -17,6 +22,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.monster.EntitySilverfish;
+import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -32,6 +42,9 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MoCEntityScorpion extends MoCEntityMob {
 
@@ -59,6 +72,14 @@ public class MoCEntityScorpion extends MoCEntityMob {
 
     @Override
     protected void initEntityAI() {
+        /*List<Class<? extends EntityLivingBase>> hunterTargets = new ArrayList<>();
+        hunterTargets.add(EntitySilverfish.class);
+        hunterTargets.add(EntitySpider.class);
+        hunterTargets.add(MoCEntityFilchLizard.class);
+        hunterTargets.add(MoCEntityMouse.class);
+        hunterTargets.add(MoCEntityRat.class);
+        hunterTargets.add(MoCEntitySnake.class);*/
+
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
         this.tasks.addTask(4, new MoCEntityScorpion.AIScorpionAttack(this, 1.0D, true));

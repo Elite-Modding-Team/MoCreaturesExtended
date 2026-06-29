@@ -10,6 +10,9 @@ import drzhark.mocreatures.entity.ai.EntityAIFollowOwnerPlayer;
 import drzhark.mocreatures.entity.ai.EntityAIHunt;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
 import drzhark.mocreatures.entity.inventory.MoCAnimalChest;
+import drzhark.mocreatures.entity.neutral.MoCEntityGoat;
+import drzhark.mocreatures.entity.neutral.MoCEntityOstrich;
+import drzhark.mocreatures.entity.passive.*;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAnimal;
 import drzhark.mocreatures.entity.tameable.MoCPetData;
 import drzhark.mocreatures.init.MoCItems;
@@ -25,6 +28,10 @@ import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.passive.EntityRabbit;
+import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -45,6 +52,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
@@ -73,14 +83,27 @@ public class MoCEntityBigCat extends MoCEntityTameableAnimal {
 
     @Override
     protected void initEntityAI() {
+        List<Class<? extends EntityLivingBase>> hunterTargets = new ArrayList<>();
+        hunterTargets.add(EntityChicken.class);
+        hunterTargets.add(EntityPig.class);
+        hunterTargets.add(EntityPlayer.class);
+        hunterTargets.add(EntityRabbit.class);
+        hunterTargets.add(EntitySheep.class);
+        hunterTargets.add(MoCEntityBoar.class);
+        hunterTargets.add(MoCEntityBunny.class);
+        hunterTargets.add(MoCEntityDeer.class);
+        hunterTargets.add(MoCEntityDuck.class);
+        hunterTargets.add(MoCEntityGoat.class);
+        hunterTargets.add(MoCEntityOstrich.class);
+        hunterTargets.add(MoCEntityTurkey.class);
+
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityAIAttackMelee(this, 1.0D, false));
         this.tasks.addTask(4, new EntityAIFollowAdult(this, 1.0D));
         this.tasks.addTask(5, new EntityAIFollowOwnerPlayer(this, 1D, 2F, 10F));
         this.tasks.addTask(2, new EntityAIWanderMoC2(this, 0.8D, 30));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        //this.targetTasks.addTask(2, new EntityAIHunt<>(this, EntityAnimal.class, false));
-        this.targetTasks.addTask(3, new EntityAIHunt<>(this, EntityPlayer.class, false));
+        this.targetTasks.addTask(2, new EntityAIHunt<>(this, hunterTargets, false));
     }
 
     @Override

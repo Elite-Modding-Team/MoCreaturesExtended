@@ -11,31 +11,69 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class EntityAIHuntAquatic<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<T> {
+import java.util.List;
+import javax.annotation.Nullable;
 
+public class EntityAIHuntAquatic extends EntityAINearestAttackableTarget<EntityLivingBase> {
     private final EntityCreature hunter;
-    private final Class<T> targetClass;
+    private final List<Class<? extends EntityLivingBase>> targetClasses;
 
-    public EntityAIHuntAquatic(EntityCreature entity, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, Predicate<EntityLivingBase> predicate) {
-        super(entity, classTarget, chance, checkSight, onlyNearby, predicate);
+    public EntityAIHuntAquatic(EntityCreature entity, final List<Class<? extends EntityLivingBase>> targetClasses, int chance, boolean checkSight, boolean onlyNearby, @Nullable final Predicate<EntityLivingBase> extraPredicate) {
+        super(entity, EntityLivingBase.class, chance, checkSight, onlyNearby, createTargetPredicate(targetClasses, extraPredicate));
         this.hunter = entity;
-        this.targetClass = classTarget;
+        this.targetClasses = targetClasses;
     }
 
-    public EntityAIHuntAquatic(EntityCreature entityCreature, Class<T> classTarget, boolean checkSight) {
-        this(entityCreature, classTarget, checkSight, false);
+    private static Predicate<EntityLivingBase> createTargetPredicate(final List<Class<? extends EntityLivingBase>> targetClasses, @Nullable final Predicate<EntityLivingBase> extraPredicate) {
+        return potentialTarget -> {
+            if (potentialTarget == null) {
+                return false;
+            }
+
+            if (potentialTarget instanceof MoCEntityTameableAquatic && ((MoCEntityTameableAquatic) potentialTarget).getIsTamed()) {
+                return false;
+            }
+
+            boolean isAllowedTarget = false;
+            for (Class<? extends EntityLivingBase> allowedClass : targetClasses) {
+                if (allowedClass.isAssignableFrom(potentialTarget.getClass())) {
+                    isAllowedTarget = true;
+                    break;
+                }
+            }
+
+            if (!isAllowedTarget) {
+                return false;
+            }
+
+            return extraPredicate == null || extraPredicate.apply(potentialTarget);
+        };
     }
 
-    public EntityAIHuntAquatic(EntityCreature entity, Class<T> classTarget, boolean checkSight, boolean onlyNearby) {
-        this(entity, classTarget, 10, checkSight, onlyNearby, null);
+    public EntityAIHuntAquatic(EntityCreature entityCreature, List<Class<? extends EntityLivingBase>> targetClasses, boolean checkSight) {
+        this(entityCreature, targetClasses, checkSight, false);
+    }
 
+    public EntityAIHuntAquatic(EntityCreature entity, List<Class<? extends EntityLivingBase>> targetClasses, boolean checkSight, boolean onlyNearby) {
+        this(entity, targetClasses, 10, checkSight, onlyNearby, null);
     }
 
     @Override
     public boolean shouldExecute() {
-        // Conditions: Don't hunt when tamed and target entity is of class Player
-        boolean hunterHasOwner = ((MoCEntityTameableAquatic)this.hunter).getIsTamed();
-        boolean hunterTargetsPlayers = EntityPlayer.class.isAssignableFrom(this.targetClass);
-        return (!hunterTargetsPlayers || !hunterHasOwner) && ((MoCEntityAquatic) this.hunter).getIsHunting() && super.shouldExecute();
+        boolean hunterTargetsPlayers = false;
+        for (Class<? extends EntityLivingBase> allowedClass : this.targetClasses) {
+            if (EntityPlayer.class.isAssignableFrom(allowedClass)) {
+                hunterTargetsPlayers = true;
+                break;
+            }
+        }
+
+        // Don't hunt when tamed and target entity is of class Player
+        boolean hunterHasOwner = (this.hunter instanceof MoCEntityTameableAquatic) && ((MoCEntityTameableAquatic) this.hunter).getIsTamed();
+        if (hunterTargetsPlayers && hunterHasOwner) {
+            return false;
+        }
+
+        return ((MoCEntityAquatic) this.hunter).getIsHunting() && super.shouldExecute();
     }
 }

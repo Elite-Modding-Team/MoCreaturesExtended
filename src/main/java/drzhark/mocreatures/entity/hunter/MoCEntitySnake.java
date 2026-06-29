@@ -5,10 +5,14 @@ package drzhark.mocreatures.entity.hunter;
 
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.entity.MoCEntityInsect;
 import drzhark.mocreatures.entity.ai.EntityAIFleeFromPlayer;
 import drzhark.mocreatures.entity.ai.EntityAIHunt;
 import drzhark.mocreatures.entity.ai.EntityAIPanicMoC;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
+import drzhark.mocreatures.entity.ambient.MoCEntityCrab;
+import drzhark.mocreatures.entity.neutral.MoCEntityGoat;
+import drzhark.mocreatures.entity.passive.*;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAnimal;
 import drzhark.mocreatures.init.MoCEntities;
 import drzhark.mocreatures.init.MoCItems;
@@ -24,6 +28,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
@@ -40,6 +45,9 @@ import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Biome - specific Forest Desert plains Swamp Jungle Tundra Taiga Extreme Hills
@@ -73,14 +81,23 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 
     @Override
     protected void initEntityAI() {
+        List<Class<? extends EntityLivingBase>> hunterTargets = new ArrayList<>();
+        hunterTargets.add(EntityChicken.class);
+        hunterTargets.add(EntityParrot.class);
+        hunterTargets.add(EntityRabbit.class);
+        hunterTargets.add(MoCEntityBird.class);
+        hunterTargets.add(MoCEntityBunny.class);
+        hunterTargets.add(MoCEntityDuck.class);
+        hunterTargets.add(MoCEntityInsect.class);
+        hunterTargets.add(MoCEntityMouse.class);
+
         this.tasks.addTask(2, new EntityAIPanicMoC(this, 0.8D));
         this.tasks.addTask(3, new EntityAIFleeFromPlayer(this, 0.8D, 4D));
         this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
         this.tasks.addTask(5, new EntityAIWanderMoC2(this, 0.8D, 30));
         this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        //this.targetTasks.addTask(2, new EntityAIHunt<>(this, EntityAnimal.class, false));
-        this.targetTasks.addTask(3, new EntityAIHunt<>(this, EntityPlayer.class, false));
+        this.targetTasks.addTask(2, new EntityAIHunt<>(this, hunterTargets, false));
     }
 
     @Override

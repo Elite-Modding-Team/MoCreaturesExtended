@@ -11,31 +11,65 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class EntityAIHunt<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<T> {
+import java.util.List;
 
+public class EntityAIHunt<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<EntityLivingBase> {
     private final EntityCreature hunter;
-    private final Class<T> targetClass;
+    private final List<Class<? extends EntityLivingBase>> targetClasses;
 
-    public EntityAIHunt(EntityCreature entity, Class<T> classTarget, int chance, boolean checkSight, boolean onlyNearby, Predicate<EntityLivingBase> predicate) {
-        super(entity, classTarget, chance, checkSight, onlyNearby, predicate);
+    public EntityAIHunt(EntityCreature entity, List<Class<? extends EntityLivingBase>> targetClasses, int chance, boolean checkSight, boolean onlyNearby, final Predicate<EntityLivingBase> extraPredicate) {
+        super(entity, EntityLivingBase.class, chance, checkSight, onlyNearby, potentialTarget -> {
+            if (potentialTarget == null) {
+                return false;
+            }
+
+            if (potentialTarget instanceof MoCEntityTameableAnimal && ((MoCEntityTameableAnimal) potentialTarget).getIsTamed()) {
+                return false;
+            }
+
+            boolean isAllowedTarget = false;
+            for (Class<? extends EntityLivingBase> allowedClass : targetClasses) {
+                if (allowedClass.isAssignableFrom(potentialTarget.getClass())) {
+                    isAllowedTarget = true;
+                    break;
+                }
+            }
+
+            if (!isAllowedTarget) {
+                return false;
+            }
+
+            return extraPredicate == null || extraPredicate.apply(potentialTarget);
+        });
+
         this.hunter = entity;
-        this.targetClass = classTarget;
+        this.targetClasses = targetClasses;
     }
 
-    public EntityAIHunt(EntityCreature entityCreature, Class<T> classTarget, boolean checkSight) {
-        this(entityCreature, classTarget, checkSight, false);
+    public EntityAIHunt(EntityCreature entityCreature, List<Class<? extends EntityLivingBase>> targetClasses, boolean checkSight) {
+        this(entityCreature, targetClasses, checkSight, false);
     }
 
-    public EntityAIHunt(EntityCreature entity, Class<T> classTarget, boolean checkSight, boolean onlyNearby) {
-        this(entity, classTarget, 10, checkSight, onlyNearby, null);
-
+    public EntityAIHunt(EntityCreature entity, List<Class<? extends EntityLivingBase>> targetClasses, boolean checkSight, boolean onlyNearby) {
+        this(entity, targetClasses, 10, checkSight, onlyNearby, null);
     }
 
     @Override
     public boolean shouldExecute() {
-        // Conditions: Don't hunt when tamed and target entity is of class Player
-        boolean hunterHasOwner = ((MoCEntityTameableAnimal)this.hunter).getIsTamed();
-        boolean hunterTargetsPlayers = EntityPlayer.class.isAssignableFrom(this.targetClass);
-        return (!hunterTargetsPlayers || !hunterHasOwner) && ((MoCEntityAnimal) this.hunter).getIsHunting() && super.shouldExecute();
+        boolean hunterTargetsPlayers = false;
+        for (Class<? extends EntityLivingBase> allowedClass : this.targetClasses) {
+            if (EntityPlayer.class.isAssignableFrom(allowedClass)) {
+                hunterTargetsPlayers = true;
+                break;
+            }
+        }
+
+        // Don't hunt when tamed and target entity is of class Player
+        boolean hunterHasOwner = (this.hunter instanceof MoCEntityTameableAnimal) && ((MoCEntityTameableAnimal) this.hunter).getIsTamed();
+        if (hunterTargetsPlayers && hunterHasOwner) {
+            return false;
+        }
+
+        return ((MoCEntityAnimal) this.hunter).getIsHunting() && super.shouldExecute();
     }
 }

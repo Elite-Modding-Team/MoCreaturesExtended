@@ -6,6 +6,9 @@ package drzhark.mocreatures.entity.hunter;
 import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.*;
+import drzhark.mocreatures.entity.passive.MoCEntityBird;
+import drzhark.mocreatures.entity.passive.MoCEntityBunny;
+import drzhark.mocreatures.entity.passive.MoCEntityDuck;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAnimal;
 import drzhark.mocreatures.init.MoCItems;
 import drzhark.mocreatures.init.MoCLootTables;
@@ -16,6 +19,9 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityParrot;
+import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -30,6 +36,8 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MoCEntityFox extends MoCEntityTameableAnimal {
 
@@ -42,6 +50,15 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
 
     @Override
     protected void initEntityAI() {
+        List<Class<? extends EntityLivingBase>> hunterTargets = new ArrayList<>();
+        hunterTargets.add(EntityChicken.class);
+        hunterTargets.add(EntityParrot.class);
+        hunterTargets.add(EntityRabbit.class);
+        hunterTargets.add(MoCEntityBird.class);
+        hunterTargets.add(MoCEntityBunny.class);
+        hunterTargets.add(MoCEntityDuck.class);
+        hunterTargets.add(MoCEntitySnake.class);
+
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(2, new EntityAIPanicMoC(this, 1.0D));
         this.tasks.addTask(3, new EntityAIFleeFromPlayer(this, 1.0D, 4D));
@@ -50,7 +67,7 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
         this.tasks.addTask(5, new EntityAIAttackMelee(this, 1.0D, false));
         this.tasks.addTask(6, new EntityAIWanderMoC2(this, 1.0D));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        //this.targetTasks.addTask(1, new EntityAIHunt<>(this, EntityAnimal.class, false));
+        this.targetTasks.addTask(1, new EntityAIHunt<>(this, hunterTargets, false));
     }
 
     @Override

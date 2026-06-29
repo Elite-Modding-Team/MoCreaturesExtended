@@ -75,7 +75,6 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
         this.tasks.addTask(6, new EntityAIFollowOwnerPlayer(this, 1.0D, 2F, 10F));
         this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(7, new EntityAILookIdle(this));
-        //this.targetTasks.addTask(1, new EntityAIHunt<>(this, EntityAnimal.class, true));
     }
 
     // TODO: Varied stats depending on type

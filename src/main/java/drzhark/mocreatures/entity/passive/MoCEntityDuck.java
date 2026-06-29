@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 
 public class MoCEntityDuck extends MoCEntityAnimal {
 
-    public boolean field_70885_d = false;
+    // TODO: Figure out what these values are supposed to be named
     public float field_70886_e = 0.0F;
     public float destPos = 0.0F;
     public float field_70884_g;

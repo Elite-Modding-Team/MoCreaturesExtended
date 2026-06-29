@@ -4,7 +4,7 @@
 package drzhark.mocreatures.entity.aquatic;
 
 import drzhark.mocreatures.MoCreatures;
-import drzhark.mocreatures.entity.ai.EntityAIFollowHerd;
+import drzhark.mocreatures.entity.ai.EntityAIHuntAquatic;
 import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
 import net.minecraft.entity.Entity;
@@ -12,7 +12,6 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -20,9 +19,10 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MoCEntityPiranha extends MoCEntitySmallFish {
-
     public MoCEntityPiranha(World world) {
         super(world);
         experienceValue = 3;
@@ -30,10 +30,18 @@ public class MoCEntityPiranha extends MoCEntitySmallFish {
 
     @Override
     protected void initEntityAI() {
+        List<Class<? extends EntityLivingBase>> hunterTargets = new ArrayList<>();
+        hunterTargets.add(MoCEntityAnchovy.class);
+        hunterTargets.add(MoCEntityAngelFish.class);
+        hunterTargets.add(MoCEntityClownFish.class);
+        hunterTargets.add(MoCEntityGoldFish.class);
+        hunterTargets.add(MoCEntityFishy.class);
+        hunterTargets.add(MoCEntityHippoTang.class);
+        hunterTargets.add(MoCEntityManderin.class);
+
         this.tasks.addTask(3, new EntityAIAttackMelee(this, 1.0D, false));
-        this.tasks.addTask(4, new EntityAIFollowHerd(this, 0.6D, 4D, 20D, 1));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(2, new EntityAIHuntAquatic(this, hunterTargets, false));
     }
 
     @Override
@@ -52,16 +60,6 @@ public class MoCEntityPiranha extends MoCEntitySmallFish {
     @Override
     public ResourceLocation getTexture() {
         return MoCreatures.proxy.getModelTexture("smallfish_piranha.png");
-    }
-
-    protected Entity findPlayerToAttack() {
-        if ((this.world.getDifficulty().getId() > 0)) {
-            EntityPlayer entityplayer = this.world.getClosestPlayerToEntity(this, 12D);
-            if ((entityplayer != null) && entityplayer.isInWater() && !getIsTamed()) {
-                return entityplayer;
-            }
-        }
-        return null;
     }
 
     @Override
@@ -87,6 +85,11 @@ public class MoCEntityPiranha extends MoCEntitySmallFish {
     }
 
     @Override
+    public boolean isReadyToHunt() {
+        return isInWater();
+    }
+
+    @Override
     public boolean isNotScared() {
         return true;
     }
@@ -95,7 +98,7 @@ public class MoCEntityPiranha extends MoCEntitySmallFish {
     protected ResourceLocation getLootTable() {
         return MoCLootTables.PIRANHA;
     }
-    
+
     @Override
     protected SoundEvent getDeathSound() {
         return MoCSoundEvents.ENTITY_FISH_DEATH_VICIOUS;

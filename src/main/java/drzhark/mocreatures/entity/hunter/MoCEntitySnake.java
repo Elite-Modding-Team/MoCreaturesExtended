@@ -494,7 +494,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     }
 
     @Override
-    public void dropLegacyEgg() {
+    public void dropLegacyEgg(DamageSource source) {
         if (getAge() > 60) {
             int j = this.rand.nextInt(3);
             entityDropItem(new ItemStack(MoCItems.mocegg, j, getType() + 20), 0.0F);

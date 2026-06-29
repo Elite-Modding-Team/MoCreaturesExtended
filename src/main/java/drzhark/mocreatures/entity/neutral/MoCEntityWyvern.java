@@ -17,6 +17,7 @@ import drzhark.mocreatures.network.MoCMessageHandler;
 import drzhark.mocreatures.network.message.MoCMessageAnimation;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -816,12 +817,19 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
 
     // TODO: Remove this once wyvern eggs are overhauled
     @Override
-    public void dropLegacyEgg() {
+    public void dropLegacyEgg(DamageSource source) {
         int chance = MoCreatures.proxy.wyvernEggDropChance;
-        if (getType() == 5) { //mother wyverns drop eggs more frequently
+        if (getType() == 5) { // Mother wyverns drop eggs more frequently
             chance = MoCreatures.proxy.motherWyvernEggDropChance;
         }
-        if (this.rand.nextInt(100) < chance) {
+
+        int lootingLevel = 0;
+        if (source != null && source.getTrueSource() instanceof EntityLivingBase) {
+            lootingLevel = EnchantmentHelper.getLootingModifier((EntityLivingBase) source.getTrueSource());
+        }
+
+        int finalChance = chance + (lootingLevel * 5);
+        if (this.rand.nextInt(100) < finalChance) {
             entityDropItem(new ItemStack(MoCItems.mocegg, 1, getType() + 49), 0.0F);
         }
     }

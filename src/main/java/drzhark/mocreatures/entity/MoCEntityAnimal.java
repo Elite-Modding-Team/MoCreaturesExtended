@@ -350,7 +350,7 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     }
 
     // used to drop eggs in a legacy fashion
-    public void dropLegacyEgg() {
+    public void dropLegacyEgg(DamageSource source) {
     }
     //used to drop armor, inventory, saddles, etc.
     public void dropMyStuff() {
@@ -800,25 +800,25 @@ public abstract class MoCEntityAnimal extends EntityAnimal implements IMoCEntity
     }
 
     @Override
-    public void onDeath(DamageSource damagesource) {
+    public void onDeath(DamageSource source) {
         if (!this.world.isRemote) {
             dropMyStuff();
-            dropLegacyEgg();
+            dropLegacyEgg(source);
         }
 
-        super.onDeath(damagesource);
+        super.onDeath(source);
     }
 
     @Override
-    public boolean attackEntityFrom(DamageSource damagesource, float i) {
+    public boolean attackEntityFrom(DamageSource source, float i) {
         if (isNotScared()) {
             EntityLivingBase tempEntity = this.getAttackTarget();
-            boolean flag = super.attackEntityFrom(damagesource, i);
+            boolean flag = super.attackEntityFrom(source, i);
             setAttackTarget(tempEntity);
             return flag;
         }
 
-        return super.attackEntityFrom(damagesource, i);
+        return super.attackEntityFrom(source, i);
     }
 
     public boolean getIsRideable() {

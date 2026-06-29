@@ -11,7 +11,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class MoCModelWerehuman extends ModelBiped {
 
     public MoCModelWerehuman() {
-        //TODO 4.1 FIX
         super(0.0F, 0.0F, 64, 32);
     }
 }

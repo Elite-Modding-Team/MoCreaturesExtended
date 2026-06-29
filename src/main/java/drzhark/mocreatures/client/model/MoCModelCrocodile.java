@@ -398,7 +398,6 @@ public class MoCModelCrocodile extends ModelBase {
     }
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5) {
-        //super.setRotationAngles(f, f1, f2, f3, f4, f5);
         this.Head.rotateAngleX = f4 / 57.29578F;
         this.Head.rotateAngleY = f3 / 57.29578F;
         this.SpikeEye.rotateAngleX = this.Head.rotateAngleX;

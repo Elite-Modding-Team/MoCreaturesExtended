@@ -81,7 +81,7 @@ public class MoCModelBunny extends ModelBase {
     }
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5) {
-        this.part1.rotateAngleX = -(f4 / 57.29578F);
+        this.part1.rotateAngleX = f4 / 57.29578F;
         this.part1.rotateAngleY = f3 / 57.29578F;
 
         this.part8.rotateAngleX = this.part1.rotateAngleX;

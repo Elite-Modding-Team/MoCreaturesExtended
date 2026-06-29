@@ -71,8 +71,7 @@ public class MoCModelBird extends ModelBase {
 
     @Override
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, Entity entity) {
-        this.head.rotateAngleX = -(f4 / 2.0F / 57.29578F);
-        //head.rotateAngleY = f3 / 2.0F / 57.29578F; //fixed SMP bug
+        this.head.rotateAngleX = f4 / 2.0F / 57.29578F;
         this.head.rotateAngleY = f3 / 57.29578F;
         this.beak.rotateAngleY = this.head.rotateAngleY;
 

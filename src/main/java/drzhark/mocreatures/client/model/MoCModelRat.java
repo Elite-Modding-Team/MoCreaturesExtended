@@ -97,7 +97,7 @@ public class MoCModelRat extends ModelBase {
     }
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5) {
-        this.Head.rotateAngleX = -(f4 / 57.29578F);
+        this.Head.rotateAngleX = f4 / 57.29578F;
         this.Head.rotateAngleY = f3 / 57.29578F;
         this.EarR.rotateAngleX = this.Head.rotateAngleX;
         this.EarR.rotateAngleY = this.Head.rotateAngleY;

@@ -12,7 +12,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCModelWerewolf extends ModelBase {
-
     public boolean hunched;
     ModelRenderer Head;
     ModelRenderer Nose;
@@ -330,7 +329,6 @@ public class MoCModelWerewolf extends ModelBase {
     }
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5) {
-
         float radianF = 57.29578F;
         float RLegXRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 0.8F * f1;
         float LLegXRot = MathHelper.cos(f * 0.6662F) * 0.8F * f1;

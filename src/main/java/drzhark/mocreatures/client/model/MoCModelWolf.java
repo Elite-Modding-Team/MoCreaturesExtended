@@ -13,7 +13,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCModelWolf extends ModelBase {
-
     ModelRenderer Head;
     ModelRenderer MouthB;
     ModelRenderer Nose2;
@@ -283,7 +282,6 @@ public class MoCModelWolf extends ModelBase {
     }
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5, boolean tail) {
-
         this.Head.rotateAngleX = f4 / 57.29578F;
         this.Head.rotateAngleY = f3 / 57.29578F;
         float LLegX = MathHelper.cos(f * 0.6662F) * 0.8F * f1;

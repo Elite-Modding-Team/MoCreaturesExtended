@@ -14,7 +14,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCModelWraith extends ModelBiped {
-
     private int attackCounter;
 
     public MoCModelWraith() {

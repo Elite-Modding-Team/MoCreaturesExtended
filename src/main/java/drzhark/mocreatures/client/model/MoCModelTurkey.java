@@ -155,14 +155,13 @@ public class MoCModelTurkey extends ModelBase {
     }
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5) {
-
         float LLegXRot = MathHelper.cos(f * 0.6662F) * 1.4F * f1;
         float RLegXRot = MathHelper.cos((f * 0.6662F) + 3.141593F) * 1.4F * f1;
         float wingF = (MathHelper.cos(f * 0.6662F) * 1.4F * f1) / 4F;
 
-        this.Head.rotateAngleX = 0.4833219F + f4 / 57.29578F;//(RLegXRot/7F) + (-f4 / (180F / (float)Math.PI)) ;
+        this.Head.rotateAngleX = 0.4833219F + f4 / 57.29578F;
         this.Head.rotateAngleY = f3 / (180F / (float) Math.PI);
-        this.Beak.rotateAngleX = 0.2974F + this.Head.rotateAngleX;//0.7807508F - Head.rotateAngleX;
+        this.Beak.rotateAngleX = 0.2974F + this.Head.rotateAngleX;
         this.Beak.rotateAngleY = this.Head.rotateAngleY;
 
         this.LLeg.rotateAngleX = LLegXRot;

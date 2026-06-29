@@ -155,7 +155,7 @@ public class MoCModelBoar extends ModelBase {
     }
 
     public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5) {
-        float XAngle = (f4 / 57.29578F);
+        float XAngle = f4 / 57.29578F;
         float YAngle = f3 / 57.29578F;
         this.Head.rotateAngleX = 0.2617994F + XAngle;
         this.Head.rotateAngleY = YAngle;

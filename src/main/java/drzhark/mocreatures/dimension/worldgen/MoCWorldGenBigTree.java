@@ -215,6 +215,11 @@ public class MoCWorldGenBigTree extends WorldGenAbstractTree {
         for (int var5 = par2 + this.leafDistanceLimit; var4 < var5; ++var4) {
             float var6 = this.leafSize(var4 - par2);
             this.func_150529_a(par1, var4, par3, var6, (byte) 1, MoCBlocks.wyvwoodLeaves);
+
+            if (var4 < (var5 - 1)) {
+                BlockPos logPos = new BlockPos(par1, var4, par3);
+                this.setBlockAndNotifyAdequately(this.world, logPos, this.iBlockStateLog);
+            }
         }
     }
 

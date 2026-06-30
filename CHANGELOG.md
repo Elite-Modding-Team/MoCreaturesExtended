@@ -30,5 +30,6 @@ First version to utilize the new changelog!
 - Fixed buggy swimming behavior on all MoC land mobs.
 - Fixed reversed head tilting on several MoC mobs.
 - Fixed Hunter mobs always attacking the player on sight.
+- Fixed leaves from Wyvwood trees immediately despawning after breaking at least one.
 ### Removed
 - Removed some outdated and unimplemented content.

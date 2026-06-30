@@ -24,8 +24,8 @@ import net.minecraftforge.event.terraingen.TerrainGen;
 
 import java.util.Random;
 
+@SuppressWarnings("deprecation")
 public class MoCBlockSapling extends BlockBush implements IGrowable {
-
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
     protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.1D, 0.0D, 0.1D, 0.9D, 0.8D, 0.9D);
     public boolean flammable;
@@ -91,7 +91,6 @@ public class MoCBlockSapling extends BlockBush implements IGrowable {
         }
     }
 
-    @SuppressWarnings("deprecation")
     public void generateTree(World world, BlockPos pos, IBlockState state, Random rand) {
         if (!TerrainGen.saplingGrowTree(world, rand, pos)) return;
         WorldGenerator generator = null;
@@ -99,7 +98,6 @@ public class MoCBlockSapling extends BlockBush implements IGrowable {
         int j = 0;
         boolean flag = false;
 
-        // 2x2 saplings
         switch (this.woodType) {
             case WYVWOOD:
                 check:
@@ -113,7 +111,6 @@ public class MoCBlockSapling extends BlockBush implements IGrowable {
                     }
                 }
 
-                // Single sapling
                 if (!flag) {
                     return;
                 }
@@ -126,26 +123,25 @@ public class MoCBlockSapling extends BlockBush implements IGrowable {
         IBlockState air = Blocks.AIR.getDefaultState();
 
         if (flag) {
-            world.setBlockState(pos.add(i, 0, j), air, 4);
-            world.setBlockState(pos.add(i + 1, 0, j), air, 4);
-            world.setBlockState(pos.add(i, 0, j + 1), air, 4);
-            world.setBlockState(pos.add(i + 1, 0, j + 1), air, 4);
+            world.setBlockState(pos.add(i, 0, j), air, 3);
+            world.setBlockState(pos.add(i + 1, 0, j), air, 3);
+            world.setBlockState(pos.add(i, 0, j + 1), air, 3);
+            world.setBlockState(pos.add(i + 1, 0, j + 1), air, 3);
         } else {
-            world.setBlockState(pos, air, 4);
+            world.setBlockState(pos, air, 3);
         }
 
-        if (!generator.generate(world, rand, pos.add(i, 0, j))) {
+        if (generator == null || !generator.generate(world, rand, pos.add(i, 0, j))) {
             if (flag) {
-                world.setBlockState(pos.add(i, 0, j), state, 4);
-                world.setBlockState(pos.add(i + 1, 0, j), state, 4);
-                world.setBlockState(pos.add(i, 0, j + 1), state, 4);
-                world.setBlockState(pos.add(i + 1, 0, j + 1), state, 4);
+                world.setBlockState(pos.add(i, 0, j), state, 3);
+                world.setBlockState(pos.add(i + 1, 0, j), state, 3);
+                world.setBlockState(pos.add(i, 0, j + 1), state, 3);
+                world.setBlockState(pos.add(i + 1, 0, j + 1), state, 3);
             } else {
-                world.setBlockState(pos, state, 4);
+                world.setBlockState(pos, state, 3);
             }
         }
     }
-
 
     // Trees that utilize 2x2 Saplings
     private boolean isTwoByTwoOfType(World world, BlockPos pos, int xOffset, int zOffset, EnumWoodType type) {

@@ -22,14 +22,10 @@ import net.minecraftforge.fml.relauncher.FMLLaunchHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class MoCBiomeWyvernIsles extends Biome {
-
-    private final MoCWorldGenBigTree wyvernGenBigTree;
-    private final WorldGenShrub worldGenShrub;
-
-    @SuppressWarnings("deprecation")
     public MoCBiomeWyvernIsles(Biome.BiomeProperties biomeProperties) {
         super(biomeProperties);
         this.spawnableCreatureList.clear();
@@ -43,27 +39,25 @@ public class MoCBiomeWyvernIsles extends Biome {
         this.spawnableCreatureList.add(new SpawnListEntry(MoCEntityWyvern.class, 12, 2, 3));
         this.topBlock = MoCBlocks.wyvgrass.getDefaultState();
         this.fillerBlock = MoCBlocks.wyvdirt.getDefaultState();
-        this.wyvernGenBigTree = new MoCWorldGenBigTree(false, MoCBlocks.wyvwoodLog.getDefaultState(), MoCBlocks.wyvwoodLeaves.getStateFromMeta(0), 2, 30, 10);
-        this.worldGenShrub = new WorldGenShrub(MoCBlocks.wyvwoodLog.getDefaultState(), MoCBlocks.wyvwoodLeaves.getDefaultState());
         this.decorator = new MoCBiomeWyvernIslesDecorator();
     }
 
     @Override
-    public WorldGenAbstractTree getRandomTreeFeature(Random par1Random) {
-        if (par1Random.nextInt(10) == 0) {
-            return this.wyvernGenBigTree;
+    public WorldGenAbstractTree getRandomTreeFeature(Random rand) {
+        if (rand.nextInt(10) == 0) {
+            return new MoCWorldGenBigTree(false, MoCBlocks.wyvwoodLog.getDefaultState(), MoCBlocks.wyvwoodLeaves.getDefaultState(), 2, 30, 10);
         } else {
-            return this.worldGenShrub;
+            return new WorldGenShrub(MoCBlocks.wyvwoodLog.getDefaultState(), MoCBlocks.wyvwoodLeaves.getDefaultState());
         }
     }
 
     @Override
-    public WorldGenerator getRandomWorldGenForGrass(Random par1Random) {
+    public WorldGenerator getRandomWorldGenForGrass(@Nonnull Random rand) {
         return new MoCWorldGenWyvernGrass(MoCBlocks.tallWyvgrass.getDefaultState());
     }
 
     @Override
-    public void decorate(World world, Random random, BlockPos pos) {
+    public void decorate(@Nonnull World world, @Nonnull Random random, @Nonnull BlockPos pos) {
         super.decorate(world, random, pos);
 
         if (FMLLaunchHandler.isDeobfuscatedEnvironment() && random.nextInt(100) == 0) {

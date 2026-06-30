@@ -31,5 +31,8 @@ First version to utilize the new changelog!
 - Fixed reversed head tilting on several MoC mobs.
 - Fixed Hunter mobs always attacking the player on sight.
 - Fixed leaves from Wyvwood trees immediately despawning after breaking at least one.
+- Significantly improved Wyvwood tree performance.
+- Fixed a potential memory leak with Wyvwood trees.
+- Fixed a potential crash caused by Wyvwood tree generation.
 ### Removed
 - Removed some outdated and unimplemented content.

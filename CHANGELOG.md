@@ -1,4 +1,10 @@
 # Mo' Creatures Extended Changelog (12.4.9+)
+## 12.5.0
+### Changed
+- Improved how animated textures are rendered and significantly improved performance.
+### Fixed
+- Fixed `AnimateTextures` config option not working with every mob that has animated textures.
+---
 ## 12.4.9
 ### Update Notes
 First version to utilize the new changelog!

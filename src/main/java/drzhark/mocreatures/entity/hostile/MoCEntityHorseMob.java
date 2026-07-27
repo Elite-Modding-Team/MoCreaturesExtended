@@ -33,9 +33,7 @@ import net.minecraft.world.World;
 
 @SuppressWarnings("deprecation")
 public class MoCEntityHorseMob extends MoCEntityMob {
-
     public int mouthCounter;
-    public int textCounter;
     public int standCounter;
     public int tailCounter;
     public int eatingCounter;
@@ -98,31 +96,12 @@ public class MoCEntityHorseMob extends MoCEntityMob {
      */
     @Override
     public ResourceLocation getTexture() {
-
         switch (getType()) {
-            case 23://undead horse
-
+            case 23: // Undead Horse
                 if (!MoCreatures.proxy.getAnimateTextures()) {
-                    return MoCreatures.proxy.getModelTexture("horseundead.png");
+                    return MoCreatures.proxy.getModelTexture("horse_undead_0.png");
                 }
-                String baseTex = "horseundead";
-                int max = 79;
-
-                if (this.rand.nextInt(3) == 0) {
-                    this.textCounter++;
-                }
-                if (this.textCounter < 10) {
-                    this.textCounter = 10;
-                }
-                if (this.textCounter > max) {
-                    this.textCounter = 10;
-                }
-
-                String iteratorTex = String.valueOf(this.textCounter);
-                iteratorTex = iteratorTex.substring(0, 1);
-                String decayTex = String.valueOf(getAge() / 100);
-                decayTex = decayTex.substring(0, 1);
-                return MoCreatures.proxy.getModelTexture(baseTex + decayTex + iteratorTex + ".png");
+                return MoCreatures.proxy.getModelTexture("horse_undead_animated_0.png");
 
             case 26:
                 return MoCreatures.proxy.getModelTexture("horseskeleton.png");
@@ -132,24 +111,12 @@ public class MoCEntityHorseMob extends MoCEntityMob {
 
             case 38:
                 if (!MoCreatures.proxy.getAnimateTextures()) {
-                    return MoCreatures.proxy.getModelTexture("horsenightmare1.png");
+                    return MoCreatures.proxy.getModelTexture("horse_nightmare.png");
                 }
-                this.textCounter++;
-                if (this.textCounter < 10) {
-                    this.textCounter = 10;
-                }
-                if (this.textCounter > 59) {
-                    this.textCounter = 10;
-                }
-                String NTA = "horsenightmare";
-                String NTB = String.valueOf(this.textCounter);
-                NTB = NTB.substring(0, 1);
-                String NTC = ".png";
-
-                return MoCreatures.proxy.getModelTexture(NTA + NTB + NTC);
+                return MoCreatures.proxy.getModelTexture("horse_nightmare_animated.png");
 
             default:
-                return MoCreatures.proxy.getModelTexture("horseundead.png");
+                return MoCreatures.proxy.getModelTexture("horse_undead_0.png");
         }
     }
 

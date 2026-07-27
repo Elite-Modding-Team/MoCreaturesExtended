@@ -35,12 +35,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityWerewolf extends MoCEntityMob {
-
     private static final DataParameter<Boolean> IS_HUMAN = EntityDataManager.createKey(MoCEntityWerewolf.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IS_HUNCHED = EntityDataManager.createKey(MoCEntityWerewolf.class, DataSerializers.BOOLEAN);
     private boolean transforming;
     private int tcounter;
-    private int textCounter;
 
     public MoCEntityWerewolf(World world) {
         super(world);
@@ -116,21 +114,9 @@ public class MoCEntityWerewolf extends MoCEntityMob {
                 return MoCreatures.proxy.getModelTexture("werewolf_white.png");
             case 4:
                 if (!MoCreatures.proxy.getAnimateTextures()) {
-                    return MoCreatures.proxy.getModelTexture("werewolf_fire1.png");
+                    return MoCreatures.proxy.getModelTexture("werewolf_fire.png");
                 }
-                this.textCounter++;
-                if (this.textCounter < 10) {
-                    this.textCounter = 10;
-                }
-                if (this.textCounter > 39) {
-                    this.textCounter = 10;
-                }
-                String NTA = "werewolf_fire";
-                String NTB = String.valueOf(this.textCounter);
-                NTB = NTB.substring(0, 1);
-                String NTC = ".png";
-
-                return MoCreatures.proxy.getModelTexture(NTA + NTB + NTC);
+                return MoCreatures.proxy.getModelTexture("werewolf_fire_animated.png");
             default:
                 return MoCreatures.proxy.getModelTexture("werewolf_brown.png");
         }

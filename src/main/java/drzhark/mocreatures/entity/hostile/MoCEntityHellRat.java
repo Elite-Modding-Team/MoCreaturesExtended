@@ -18,9 +18,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityHellRat extends MoCEntityRat {
-
-    private int textCounter;
-
     public MoCEntityHellRat(World world) {
         super(world);
         setSize(0.88F, 0.755F);
@@ -44,18 +41,10 @@ public class MoCEntityHellRat extends MoCEntityRat {
 
     @Override
     public ResourceLocation getTexture() {
-        if (this.rand.nextInt(2) == 0) {
-            this.textCounter++;
+        if (!MoCreatures.proxy.getAnimateTextures()) {
+            return MoCreatures.proxy.getModelTexture("hell_rat.png");
         }
-        if (this.textCounter < 10) {
-            this.textCounter = 10;
-        }
-        if (this.textCounter > 29) {
-            this.textCounter = 10;
-        }
-        String textNumber = String.valueOf(this.textCounter);
-        textNumber = textNumber.substring(0, 1);
-        return MoCreatures.proxy.getModelTexture("hell_rat" + textNumber + ".png");
+        return MoCreatures.proxy.getModelTexture("hell_rat_animated.png");
     }
 
     @Override

@@ -9,11 +9,13 @@ import drzhark.mocreatures.client.model.MoCModelWerehuman;
 import drzhark.mocreatures.client.model.MoCModelWerewolf;
 import drzhark.mocreatures.entity.hostile.MoCEntityWerewolf;
 import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderWerewolf extends RenderLiving<MoCEntityWerewolf> {
@@ -36,6 +38,31 @@ public class MoCRenderWerewolf extends RenderLiving<MoCEntityWerewolf> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityWerewolf entitywerewolf) {
         return entitywerewolf.getTexture();
+    }
+
+    @Override
+    protected void renderModel(MoCEntityWerewolf entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
+        boolean isAnimated = entity.getType() == 4 && !entity.getIsHumanForm() && MoCreatures.proxy.getAnimateTextures();
+        int frameCount = 3;
+        int ticksPerFrame = 2;
+
+        if (isAnimated) {
+            GlStateManager.matrixMode(GL11.GL_TEXTURE);
+            GlStateManager.pushMatrix();
+            GlStateManager.loadIdentity();
+            int currentFrame = ((int) ageInTicks / ticksPerFrame) % frameCount;
+            GlStateManager.translate(0.0F, (float) currentFrame / frameCount, 0.0F);
+            GlStateManager.scale(1.0F, 1.0F / frameCount, 1.0F);
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+        }
+
+        super.renderModel(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
+
+        if (isAnimated) {
+            GlStateManager.matrixMode(GL11.GL_TEXTURE);
+            GlStateManager.popMatrix();
+            GlStateManager.matrixMode(GL11.GL_MODELVIEW);
+        }
     }
 
     private class LayerMoCWereHuman implements LayerRenderer<MoCEntityWerewolf> {

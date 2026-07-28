@@ -1,0 +1,19 @@
+{
+  "name": "patchouli.mocreatures.name",
+  "nameplate_color": "FF802B",
+  "landing_text": "patchouli.creaturepedia.landing_text",
+  "subtitle": "patchouli.creaturepedia.subtitle",
+  "version": 0,
+  "book_texture": "patchouli:textures/gui/book_brown.png",
+  "crafting_texture": "patchouli:textures/gui/crafting.png",
+  "filler_texture": "",
+  "creative_tab": "mocreatures.tab",
+  "custom_book_item": "mocreatures:creaturepedia",
+  "dont_generate_book": true,
+  "show_progress": false,
+  "index_icon": "mocreatures:textures/items/creaturepedia.png",
+  "model": "mocreatures:creaturepedia",
+  "pause_game": true,
+  "open_sound": "patchouli:book_flip",
+  "flip_sound": "patchouli:book_open"
+}

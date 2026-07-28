@@ -91,6 +91,7 @@ item.mocreatures.chitinnether.name=Fire Chitin
 item.mocreatures.chitinundead.name=Undead Chitin
 item.mocreatures.crabcooked.name=Cooked Crab
 item.mocreatures.crabraw.name=Raw Crab
+item.mocreatures.creaturepedia.name=Creaturepedia
 item.mocreatures.dark_scorpion_mattock.name=Dark Scorpion Mattock
 item.mocreatures.duckcooked.name=Cooked Duck
 item.mocreatures.duckraw.name=Raw Duck
@@ -477,3 +478,7 @@ modifier.mocreatures.thresher_armor.extra.damage=Thresher Damage: +%s
 modifier.mocreatures.thresher_armor.extra.protection=Vs Aquatic: +%s
 modifier.mocreatures.undead_shell_armor.name=Shell of Undead
 modifier.mocreatures.undead_shell_armor.desc=§oDodge this!§r\nThere is a small chance for damage to be ignored entirely, you'll also temporarily gain Strength while your target is withered (or blinded for player targets).
+
+# PATCHOULI
+patchouli.creaturepedia.landing_text=Tired of outdated sources online? We got you covered! This guidebook will feature as much information as possible regarding Mo' Creatures Extended.
+patchouli.creaturepedia.subtitle=Mo' Creatures and You!

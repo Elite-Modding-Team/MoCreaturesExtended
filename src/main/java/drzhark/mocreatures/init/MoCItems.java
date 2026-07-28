@@ -5,6 +5,7 @@ package drzhark.mocreatures.init;
 
 import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.compat.patchouli.item.MoCItemGuidebook;
 import drzhark.mocreatures.item.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -24,6 +25,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
@@ -93,6 +95,8 @@ public class MoCItems {
     public static MoCItem chitinNether;
     @GameRegistry.ObjectHolder("chitinundead")
     public static MoCItem chitinUndead;
+    @GameRegistry.ObjectHolder("creaturepedia")
+    public static MoCItemGuidebook creaturepedia;
     @GameRegistry.ObjectHolder("crabcooked")
     public static MoCItemFood crabcooked;
     @GameRegistry.ObjectHolder("duckcooked")
@@ -426,6 +430,12 @@ public class MoCItems {
         final IForgeRegistry<Item> registry = event.getRegistry();
 
         // ITEMS
+        if (Loader.isModLoaded("patchouli")) {
+            registry.registerAll(
+                    setup(new MoCItemGuidebook(), "creaturepedia")
+            );
+        }
+
         registry.registerAll
                 (
                         setup(new MoCItem(), "sharkteeth"),

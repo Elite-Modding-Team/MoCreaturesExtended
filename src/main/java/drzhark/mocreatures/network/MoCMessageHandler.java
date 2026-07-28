@@ -68,20 +68,27 @@ public class MoCMessageHandler {
 
         @Override
         public void run() {
+            if (MoCProxyClient.mc == null || MoCProxyClient.mc.player == null || MoCProxyClient.mc.player.world == null) {
+                return;
+            }
+
+            List<Entity> entList = MoCProxyClient.mc.player.world.loadedEntityList;
+            if (entList == null) {
+                return;
+            }
+
             if (this.message instanceof MoCMessageAnimation) {
                 MoCMessageAnimation message = (MoCMessageAnimation) this.message;
-                List<Entity> entList = MoCProxyClient.mc.player.world.loadedEntityList;
                 for (Entity ent : entList) {
-                    if (ent.getEntityId() == message.entityId && ent instanceof IMoCEntity) {
+                    if (ent != null && ent.getEntityId() == message.entityId && ent instanceof IMoCEntity) {
                         ((IMoCEntity) ent).performAnimation(message.animationType);
                         break;
                     }
                 }
             } else if (this.message instanceof MoCMessageAppear) {
                 MoCMessageAppear message = (MoCMessageAppear) this.message;
-                List<Entity> entList = MoCProxyClient.mc.player.world.loadedEntityList;
                 for (Entity ent : entList) {
-                    if (ent.getEntityId() == message.entityId && ent instanceof MoCEntityHorse) {
+                    if (ent != null && ent.getEntityId() == message.entityId && ent instanceof MoCEntityHorse) {
                         ((MoCEntityHorse) ent).MaterializeFX();
                         break;
                     }
@@ -91,46 +98,36 @@ public class MoCMessageHandler {
                 Entity var2 = MoCProxyClient.mc.player.world.getEntityByID(message.sourceEntityId);
                 Entity var3 = MoCProxyClient.mc.player.world.getEntityByID(message.targetEntityId);
 
-                if (var2 != null) {
+                if (var2 != null && var3 != null) {
                     var2.startRiding(var3);
                 }
             } else if (this.message instanceof MoCMessageExplode) {
                 MoCMessageExplode message = (MoCMessageExplode) this.message;
-                List<Entity> entList = MoCProxyClient.mc.player.world.loadedEntityList;
                 for (Entity ent : entList) {
-                    if (ent.getEntityId() == message.entityId && ent instanceof MoCEntityOgre) {
+                    if (ent != null && ent.getEntityId() == message.entityId && ent instanceof MoCEntityOgre) {
                         ((MoCEntityOgre) ent).performDestroyBlastAttack();
                         break;
                     }
                 }
             } else if (this.message instanceof MoCMessageHealth) {
                 MoCMessageHealth message = (MoCMessageHealth) this.message;
-                List<Entity> entList = MoCProxyClient.mc.player.world.loadedEntityList;
                 for (Entity ent : entList) {
-                    if (ent.getEntityId() == message.entityId && ent instanceof EntityLiving) {
+                    if (ent != null && ent.getEntityId() == message.entityId && ent instanceof EntityLiving) {
                         ((EntityLiving) ent).setHealth(message.health);
                         break;
                     }
                 }
             } else if (this.message instanceof MoCMessageHeart) {
                 MoCMessageHeart message = (MoCMessageHeart) this.message;
-                Entity entity = null;
-                while (entity == null) {
-                    entity = MoCProxyClient.mc.player.world.getEntityByID(message.entityId);
-                    if (entity != null) {
-                        if (entity instanceof IMoCTameable) {
-                            ((IMoCTameable) entity).spawnHeart();
-                        }
-                    }
+                Entity entity = MoCProxyClient.mc.player.world.getEntityByID(message.entityId);
+                if (entity instanceof IMoCTameable) {
+                    ((IMoCTameable) entity).spawnHeart();
                 }
             } else if (this.message instanceof MoCMessageShuffle) {
                 MoCMessageShuffle message = (MoCMessageShuffle) this.message;
-                List<Entity> entList = MoCProxyClient.mc.player.world.loadedEntityList;
                 for (Entity ent : entList) {
-                    if (ent.getEntityId() == message.entityId && ent instanceof MoCEntityHorse) {
-                        if (message.flag) {
-                            //((MoCEntityHorse) ent).shuffle();
-                        } else {
+                    if (ent != null && ent.getEntityId() == message.entityId && ent instanceof MoCEntityHorse) {
+                        if (!message.flag) {
                             ((MoCEntityHorse) ent).shuffleCounter = 0;
                         }
                         break;
@@ -144,9 +141,8 @@ public class MoCMessageHandler {
                 }
             } else if (this.message instanceof MoCMessageVanish) {
                 MoCMessageVanish message = (MoCMessageVanish) this.message;
-                List<Entity> entList = MoCProxyClient.mc.player.world.loadedEntityList;
                 for (Entity ent : entList) {
-                    if (ent.getEntityId() == message.entityId && ent instanceof MoCEntityHorse) {
+                    if (ent != null && ent.getEntityId() == message.entityId && ent instanceof MoCEntityHorse) {
                         ((MoCEntityHorse) ent).setVanishC((byte) 1);
                         break;
                     }
@@ -154,7 +150,9 @@ public class MoCMessageHandler {
             } else if (this.message instanceof MoCMessageNameGUI) {
                 MoCMessageNameGUI message = (MoCMessageNameGUI) this.message;
                 Entity entity = MoCProxyClient.mc.player.world.getEntityByID(message.entityId);
-                MoCProxyClient.mc.displayGuiScreen(new MoCGUIEntityNamer(((IMoCEntity) entity), ((IMoCEntity) entity).getPetName()));
+                if (entity instanceof IMoCEntity) {
+                    MoCProxyClient.mc.displayGuiScreen(new MoCGUIEntityNamer(((IMoCEntity) entity), ((IMoCEntity) entity).getPetName()));
+                }
             }
         }
     }

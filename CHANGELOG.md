@@ -4,6 +4,7 @@
 - Improved how animated textures are rendered and significantly improved performance.
 ### Fixed
 - Fixed `AnimateTextures` config option not working with every mob that has animated textures.
+- Fixed a potential crash caused by mob animations.
 ---
 ## 12.4.9
 ### Update Notes

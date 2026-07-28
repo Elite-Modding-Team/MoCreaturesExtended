@@ -4,6 +4,7 @@
 package drzhark.mocreatures.entity.hunter;
 
 import drzhark.mocreatures.MoCTools;
+import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.EntityAIFleeFromPlayer;
 import drzhark.mocreatures.entity.ai.EntityAIHunt;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
@@ -51,7 +52,7 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
 
     public MoCEntityCrocodile(World world) {
         super(world);
-        this.texture = "crocodile.png";
+        this.texture = MoCreatures.proxy.lowResolutionTextures ? "16x/crocodile.png" : "crocodile.png";
         setSize(0.9F, 0.5F);
         setAdult(true);
         // TODO: Make hitboxes adjust depending on size

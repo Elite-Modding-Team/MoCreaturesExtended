@@ -125,7 +125,6 @@ public class MoCEntityBoar extends MoCEntityAnimal {
             return MoCreatures.proxy.getModelTexture("boar.png");
         }
         return MoCreatures.proxy.getModelTexture("boar_baby.png");
-
     }
 
     @Override

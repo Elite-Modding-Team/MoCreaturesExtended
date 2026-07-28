@@ -3,6 +3,7 @@
  */
 package drzhark.mocreatures.entity.ambient;
 
+import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityAmbient;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
 import drzhark.mocreatures.init.MoCLootTables;
@@ -20,7 +21,7 @@ public class MoCEntityMaggot extends MoCEntityAmbient {
     public MoCEntityMaggot(World world) {
         super(world);
         setSize(0.2F, 0.2F);
-        this.texture = "maggot.png";
+        this.texture = MoCreatures.proxy.lowResolutionTextures ? "16x/maggot.png" : "maggot.png";
     }
 
     @Override

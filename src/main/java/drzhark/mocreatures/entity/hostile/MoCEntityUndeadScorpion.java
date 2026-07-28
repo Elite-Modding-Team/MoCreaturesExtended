@@ -32,7 +32,7 @@ public class MoCEntityUndeadScorpion extends MoCEntityScorpion {
 
     @Override
     public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("scorpion_undead.png");
+        return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/scorpion_undead.png") : MoCreatures.proxy.getModelTexture("scorpion_undead.png");
     }
 
     @Override

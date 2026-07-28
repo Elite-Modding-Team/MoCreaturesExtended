@@ -75,6 +75,7 @@ public class MoCProxy implements IGuiHandler {
     public boolean legacyWerehumanSounds;
     public boolean legacyWraithSounds;
     public boolean legacyWyvernLairSky;
+    public boolean lowResolutionTextures;
     public boolean staticBed;
     public boolean staticLitter;
     public boolean verboseEntityNames;
@@ -267,6 +268,7 @@ public class MoCProxy implements IGuiHandler {
         this.displayPetHealth = this.mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "DisplayPetHealth", true, "Shows the health of pets.").getBoolean(true);
         this.displayPetIcons = this.mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "DisplayPetIcons", true, "Shows the emotes of pets.").getBoolean(true);
         this.displayPetName = this.mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "DisplayPetName", true, "Shows the name of pets.").getBoolean(true);
+        this.lowResolutionTextures = this.mocSettingsConfig.get(CATEGORY_MOC_GENERAL_SETTINGS, "16xTextures", false, "Converts most creature textures into 16x. Highly recommended if the texture atlas has less space or your computer cannot handle loading higher quality textures.").getBoolean(false);
 
         // General
         this.alphaWraithEyes = this.mocSettingsConfig.get(CATEGORY_MOC_CREATURE_GENERAL_SETTINGS, "AlphaWraithEyes", false, "Enables different eye colors for wraiths and flame wraiths like in alpha versions.").getBoolean(false);

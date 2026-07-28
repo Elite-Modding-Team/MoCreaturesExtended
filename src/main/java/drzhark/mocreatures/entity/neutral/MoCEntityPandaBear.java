@@ -46,7 +46,7 @@ public class MoCEntityPandaBear extends MoCEntityBear {
 
     @Override
     public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("bear_panda.png");
+        return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/bear_panda.png") : MoCreatures.proxy.getModelTexture("bear_panda.png");
     }
 
     @Override

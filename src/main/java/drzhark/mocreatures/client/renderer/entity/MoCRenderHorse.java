@@ -53,13 +53,14 @@ public class MoCRenderHorse extends MoCRenderMoC<MoCEntityHorse> {
     @Override
     protected void renderModel(MoCEntityHorse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
         boolean isAnimated = MoCreatures.proxy.getAnimateTextures();
+        boolean isLowResolution = MoCreatures.proxy.lowResolutionTextures;
         int frameCount = 1;
         int ticksPerFrame = 2;
 
         if (isAnimated) {
             if (entity.isNightmare()) {
                 frameCount = 5;
-            } else if (entity.isUndead() && entity.getType() < 26) {
+            } else if (entity.isUndead() && entity.getType() < 26 && !isLowResolution) {
                 if (entity.getType() == 24) {
                     frameCount = 6; // Undead Unicorn has 6 frames
                     ticksPerFrame = 4;

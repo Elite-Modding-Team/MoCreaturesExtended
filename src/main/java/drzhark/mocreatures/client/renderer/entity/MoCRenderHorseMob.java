@@ -34,11 +34,12 @@ public class MoCRenderHorseMob extends RenderLiving<MoCEntityHorseMob> {
     @Override
     protected void renderModel(MoCEntityHorseMob entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
         boolean isAnimated = MoCreatures.proxy.getAnimateTextures();
+        boolean isLowResolution = MoCreatures.proxy.lowResolutionTextures;
         int frameCount = 1;
         int ticksPerFrame = 2;
 
         if (isAnimated) {
-            if (entity.getType() == 23) {
+            if (entity.getType() == 23 && !isLowResolution) {
                 frameCount = 7;
                 ticksPerFrame = 4;
             } else if (entity.getType() == 38) {

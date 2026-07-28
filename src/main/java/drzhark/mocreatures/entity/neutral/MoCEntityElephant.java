@@ -153,15 +153,15 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
     public ResourceLocation getTexture() {
         switch (getType()) {
             case 2:
-                return MoCreatures.proxy.getModelTexture("elephant_asian.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/elephant_asian.png") : MoCreatures.proxy.getModelTexture("elephant_asian.png");
             case 3:
-                return MoCreatures.proxy.getModelTexture("mammoth_woolly.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/mammoth_woolly.png") : MoCreatures.proxy.getModelTexture("mammoth_woolly.png");
             case 4:
-                return MoCreatures.proxy.getModelTexture("mammoth_songhua.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/mammoth_songhua.png") : MoCreatures.proxy.getModelTexture("mammoth_songhua.png");
             case 5:
-                return MoCreatures.proxy.getModelTexture("elephant_asian_decorated.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/elephant_asian_decorated.png") : MoCreatures.proxy.getModelTexture("elephant_asian_decorated.png");
             default:
-                return MoCreatures.proxy.getModelTexture("elephant_african.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/elephant_african.png") : MoCreatures.proxy.getModelTexture("elephant_african.png");
         }
     }
 

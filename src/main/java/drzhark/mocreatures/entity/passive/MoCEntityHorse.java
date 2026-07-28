@@ -690,15 +690,17 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
      */
     @Override
     public ResourceLocation getTexture() {
+        boolean lowRes = MoCreatures.proxy.lowResolutionTextures;
+
         // Essence transformation
         if (this.transformCounter != 0 && this.transformType != 0) {
             String newText;
             switch (this.transformType) {
                 case 24:
-                    newText = "horse_undead_unicorn_0.png";
+                    newText = (MoCreatures.proxy.getAnimateTextures() && !MoCreatures.proxy.lowResolutionTextures) ? "horse_undead_unicorn_animated_0.png" : "horse_undead_unicorn_0.png";
                     break;
                 case 25:
-                    newText = "horse_undead_pegasus_0.png";
+                    newText = (MoCreatures.proxy.getAnimateTextures() && !MoCreatures.proxy.lowResolutionTextures) ? "horse_undead_pegasus_animated_0.png" : "horse_undead_pegasus_0.png";
                     break;
                 case 32:
                     newText = "horsebat.png";
@@ -707,7 +709,7 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                     newText = "horseunicorn.png";
                     break;
                 case 38:
-                    newText = MoCreatures.proxy.getAnimateTextures() ? "horse_nightmare_animated.png" : "horse_nightmare.png";
+                    newText = (MoCreatures.proxy.getAnimateTextures() && !MoCreatures.proxy.lowResolutionTextures) ? "horse_nightmare_animated.png" : "horse_nightmare.png";
                     break;
                 case 39:
                     newText = "horsepegasus.png";
@@ -752,13 +754,14 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                     newText = "horsefairyorange.png";
                     break;
                 default:
-                    newText = "horse_undead_0.png";
+                    newText = (MoCreatures.proxy.getAnimateTextures() && !MoCreatures.proxy.lowResolutionTextures) ? "horse_undead_animated_0.png" : "horse_undead_0.png";
                     break;
             }
 
             // Flashing effect during transformation
             if (this.transformCounter > 75 && this.transformCounter % 4 == 0) {
-                return MoCreatures.proxy.getModelTexture(newText);
+                String path = lowRes ? "16x/" + newText : newText;
+                return MoCreatures.proxy.getModelTexture(path);
             }
         }
 
@@ -826,11 +829,14 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 if (decayStage > 3) decayStage = 3;
                 if (decayStage < 0) decayStage = 0;
 
-                if (MoCreatures.proxy.getAnimateTextures()) {
-                    return MoCreatures.proxy.getModelTexture(baseTex + "_animated_" + decayStage + ".png");
+                String resolvedTex;
+                if (lowRes) {
+                    resolvedTex = baseTex + "_" + decayStage + ".png";
                 } else {
-                    return MoCreatures.proxy.getModelTexture(baseTex + "_" + decayStage + ".png");
+                    resolvedTex = MoCreatures.proxy.getAnimateTextures() ? baseTex + "_animated_" + decayStage + ".png" : baseTex + "_" + decayStage + ".png";
                 }
+
+                return MoCreatures.proxy.getModelTexture(lowRes ? "16x/" + resolvedTex : resolvedTex);
             }
             case 26:
                 tempTexture = "horseskeleton.png";
@@ -849,9 +855,11 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
                 break;
             case 38:
                 if (!MoCreatures.proxy.getAnimateTextures()) {
-                    return MoCreatures.proxy.getModelTexture("horse_nightmare.png");
+                    String nmTex = "horse_nightmare.png";
+                    return MoCreatures.proxy.getModelTexture(lowRes ? "16x/" + nmTex : nmTex);
                 }
-                return MoCreatures.proxy.getModelTexture("horse_nightmare_animated.png");
+                String nmAnimTex = "horse_nightmare_animated.png";
+                return MoCreatures.proxy.getModelTexture(lowRes ? "16x/" + nmAnimTex : nmAnimTex);
             case 39:
                 tempTexture = "horsepegasus.png";
                 break;
@@ -925,10 +933,11 @@ public class MoCEntityHorse extends MoCEntityTameableAnimal {
             if (getArmorType() == 2) armorTex = "gold.png";
             if (getArmorType() == 3) armorTex = "diamond.png";
             if (getArmorType() == 4) armorTex = "crystaline.png";
-            return MoCreatures.proxy.getModelTexture(tempTexture.replace(".png", armorTex));
+            String combinedArmor = tempTexture.replace(".png", armorTex);
+            return MoCreatures.proxy.getModelTexture(lowRes ? "16x/" + combinedArmor : combinedArmor);
         }
 
-        return MoCreatures.proxy.getModelTexture(tempTexture);
+        return MoCreatures.proxy.getModelTexture(lowRes ? "16x/" + tempTexture : tempTexture);
     }
 
     /**

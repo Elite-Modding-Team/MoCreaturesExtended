@@ -4,15 +4,13 @@
 package drzhark.mocreatures.entity.hunter;
 
 import drzhark.mocreatures.MoCTools;
+import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityInsect;
 import drzhark.mocreatures.entity.ai.*;
 import drzhark.mocreatures.entity.ambient.MoCEntityCrab;
 import drzhark.mocreatures.entity.aquatic.MoCEntityFishy;
 import drzhark.mocreatures.entity.aquatic.MoCEntitySmallFish;
-import drzhark.mocreatures.entity.passive.MoCEntityBird;
 import drzhark.mocreatures.entity.passive.MoCEntityBunny;
-import drzhark.mocreatures.entity.passive.MoCEntityDuck;
-import drzhark.mocreatures.entity.passive.MoCEntityMouse;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAnimal;
 import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
@@ -22,8 +20,6 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityParrot;
 import net.minecraft.entity.passive.EntityRabbit;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -42,7 +38,7 @@ public class MoCEntityRaccoon extends MoCEntityTameableAnimal {
     public MoCEntityRaccoon(World world) {
         super(world);
         setSize(0.6F, 0.525F);
-        this.texture = "raccoon.png";
+        this.texture = MoCreatures.proxy.lowResolutionTextures ? "16x/raccoon.png" : "raccoon.png";
         // TODO: Make hitboxes adjust depending on size
         //setAge(50 + this.rand.nextInt(15));
         setAge(60);

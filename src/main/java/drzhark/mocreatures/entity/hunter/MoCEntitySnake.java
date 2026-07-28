@@ -137,21 +137,21 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     public ResourceLocation getTexture() {
         switch (getType()) {
             case 2:
-                return MoCreatures.proxy.getModelTexture("snake_wolf.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/snake_wolf.png") : MoCreatures.proxy.getModelTexture("snake_wolf.png");
             case 3:
-                return MoCreatures.proxy.getModelTexture("snake_orange.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/snake_orange.png") : MoCreatures.proxy.getModelTexture("snake_orange.png");
             case 4:
-                return MoCreatures.proxy.getModelTexture("snake_green_bright.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/snake_green_bright.png") : MoCreatures.proxy.getModelTexture("snake_green_bright.png");
             case 5:
-                return MoCreatures.proxy.getModelTexture("snake_coral.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/snake_coral.png") : MoCreatures.proxy.getModelTexture("snake_coral.png");
             case 6:
-                return MoCreatures.proxy.getModelTexture("snake_cobra.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/snake_cobra.png") : MoCreatures.proxy.getModelTexture("snake_cobra.png");
             case 7:
-                return MoCreatures.proxy.getModelTexture("snake_rattle.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/snake_rattle.png") : MoCreatures.proxy.getModelTexture("snake_rattle.png");
             case 8:
-                return MoCreatures.proxy.getModelTexture("snake_python.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/snake_python.png") : MoCreatures.proxy.getModelTexture("snake_python.png");
             default:
-                return MoCreatures.proxy.getModelTexture("snake_green_dark.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/snake_green_dark.png") : MoCreatures.proxy.getModelTexture("snake_green_dark.png");
         }
     }
 

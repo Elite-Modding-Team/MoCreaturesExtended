@@ -93,14 +93,14 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
 
         if (!getIsAdult()) {
             if (getType() == 2) {
-                return MoCreatures.proxy.getModelTexture("fox_snow.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/fox_snow.png") : MoCreatures.proxy.getModelTexture("fox_snow.png");
             }
-            return MoCreatures.proxy.getModelTexture("fox_cub.png");
+            return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/fox_cub.png") : MoCreatures.proxy.getModelTexture("fox_cub.png");
         }
         if (getType() == 2) {
-            return MoCreatures.proxy.getModelTexture("fox_snow.png");
+            return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/fox_snow.png") : MoCreatures.proxy.getModelTexture("fox_snow.png");
         }
-        return MoCreatures.proxy.getModelTexture("fox.png");
+        return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/fox.png") : MoCreatures.proxy.getModelTexture("fox.png");
     }
 
     @Override

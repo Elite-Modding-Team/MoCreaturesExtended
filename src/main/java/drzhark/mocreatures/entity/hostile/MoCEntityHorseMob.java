@@ -98,25 +98,25 @@ public class MoCEntityHorseMob extends MoCEntityMob {
     public ResourceLocation getTexture() {
         switch (getType()) {
             case 23: // Undead Horse
-                if (!MoCreatures.proxy.getAnimateTextures()) {
-                    return MoCreatures.proxy.getModelTexture("horse_undead_0.png");
+                if (!MoCreatures.proxy.getAnimateTextures() || MoCreatures.proxy.lowResolutionTextures) {
+                    return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horse_undead_0.png") : MoCreatures.proxy.getModelTexture("horse_undead_0.png");
                 }
                 return MoCreatures.proxy.getModelTexture("horse_undead_animated_0.png");
 
             case 26:
-                return MoCreatures.proxy.getModelTexture("horseskeleton.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horseskeleton.png") : MoCreatures.proxy.getModelTexture("horseskeleton.png");
 
             case 32:
-                return MoCreatures.proxy.getModelTexture("horsebat.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horsebat.png") : MoCreatures.proxy.getModelTexture("horsebat.png");
 
             case 38:
                 if (!MoCreatures.proxy.getAnimateTextures()) {
-                    return MoCreatures.proxy.getModelTexture("horse_nightmare.png");
+                    return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horse_nightmare.png") : MoCreatures.proxy.getModelTexture("horse_nightmare.png");
                 }
-                return MoCreatures.proxy.getModelTexture("horse_nightmare_animated.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horse_nightmare_animated.png") : MoCreatures.proxy.getModelTexture("horse_nightmare_animated.png");
 
             default:
-                return MoCreatures.proxy.getModelTexture("horse_undead_0.png");
+                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horse_undead_0.png") : MoCreatures.proxy.getModelTexture("horse_undead_0.png");
         }
     }
 

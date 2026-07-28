@@ -21,7 +21,8 @@
 - Project Setup, Bugfixes, Turkey Breeding ~ Dockter
 - Filch Lizards from [Primitive Mobs](https://www.curseforge.com/minecraft/mc-mods/primitive-mobs) (with permission!) ~ Daveyx0
 - Some assets used from their [texture repository](https://github.com/malcolmriley/unused-textures) ~ MCThe_Paragon (Malcolm Riley)
-- Thaumcraft aspects from their [Mo' Creatures Aspects](https://www.curseforge.com/minecraft/customization/mo-creatures-aspects) script ~ Rozmir
+- Initial 16x texture shrinking ~ crazyspacekid
+- Thaumcraft aspects from their [Mo' Creatures Aspects](https://www.curseforge.com/minecraft/customization/mo-creatures-aspects) script and modifications to the 16x textures from their [1.7.10 fork](https://www.curseforge.com/minecraft/mc-mods/mo-creatures-legacy) ~ Rozmir_Rohi
 - New Shark Model ~ Foreck
 - Donkey & Mule Texture Tweaks ~ Deino
 - Extra Kitty Textures ~ Paulu2015

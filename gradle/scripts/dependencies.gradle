@@ -41,21 +41,21 @@ dependencies {
 
     // TODO: Clean up mod integration
     // Thermal Expansion
-    implementation rfg.deobf("curse.maven:cofh-core-69162:2920433")
-    implementation rfg.deobf("curse.maven:thermal-expansion-69163:2926431")
-    runtimeOnly "curse.maven:codechicken-lib-1-8-242818:2779848"
-    implementation rfg.deobf("curse.maven:thermal-foundation-222880:2926428")
-    runtimeOnly "curse.maven:cofh-world-271384:2920434"
-    runtimeOnly "curse.maven:redstone-flux-270789:2920436"
+    compileOnly "curse.maven:cofh-core-69162:2920433"
+    compileOnly "curse.maven:thermal-expansion-69163:2926431"
+    compileOnly "curse.maven:codechicken-lib-1-8-242818:2779848"
+    compileOnly "curse.maven:thermal-foundation-222880:2926428"
+    compileOnly "curse.maven:cofh-world-271384:2920434"
+    compileOnly "curse.maven:redstone-flux-270789:2920436"
 
     // Thaumcraft + Baubles
     implementation rfg.deobf("curse.maven:thaumcraft-223628:2629023")
     runtimeOnly "curse.maven:baubles-227083:2518667"
 
     // Industrial Foregoing
-    implementation "curse.maven:industrial-foregoing-266515:2745324"
-    runtimeOnly "curse.maven:forgelin-continuous-456403:5946402"
-    runtimeOnly "curse.maven:tesla-core-lib-254602:3438487"
+    compileOnly "curse.maven:industrial-foregoing-266515:2745324"
+    compileOnly "curse.maven:forgelin-continuous-456403:5946402"
+    compileOnly "curse.maven:tesla-core-lib-254602:3438487"
 
     // Morph
     implementation "curse.maven:morph-229080:2995522"

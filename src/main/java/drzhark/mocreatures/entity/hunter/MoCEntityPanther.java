@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.hunter;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.tameable.IMoCTameable;
 import drzhark.mocreatures.init.MoCItems;
 import drzhark.mocreatures.init.MoCLootTables;
@@ -32,13 +31,6 @@ public class MoCEntityPanther extends MoCEntityBigCat {
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(25.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(6.0D);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (MoCreatures.proxy.legacyBigCatModels)
-            return MoCreatures.proxy.getModelTexture("big_cat_panther_legacy.png");
-        return MoCreatures.proxy.getModelTexture("big_cat_panther.png");
     }
 
     @Override

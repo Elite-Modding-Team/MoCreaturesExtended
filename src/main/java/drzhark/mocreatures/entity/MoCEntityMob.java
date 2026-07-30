@@ -26,7 +26,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.pathfinding.PathNavigateSwimmer;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
@@ -88,11 +87,6 @@ public abstract class MoCEntityMob extends EntityMob implements IMoCEntity {
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, IEntityLivingData par1EntityLivingData) {
         selectType();
         return super.onInitialSpawn(difficulty, par1EntityLivingData);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture(this.texture);
     }
 
     protected double getAttackStrenght() {

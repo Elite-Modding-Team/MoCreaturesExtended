@@ -4,7 +4,6 @@
 package drzhark.mocreatures.entity.hunter;
 
 import drzhark.mocreatures.MoCTools;
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.tameable.IMoCTameable;
 import drzhark.mocreatures.init.MoCLootTables;
 import net.minecraft.entity.Entity;
@@ -23,7 +22,6 @@ import net.minecraftforge.common.BiomeDictionary.Type;
 import javax.annotation.Nullable;
 
 public class MoCEntityLeopard extends MoCEntityBigCat {
-
     public MoCEntityLeopard(World world) {
         super(world);
         setSize(1.165F, 1.01F);
@@ -63,20 +61,6 @@ public class MoCEntityLeopard extends MoCEntityBigCat {
         }
         setType(1);
         return true;
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (MoCreatures.proxy.legacyBigCatModels) {
-            if (getType() == 2) {
-                return MoCreatures.proxy.getModelTexture("big_cat_snow_leopard_legacy.png");
-            }
-            return MoCreatures.proxy.getModelTexture("big_cat_leopard_legacy.png");
-        }
-        if (getType() == 2) {
-            return MoCreatures.proxy.getModelTexture("big_cat_snow_leopard.png");
-        }
-        return MoCreatures.proxy.getModelTexture("big_cat_leopard.png");
     }
 
     @Override

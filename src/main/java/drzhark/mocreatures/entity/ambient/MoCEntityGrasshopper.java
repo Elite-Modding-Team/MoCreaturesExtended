@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityGrasshopper extends MoCEntityInsect {
-
     private int jumpCounter;
     //private int soundCounter;
 

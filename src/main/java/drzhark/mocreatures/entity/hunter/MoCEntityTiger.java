@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.hunter;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.tameable.IMoCTameable;
 import drzhark.mocreatures.init.MoCItems;
 import drzhark.mocreatures.init.MoCLootTables;
@@ -45,26 +44,6 @@ public class MoCEntityTiger extends MoCEntityBigCat {
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(calculateMaxHealth());
         this.setHealth(getMaxHealth());
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(calculateAttackDmg());
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (MoCreatures.proxy.legacyBigCatModels) {
-            switch (getType()) {
-                case 2:
-                case 3:
-                    return MoCreatures.proxy.getModelTexture("big_cat_white_tiger_legacy.png");
-                default:
-                    return MoCreatures.proxy.getModelTexture("big_cat_tiger_legacy.png");
-            }
-        }
-        switch (getType()) {
-            case 2: // White Tiger
-            case 3: // Winged White Tiger
-                return MoCreatures.proxy.getModelTexture("big_cat_white_tiger.png");
-            default: // Orange Tiger
-                return MoCreatures.proxy.getModelTexture("big_cat_tiger.png");
-        }
     }
 
     @Override

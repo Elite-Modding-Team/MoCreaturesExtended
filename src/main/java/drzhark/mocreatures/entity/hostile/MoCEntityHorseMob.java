@@ -25,7 +25,6 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -79,44 +78,6 @@ public class MoCEntityHorseMob extends MoCEntityMob {
                     setType(32); //bat
                 }
             }
-        }
-    }
-
-    /**
-     * Overridden for the dynamic nightmare texture. *
-     * 23 Undead
-     * 24 Undead Unicorn
-     * 25 Undead Pegasus
-     * 26 skeleton
-     * 27 skeleton unicorn
-     * 28 skeleton pegasus
-     * 30 bug horse
-     * 32 Bat Horse
-     * 38 nightmare
-     */
-    @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 23: // Undead Horse
-                if (!MoCreatures.proxy.getAnimateTextures() || MoCreatures.proxy.lowResolutionTextures) {
-                    return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horse_undead_0.png") : MoCreatures.proxy.getModelTexture("horse_undead_0.png");
-                }
-                return MoCreatures.proxy.getModelTexture("horse_undead_animated_0.png");
-
-            case 26:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horseskeleton.png") : MoCreatures.proxy.getModelTexture("horseskeleton.png");
-
-            case 32:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horsebat.png") : MoCreatures.proxy.getModelTexture("horsebat.png");
-
-            case 38:
-                if (!MoCreatures.proxy.getAnimateTextures()) {
-                    return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horse_nightmare.png") : MoCreatures.proxy.getModelTexture("horse_nightmare.png");
-                }
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horse_nightmare_animated.png") : MoCreatures.proxy.getModelTexture("horse_nightmare_animated.png");
-
-            default:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/horse_undead_0.png") : MoCreatures.proxy.getModelTexture("horse_undead_0.png");
         }
     }
 

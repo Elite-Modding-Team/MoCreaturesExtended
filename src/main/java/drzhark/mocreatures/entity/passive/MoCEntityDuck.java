@@ -41,7 +41,6 @@ public class MoCEntityDuck extends MoCEntityAnimal {
 
     public MoCEntityDuck(World world) {
         super(world);
-        this.texture = "duck.png";
         setSize(0.4F, 0.7F);
         setAdult(true);
         setAge(60);

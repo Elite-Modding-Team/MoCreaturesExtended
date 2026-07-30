@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.aquatic;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.EntityAIFleeFromEntityMoC;
 import drzhark.mocreatures.entity.ai.EntityAIPanicMoC;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
@@ -11,7 +10,6 @@ import drzhark.mocreatures.entity.tameable.MoCEntityTameableAquatic;
 import drzhark.mocreatures.init.MoCSoundEvents;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -75,27 +73,6 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic {
             setType(this.rand.nextInt(fishNames.length) + 1);
         }
 
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-
-        switch (getType()) {
-            case 1:
-                return MoCreatures.proxy.getModelTexture("smallfish_anchovy.png");
-            case 2:
-                return MoCreatures.proxy.getModelTexture("smallfish_angelfish.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("smallfish_angler.png");
-            case 5:
-                return MoCreatures.proxy.getModelTexture("smallfish_goldfish.png");
-            case 6:
-                return MoCreatures.proxy.getModelTexture("smallfish_hippotang.png");
-            case 7:
-                return MoCreatures.proxy.getModelTexture("smallfish_manderin.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("smallfish_clownfish.png");
-        }
     }
 
     @Override

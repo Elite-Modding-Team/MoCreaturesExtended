@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.hunter;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.tameable.IMoCTameable;
 import drzhark.mocreatures.init.MoCItems;
 import drzhark.mocreatures.init.MoCLootTables;
@@ -46,31 +45,6 @@ public class MoCEntityLion extends MoCEntityBigCat {
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(calculateMaxHealth());
         this.setHealth(getMaxHealth());
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(calculateAttackDmg());
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (MoCreatures.proxy.legacyBigCatModels) {
-            switch (getType()) {
-                case 6:
-                case 7:
-                case 8:
-                    return MoCreatures.proxy.getModelTexture("big_cat_white_lion_legacy.png");
-                default:
-                    return MoCreatures.proxy.getModelTexture("big_cat_lion_legacy.png");
-            }
-        }
-        switch (getType()) {
-            case 2:
-            case 3:
-                return MoCreatures.proxy.getModelTexture("big_cat_lion_male.png");
-            case 6:
-            case 7:
-            case 8:
-                return MoCreatures.proxy.getModelTexture("big_cat_white_lion.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("big_cat_lion_female.png");
-        }
     }
 
     @Override

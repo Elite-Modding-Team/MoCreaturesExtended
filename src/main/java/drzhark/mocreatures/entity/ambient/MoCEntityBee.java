@@ -25,12 +25,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityBee extends MoCEntityInsect {
-
     private int soundCount;
 
     public MoCEntityBee(World world) {
         super(world);
-        this.texture = "bee.png";
     }
 
     @Override

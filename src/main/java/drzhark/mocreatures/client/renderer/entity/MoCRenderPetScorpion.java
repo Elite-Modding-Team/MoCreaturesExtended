@@ -5,6 +5,7 @@ package drzhark.mocreatures.client.renderer.entity;
 
 import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.client.model.MoCModelPetScorpion;
 import drzhark.mocreatures.client.model.MoCModelScorpion;
 import drzhark.mocreatures.entity.hunter.MoCEntityPetScorpion;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,7 +16,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class MoCRenderPetScorpion extends MoCRenderMoC<MoCEntityPetScorpion> {
 
-    public MoCRenderPetScorpion(MoCModelScorpion model, float f) {
+    public MoCRenderPetScorpion(MoCModelPetScorpion model, float f) {
         super(model, f);
     }
 

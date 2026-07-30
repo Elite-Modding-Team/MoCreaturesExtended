@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.ambient;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityAmbient;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
 import drzhark.mocreatures.init.MoCLootTables;
@@ -57,24 +56,6 @@ public class MoCEntitySnail extends MoCEntityAmbient {
     public void selectType() {
         if (getType() == 0) {
             setType(this.rand.nextInt(6) + 1);
-        }
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 2:
-                return MoCreatures.proxy.getModelTexture("snail_green.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("snail_yellow.png");
-            case 4:
-                return MoCreatures.proxy.getModelTexture("snail_red.png");
-            case 5:
-                return MoCreatures.proxy.getModelTexture("slug_golden.png");
-            case 6:
-                return MoCreatures.proxy.getModelTexture("slug_black.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("snail_brown.png");
         }
     }
 

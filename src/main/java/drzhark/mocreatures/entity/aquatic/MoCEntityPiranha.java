@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.aquatic;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.EntityAIHuntAquatic;
 import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
@@ -55,11 +54,6 @@ public class MoCEntityPiranha extends MoCEntitySmallFish {
     @Override
     public void selectType() {
         setType(1);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("smallfish_piranha.png");
     }
 
     @Override

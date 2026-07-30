@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.hunter;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.tameable.IMoCTameable;
 import drzhark.mocreatures.init.MoCLootTables;
 import net.minecraft.entity.Entity;
@@ -17,7 +16,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityPanthard extends MoCEntityBigCat {
-
     public MoCEntityPanthard(World world) {
         super(world);
         setSize(1.14F, 1.063175F);
@@ -37,13 +35,6 @@ public class MoCEntityPanthard extends MoCEntityBigCat {
             setType(1);
         }
         super.selectType();
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (MoCreatures.proxy.legacyBigCatModels)
-            return MoCreatures.proxy.getModelTexture("big_cat_panthard_legacy.png");
-        return MoCreatures.proxy.getModelTexture("big_cat_panthard.png");
     }
 
     @Override

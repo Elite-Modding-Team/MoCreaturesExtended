@@ -18,12 +18,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityFly extends MoCEntityInsect {
-
     private int soundCount;// = 50;
 
     public MoCEntityFly(World world) {
         super(world);
-        this.texture = "fly.png";
     }
 
     @Override

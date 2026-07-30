@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.hunter;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.init.MoCItems;
 import drzhark.mocreatures.init.MoCLootTables;
 import net.minecraft.entity.Entity;
@@ -37,25 +36,9 @@ public class MoCEntityManticorePet extends MoCEntityBigCat {
     public void selectType() {
 
         if (getType() == 0) {
-            setType(this.rand.nextInt(4) + 1);
+            setType(this.rand.nextInt(5) + 1);
         }
         super.selectType();
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 2:
-                return MoCreatures.proxy.getModelTexture("manticore_dark.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("manticore_frost.png");
-            case 4:
-                return MoCreatures.proxy.getModelTexture("manticore_toxic.png");
-            case 5:
-                return MoCreatures.proxy.getModelTexture("manticore_plain.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("manticore_fire.png");
-        }
     }
 
     @Override

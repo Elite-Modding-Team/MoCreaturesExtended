@@ -7,12 +7,9 @@ import drzhark.mocreatures.MoCTools;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.client.gui.MoCGUIEntityNamer;
 import drzhark.mocreatures.client.model.*;
-import drzhark.mocreatures.client.model.legacy.MoCLegacyModelBigCat1;
-import drzhark.mocreatures.client.model.legacy.MoCLegacyModelBigCat2;
 import drzhark.mocreatures.client.model.legacy.MoCLegacyModelShark;
 import drzhark.mocreatures.client.renderer.entity.*;
-import drzhark.mocreatures.client.renderer.entity.legacy.MoCLegacyRenderBigCat;
-import drzhark.mocreatures.client.renderer.entity.legacy.MoCLegacyRenderShark;
+import drzhark.mocreatures.client.renderer.entity.legacy.*;
 import drzhark.mocreatures.client.renderer.fx.MoCEntityFXStar;
 import drzhark.mocreatures.client.renderer.fx.MoCEntityFXUndead;
 import drzhark.mocreatures.client.renderer.fx.MoCEntityFXVacuum;
@@ -61,21 +58,6 @@ public class MoCProxyClient extends MoCProxy {
     }
 
     @Override
-    public ResourceLocation getBlockTexture(String texture) {
-        return mocTextures.getBlockTexture(texture);
-    }
-
-    @Override
-    public ResourceLocation getItemTexture(String texture) {
-        return mocTextures.getItemTexture(texture);
-    }
-
-    @Override
-    public ResourceLocation getModelTexture(String texture) {
-        return mocTextures.getModelTexture(texture);
-    }
-
-    @Override
     public ResourceLocation getGuiTexture(String texture) {
         return mocTextures.getGuiTexture(texture);
     }
@@ -97,13 +79,13 @@ public class MoCProxyClient extends MoCProxy {
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityButterfly.class, new MoCRenderButterfly(new MoCModelButterfly()));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityHorse.class, new MoCRenderHorse(new MoCModelHorse()));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityHorseMob.class, new MoCRenderHorseMob(new MoCModelHorseMob()));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityBoar.class, new MoCRenderMoC(new MoCModelBoar(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityBoar.class, new MoCRenderBoar());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityBlackBear.class, new MoCRenderBlackBear());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityGrizzlyBear.class, new MoCRenderGrizzlyBear());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityPandaBear.class, new MoCRenderPandaBear());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityPolarBear.class, new MoCRenderPolarBear());
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityDuck.class, new MoCRenderMoC(new MoCModelDuck(), 0.3F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityDeer.class, new MoCRenderMoC(new MoCModelDeer(), 0.5F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityDuck.class, new MoCRenderDuck());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityDeer.class, new MoCRenderDeer());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityWWolf.class, new MoCRenderWWolf(new MoCModelWolf(), 0.7F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityWraith.class, new MoCRenderWraith());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityFlameWraith.class, new MoCRenderFlameWraith());
@@ -124,18 +106,18 @@ public class MoCProxyClient extends MoCProxy {
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityFrostScorpion.class, new MoCRenderFrostScorpion());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityUndeadScorpion.class, new MoCRenderUndeadScorpion());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityCrocodile.class, new MoCRenderCrocodile(new MoCModelCrocodile(), 0.5F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityMantaRay.class, new MoCRenderMoC(new MoCModelRay(), 0.4F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityStingRay.class, new MoCRenderMoC(new MoCModelRay(), 0.4F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityMantaRay.class, new MoCRenderMantaRay());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityStingRay.class, new MoCRenderStingRay());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityJellyFish.class, new MoCRenderJellyfish());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityGoat.class, new MoCRenderGoat(new MoCModelGoat(), 0.3F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityOstrich.class, new MoCRenderOstrich(new MoCModelOstrich(), 0.5F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityBee.class, new MoCRenderInsect(new MoCModelBee()));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityFly.class, new MoCRenderInsect(new MoCModelFly()));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityDragonfly.class, new MoCRenderInsect(new MoCModelDragonfly()));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityBee.class, new MoCRenderBee());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityFly.class, new MoCRenderFly());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityDragonfly.class, new MoCRenderDragonfly());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityFirefly.class, new MoCRenderFirefly(new MoCModelFirefly()));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityCricket.class, new MoCRenderCricket(new MoCModelCricket()));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityGrasshopper.class, new MoCRenderGrasshopper(new MoCModelGrasshopper()));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntitySnail.class, new MoCRenderMoC(new MoCModelSnail(), 0.0F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntitySnail.class, new MoCRenderSnail());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityGolem.class, new MoCRenderGolem(new MoCModelGolem(), 0.5F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityThrowableRock.class, new MoCRenderTRock());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityPetScorpion.class, new MoCRenderPetScorpion(new MoCModelPetScorpion(), 0.4F));
@@ -145,55 +127,55 @@ public class MoCProxyClient extends MoCProxy {
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityGreenOgre.class, new MoCRenderGreenOgre());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityCaveOgre.class, new MoCRenderCaveOgre());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityFireOgre.class, new MoCRenderFireOgre());
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityRoach.class, new MoCRenderInsect(new MoCModelRoach()));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityRoach.class, new MoCRenderRoach());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityMaggot.class, new MoCRenderMaggot());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityCrab.class, new MoCRenderCrab());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityRaccoon.class, new MoCRenderRaccoon());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityMiniGolem.class, new MoCRenderMiniBlockGolem());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntitySilverSkeleton.class, new MoCRenderSilverSkeleton());
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityAnt.class, new MoCRenderMoC(new MoCModelAnt(), 0F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityAnt.class, new MoCRenderAnt());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityCod.class, new MoCRenderCod());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntitySalmon.class, new MoCRenderSalmon());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityBass.class, new MoCRenderBass());
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityAnchovy.class, new MoCRenderMoC(new MoCModelSmallFish(), 0.1F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityAngelFish.class, new MoCRenderMoC(new MoCModelSmallFish(), 0.1F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityAngler.class, new MoCRenderMoC(new MoCModelSmallFish(), 0.1F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityClownFish.class, new MoCRenderMoC(new MoCModelSmallFish(), 0.1F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityGoldFish.class, new MoCRenderMoC(new MoCModelSmallFish(), 0.1F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityHippoTang.class, new MoCRenderMoC(new MoCModelSmallFish(), 0.1F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityManderin.class, new MoCRenderMoC(new MoCModelSmallFish(), 0.1F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityPiranha.class, new MoCRenderMoC(new MoCModelSmallFish(), 0.1F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityEnt.class, new MoCRenderMoC(new MoCModelEnt(), 0.5F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityMole.class, new MoCRenderMoC(new MoCModelMole(), 0F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityDarkManticore.class, new MoCRenderMoC(new MoCModelManticore(), 0.7F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityFireManticore.class, new MoCRenderMoC(new MoCModelManticore(), 0.7F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityFrostManticore.class, new MoCRenderMoC(new MoCModelManticore(), 0.7F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityPlainManticore.class, new MoCRenderMoC(new MoCModelManticore(), 0.7F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityToxicManticore.class, new MoCRenderMoC(new MoCModelManticore(), 0.7F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityManticorePet.class, new MoCRenderMoC(new MoCModelManticorePet(), 0.7F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityAnchovy.class, new MoCRenderAnchovy());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityAngelFish.class, new MoCRenderAngelfish());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityAngler.class, new MoCRenderAnglerfish());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityClownFish.class, new MoCRenderClownfish());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityGoldFish.class, new MoCRenderGoldfish());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityHippoTang.class, new MoCRenderHippoTang());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityManderin.class, new MoCRenderMandarinfish());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityPiranha.class, new MoCRenderPiranha());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityEnt.class, new MoCRenderEnt());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityMole.class, new MoCRenderMole());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityDarkManticore.class, new MoCRenderDarkManticore());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityFireManticore.class, new MoCRenderFireManticore());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityFrostManticore.class, new MoCRenderFrostManticore());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityPlainManticore.class, new MoCRenderPlainManticore());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityToxicManticore.class, new MoCRenderToxicManticore());
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityManticorePet.class, new MoCRenderPetManticore());
 
         if (MoCreatures.proxy.legacyBigCatModels) {
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLeoger.class, new MoCLegacyRenderBigCat(new MoCLegacyModelBigCat2(), new MoCLegacyModelBigCat1(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLeopard.class, new MoCLegacyRenderBigCat(new MoCLegacyModelBigCat2(), new MoCLegacyModelBigCat1(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLiard.class, new MoCLegacyRenderBigCat(new MoCLegacyModelBigCat2(), new MoCLegacyModelBigCat1(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLiger.class, new MoCLegacyRenderBigCat(new MoCLegacyModelBigCat2(), new MoCLegacyModelBigCat1(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLion.class, new MoCLegacyRenderBigCat(new MoCLegacyModelBigCat2(), new MoCLegacyModelBigCat1(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLither.class, new MoCLegacyRenderBigCat(new MoCLegacyModelBigCat2(), new MoCLegacyModelBigCat1(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanthard.class, new MoCLegacyRenderBigCat(new MoCLegacyModelBigCat2(), new MoCLegacyModelBigCat1(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanther.class, new MoCLegacyRenderBigCat(new MoCLegacyModelBigCat2(), new MoCLegacyModelBigCat1(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanthger.class, new MoCLegacyRenderBigCat(new MoCLegacyModelBigCat2(), new MoCLegacyModelBigCat1(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityTiger.class, new MoCLegacyRenderBigCat(new MoCLegacyModelBigCat2(), new MoCLegacyModelBigCat1(), 0.5F));
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLeoger.class, new MoCLegacyRenderLeoger());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLeopard.class, new MoCLegacyRenderLeopard());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLiard.class, new MoCLegacyRenderLiard());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLiger.class, new MoCLegacyRenderLiger());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLion.class, new MoCLegacyRenderLion());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLither.class, new MoCLegacyRenderLither());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanthard.class, new MoCLegacyRenderPanthard());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanther.class, new MoCLegacyRenderPanther());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanthger.class, new MoCLegacyRenderPanthger());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityTiger.class, new MoCLegacyRenderTiger());
         } else {
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLeoger.class, new MoCRenderMoC(new MoCModelBigCat(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLeopard.class, new MoCRenderMoC(new MoCModelBigCat(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLiard.class, new MoCRenderMoC(new MoCModelBigCat(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLiger.class, new MoCRenderMoC(new MoCModelBigCat(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLion.class, new MoCRenderMoC(new MoCModelBigCat(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLither.class, new MoCRenderMoC(new MoCModelBigCat(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanthard.class, new MoCRenderMoC(new MoCModelBigCat(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanther.class, new MoCRenderMoC(new MoCModelBigCat(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanthger.class, new MoCRenderMoC(new MoCModelBigCat(), 0.5F));
-            RenderingRegistry.registerEntityRenderingHandler(MoCEntityTiger.class, new MoCRenderMoC(new MoCModelBigCat(), 0.5F));
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLeoger.class, new MoCRenderLeoger());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLeopard.class, new MoCRenderLeopard());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLiard.class, new MoCRenderLiard());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLiger.class, new MoCRenderLiger());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLion.class, new MoCRenderLion());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityLither.class, new MoCRenderLither());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanthard.class, new MoCRenderPanthard());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanther.class, new MoCRenderPanther());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityPanthger.class, new MoCRenderPanthger());
+            RenderingRegistry.registerEntityRenderingHandler(MoCEntityTiger.class, new MoCRenderTiger());
         }
         if (MoCreatures.proxy.legacySharkModel) {
             RenderingRegistry.registerEntityRenderingHandler(MoCEntityShark.class, new MoCLegacyRenderShark(new MoCLegacyModelShark(), 0.6F));

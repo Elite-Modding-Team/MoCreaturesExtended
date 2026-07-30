@@ -5,7 +5,6 @@ package drzhark.mocreatures.entity.passive;
 
 import com.google.common.collect.Sets;
 import drzhark.mocreatures.MoCTools;
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.EntityAIFleeFromEntityMoC;
 import drzhark.mocreatures.entity.ai.EntityAIFollowAdult;
 import drzhark.mocreatures.entity.ai.EntityAIMateMoC;
@@ -130,20 +129,6 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
                 setAdult(false);
                 setType(3);
             }
-        }
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-
-        switch (getType()) {
-            case 2:
-                return MoCreatures.proxy.getModelTexture("deer_doe.png");
-            case 3:
-                setAdult(false);
-                return MoCreatures.proxy.getModelTexture("deer_fawn.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("deer_stag.png");
         }
     }
 

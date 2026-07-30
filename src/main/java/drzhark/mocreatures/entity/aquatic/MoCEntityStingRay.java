@@ -4,7 +4,6 @@
 package drzhark.mocreatures.entity.aquatic;
 
 import drzhark.mocreatures.MoCTools;
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
 import drzhark.mocreatures.network.MoCMessageHandler;
@@ -21,7 +20,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import javax.annotation.Nullable;
 
 public class MoCEntityStingRay extends MoCEntityRay {
-
     private int poisoncounter;
     private int tailCounter;
 
@@ -37,11 +35,6 @@ public class MoCEntityStingRay extends MoCEntityRay {
     protected void applyEntityAttributes() {
         super.applyEntityAttributes();
         getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(8.0D);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("ray_sting.png");
     }
 
     @Nullable

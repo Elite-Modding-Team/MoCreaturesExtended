@@ -4,7 +4,6 @@
 package drzhark.mocreatures.entity.neutral;
 
 import com.google.common.collect.Sets;
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityAnimal;
 import drzhark.mocreatures.entity.ai.EntityAIFleeFromPlayer;
 import drzhark.mocreatures.entity.ai.EntityAIFollowAdult;
@@ -117,14 +116,6 @@ public class MoCEntityBoar extends MoCEntityAnimal {
         }
 
         return super.processInteract(player, hand);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (getIsAdult()) {
-            return MoCreatures.proxy.getModelTexture("boar.png");
-        }
-        return MoCreatures.proxy.getModelTexture("boar_baby.png");
     }
 
     @Override

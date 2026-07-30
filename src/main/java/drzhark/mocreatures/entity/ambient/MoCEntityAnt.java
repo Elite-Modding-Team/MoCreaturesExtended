@@ -22,13 +22,11 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityAnt extends MoCEntityAmbient {
-
     private static final DataParameter<Boolean> FOUND_FOOD = EntityDataManager.createKey(MoCEntityAnt.class, DataSerializers.BOOLEAN);
 
     public MoCEntityAnt(World world) {
         super(world);
         setSize(0.3F, 0.2F);
-        this.texture = "ant.png";
     }
 
     @Override

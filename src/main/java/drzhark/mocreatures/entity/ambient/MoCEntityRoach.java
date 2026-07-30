@@ -19,10 +19,8 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityRoach extends MoCEntityInsect {
-
     public MoCEntityRoach(World world) {
         super(world);
-        this.texture = "roach.png";
     }
 
     @Override

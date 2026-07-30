@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.hostile;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.init.MoCLootTables;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,7 +13,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityFireManticore extends MoCEntityManticore {
-
     public MoCEntityFireManticore(World world) {
         super(world);
         this.isImmuneToFire = true;
@@ -27,11 +25,6 @@ public class MoCEntityFireManticore extends MoCEntityManticore {
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.4D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.5D);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("manticore_fire.png");
     }
 
     @Override

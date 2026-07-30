@@ -71,8 +71,6 @@ public interface IMoCEntity {
 
     float getAdjustedXOffset();
 
-    ResourceLocation getTexture();
-
     boolean canAttackTarget(EntityLivingBase entity);
 
     boolean getIsSitting(); // is the entity sitting, for animations and AI

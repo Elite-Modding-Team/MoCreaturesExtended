@@ -3,6 +3,7 @@
  */
 package drzhark.mocreatures.client.renderer.entity.legacy;
 
+import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.proxy.MoCProxyClient;
 import drzhark.mocreatures.client.model.legacy.MoCLegacyModelBigCat1;
@@ -32,7 +33,7 @@ public class MoCLegacyRenderBigCat extends RenderLiving<MoCEntityBigCat> {
 
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityBigCat entitybigcat) {
-        return entitybigcat.getTexture();
+        return null;
     }
 
     @Override
@@ -149,12 +150,12 @@ public class MoCLegacyRenderBigCat extends RenderLiving<MoCEntityBigCat> {
         public void doRenderLayer(MoCEntityBigCat entitybigcat, float f, float f1, float f2, float f3, float f4, float f5, float f6) {
             if (entitybigcat instanceof MoCEntityLion && entitybigcat.hasMane()) {
                 if (entitybigcat.getType() == 7) {
-                    bindTexture(MoCreatures.proxy.getModelTexture("big_cat_white_lion_legacy_layer.png"));
+                    bindTexture(new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/big_cat/legacy/big_cat_white_lion_legacy_layer.png"));
                 } else {
-                    bindTexture(MoCreatures.proxy.getModelTexture("big_cat_lion_legacy_layer_male.png"));
+                    bindTexture(new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/big_cat/legacy/big_cat_lion_legacy_layer_male.png"));
                 }
             } else {
-                bindTexture(MoCreatures.proxy.getModelTexture("big_cat_lion_legacy_layer_female.png"));
+                bindTexture(new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/big_cat/legacy/big_cat_lion_legacy_layer_female.png"));
             }
             this.mocModel.setModelAttributes(this.mocRenderer.getMainModel());
             this.mocModel.setLivingAnimations(entitybigcat, f, f1, f2);

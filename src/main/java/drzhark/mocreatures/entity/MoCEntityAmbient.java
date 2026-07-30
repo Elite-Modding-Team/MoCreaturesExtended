@@ -15,7 +15,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.pathfinding.Path;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
@@ -49,11 +48,6 @@ public abstract class MoCEntityAmbient extends EntityCreature implements IMoCEnt
         String translationKey = "entity." + entityString + ".verbose.name";
         String translatedString = I18n.format(translationKey);
         return !translatedString.equals(translationKey) ? translatedString : super.getName();
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture(this.texture);
     }
 
     @Override

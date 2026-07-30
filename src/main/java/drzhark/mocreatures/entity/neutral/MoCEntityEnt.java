@@ -27,7 +27,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -39,7 +38,6 @@ import net.minecraftforge.event.world.BlockEvent;
 import java.util.List;
 
 public class MoCEntityEnt extends MoCEntityAnimal {
-
     public MoCEntityEnt(World world) {
         super(world);
         setSize(1.4F, 7F);
@@ -71,14 +69,6 @@ public class MoCEntityEnt extends MoCEntityAnimal {
         if (getType() == 0) {
             setType(this.rand.nextInt(2) + 1);
         }
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (getType() == 2) {
-            return MoCreatures.proxy.getModelTexture("ent_birch.png");
-        }
-        return MoCreatures.proxy.getModelTexture("ent_oak.png");
     }
 
     @Override

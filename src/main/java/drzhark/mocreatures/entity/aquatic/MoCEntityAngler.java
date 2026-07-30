@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.aquatic;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.EntityAIHuntAquatic;
 import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
@@ -53,11 +52,6 @@ public class MoCEntityAngler extends MoCEntitySmallFish {
     @Override
     public boolean isReadyToHunt() {
         return isInWater();
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("smallfish_anglerfish.png");
     }
 
     @Nullable

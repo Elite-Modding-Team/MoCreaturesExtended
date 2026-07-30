@@ -192,6 +192,6 @@ public class MoCRenderMoC<T extends EntityLiving> extends RenderLiving<T> {
 
     @Override
     protected ResourceLocation getEntityTexture(EntityLiving entity) {
-        return ((IMoCEntity) entity).getTexture();
+        return null;
     }
 }

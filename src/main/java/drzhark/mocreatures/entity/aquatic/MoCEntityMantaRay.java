@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.aquatic;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.init.MoCLootTables;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.util.ResourceLocation;
@@ -12,7 +11,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityMantaRay extends MoCEntityRay {
-
     public MoCEntityMantaRay(World world) {
         super(world);
         setSize(1.4F, 0.4F);
@@ -30,11 +28,6 @@ public class MoCEntityMantaRay extends MoCEntityRay {
     @Override
     public int getMaxAge() {
         return 180;
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("ray_manta.png");
     }
 
     @Nullable

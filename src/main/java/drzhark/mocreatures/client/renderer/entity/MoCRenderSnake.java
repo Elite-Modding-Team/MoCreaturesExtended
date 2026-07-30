@@ -3,6 +3,8 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
+import drzhark.mocreatures.MoCConstants;
+import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.hunter.MoCEntitySnake;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.model.ModelBase;
@@ -13,36 +15,64 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderSnake extends MoCRenderMoC<MoCEntitySnake> {
+    private static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/snake_wolf.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/snake_orange.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/snake_green_bright.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/snake_coral.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/snake_cobra.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/snake_rattle.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/snake_python.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/snake_green_dark.png")
+    };
 
-    public MoCRenderSnake(ModelBase modelbase, float f) {
-        super(modelbase, 0.0F);
+    private static final ResourceLocation[] TEXTURES_LOW = new ResourceLocation[] {
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/16x/snake_wolf.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/16x/snake_orange.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/16x/snake_green_bright.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/16x/snake_coral.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/16x/snake_cobra.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/16x/snake_rattle.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/16x/snake_python.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/snake/16x/snake_green_dark.png")
+    };
+
+    public MoCRenderSnake(ModelBase model, float f) {
+        super(model, 0.0F);
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(MoCEntitySnake par1Entity) {
-        return par1Entity.getTexture();
+    protected ResourceLocation getEntityTexture(MoCEntitySnake entity) {
+        int type = entity.getType();
+        if (type < 1 || type >= TEXTURES.length) {
+            type = 1;
+        }
+        if (MoCreatures.proxy.lowResolutionTextures) {
+            return TEXTURES_LOW[type];
+        }
+        return TEXTURES[type];
     }
 
-    protected void adjustHeight(MoCEntitySnake entitysnake, float FHeight) {
+    protected void adjustHeight(MoCEntitySnake entity, float FHeight) {
         GlStateManager.translate(0.0F, FHeight, 0.0F);
     }
 
     @Override
-    protected void preRenderCallback(MoCEntitySnake entitysnake, float f) {
-        stretch(entitysnake);
+    protected void preRenderCallback(MoCEntitySnake entity, float f) {
+        stretch(entity);
 
         /*
          * if(mod_mocreatures.mc.isMultiplayerWorld() &&
-         * (entitysnake.pickedUp())) { GlStateManager.translate(0.0F, 1.4F, 0.0F); }
+         * (entity.pickedUp())) { GlStateManager.translate(0.0F, 1.4F, 0.0F); }
          */
 
-        if (entitysnake.pickedUp())// && entitysnake.getSizeF() < 0.6F)
+        if (entity.pickedUp())// && entity.getSizeF() < 0.6F)
         {
-            float xOff = (entitysnake.getSizeF() - 1.0F);
+            float xOff = (entity.getSizeF() - 1.0F);
             if (xOff > 0.0F) {
                 xOff = 0.0F;
             }
-            if (entitysnake.world.isRemote) {
+            if (entity.world.isRemote) {
                 GlStateManager.translate(xOff, 0.0F, 0F);
             } else {
                 GlStateManager.translate(xOff, 0F, 0.0F);
@@ -56,22 +86,22 @@ public class MoCRenderSnake extends MoCRenderMoC<MoCEntitySnake> {
              */
         }
 
-        if (entitysnake.isInsideOfMaterial(Material.WATER)) {
-            adjustHeight(entitysnake, -0.25F);
+        if (entity.isInsideOfMaterial(Material.WATER)) {
+            adjustHeight(entity, -0.25F);
         }
 
-        super.preRenderCallback(entitysnake, f);
+        super.preRenderCallback(entity, f);
     }
 
-    protected void stretch(MoCEntitySnake entitysnake) {
-        float f = entitysnake.getSizeF();
+    protected void stretch(MoCEntitySnake entity) {
+        float f = entity.getSizeF();
         GlStateManager.scale(f, f, f);
     }
 
     /*
      * @Override protected void preRenderCallback(EntityLiving entityliving,
-     * float f) { MoCEntitySnake entitysnake = (MoCEntitySnake) entityliving;
-     * //tempSnake.textPos = entitysnake.type - 1; if (entitysnake.type <4) {
+     * float f) { MoCEntitySnake entity = (MoCEntitySnake) entityliving;
+     * //tempSnake.textPos = entity.type - 1; if (entity.type <4) {
      * tempSnake.textPos = 0; }else { tempSnake.textPos = 1; }
      * super.preRenderCallback(entityliving, f); } private MoCModelSnake
      * tempSnake;

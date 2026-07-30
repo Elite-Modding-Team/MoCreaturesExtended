@@ -17,7 +17,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityCaveScorpion extends MoCEntityScorpion {
-
     public MoCEntityCaveScorpion(World world) {
         super(world, 2);
     }
@@ -29,11 +28,6 @@ public class MoCEntityCaveScorpion extends MoCEntityScorpion {
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.325D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(3.5D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0D);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/scorpion_cave.png") : MoCreatures.proxy.getModelTexture("scorpion_cave.png");
     }
 
     @Override

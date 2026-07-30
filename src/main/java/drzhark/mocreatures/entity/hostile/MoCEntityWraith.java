@@ -30,7 +30,6 @@ import javax.annotation.Nullable;
 
 public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
 {
-
     public int attackCounter;
 
     public MoCEntityWraith(World world) {
@@ -67,15 +66,6 @@ public class MoCEntityWraith extends MoCEntityMob//MoCEntityFlyerMob
             } else {
                 setType(1);
             }
-        }
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (getType() == 2) {
-            return MoCreatures.proxy.getModelTexture("wraith_scratch.png");
-        } else {
-            return MoCreatures.proxy.getModelTexture(MoCreatures.proxy.alphaWraithEyes ? "wraith_alpha.png" : "wraith.png");
         }
     }
 

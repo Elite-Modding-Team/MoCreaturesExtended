@@ -30,9 +30,8 @@ import net.minecraft.world.World;
 
 import java.util.List;
 
-// TODO: Fix hitbox
+// TODO: Fix hitbox, turn this to a tile entity instead of an entity
 public class MoCEntityLitterBox extends EntityLiving {
-
     private static final DataParameter<Boolean> PICKED_UP = EntityDataManager.createKey(MoCEntityLitterBox.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> USED_LITTER = EntityDataManager.createKey(MoCEntityLitterBox.class, DataSerializers.BOOLEAN);
     public int litterTime;
@@ -41,10 +40,6 @@ public class MoCEntityLitterBox extends EntityLiving {
         super(world);
         setSize(1.0F, 0.15F);
         setNoAI(true);
-    }
-
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("litter_box.png");
     }
 
     @Override

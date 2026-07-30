@@ -3,6 +3,7 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
+import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.proxy.MoCProxyClient;
 import drzhark.mocreatures.entity.aquatic.MoCEntityDolphin;
@@ -18,24 +19,41 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderDolphin extends RenderLiving<MoCEntityDolphin> {
+    private static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/dolphin_blue.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/dolphin_green.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/dolphin_purple.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/dolphin_black.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/dolphin_pink.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/dolphin_white.png")
+    };
 
-    public MoCRenderDolphin(ModelBase modelbase, float f) {
-        super(MoCProxyClient.mc.getRenderManager(), modelbase, f);
+    private static final ResourceLocation[] TEXTURES_LOW = new ResourceLocation[] {
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/16x/dolphin_blue.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/16x/dolphin_green.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/16x/dolphin_purple.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/16x/dolphin_black.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/16x/dolphin_pink.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/dolphin/16x/dolphin_white.png")
+    };
+
+    public MoCRenderDolphin(ModelBase model, float f) {
+        super(MoCProxyClient.mc.getRenderManager(), model, f);
     }
 
     @Override
-    public void doRender(MoCEntityDolphin entitydolphin, double d, double d1, double d2, float f, float f1) {
-        super.doRender(entitydolphin, d, d1, d2, f, f1);
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitydolphin.getPetName().isEmpty());
+    public void doRender(MoCEntityDolphin entity, double d, double d1, double d2, float f, float f1) {
+        super.doRender(entity, d, d1, d2, f, f1);
+        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entity.getPetName().isEmpty());
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealth();
         //boolean flag2 = MoCreatures.proxy.getdisplayPetIcons();
-        if (entitydolphin.shouldRenderNameAndHealth()) {
+        if (entity.shouldRenderNameAndHealth()) {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
-            float f4 = entitydolphin.getDistance(this.renderManager.renderViewEntity);
+            float f4 = entity.getDistance(this.renderManager.renderViewEntity);
             if (f4 < 16F) {
                 String s = "";
-                s = s + entitydolphin.getPetName();
+                s = s + entity.getPetName();
                 float f5 = 0.1F;
                 FontRenderer fontrenderer = getFontRendererFromRenderManager();
                 GlStateManager.pushMatrix();
@@ -53,9 +71,9 @@ public class MoCRenderDolphin extends RenderLiving<MoCEntityDolphin> {
                     }
                     tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
                     // might break SSP
-                    float f6 = entitydolphin.getHealth();
+                    float f6 = entity.getHealth();
                     // max health is always 30 for dolphins, so we do not need to use a data watcher
-                    float f7 = entitydolphin.getMaxHealth();
+                    float f7 = entity.getMaxHealth();
                     float f8 = f6 / f7;
                     float f9 = 40F * f8;
                     tessellator.getBuffer().pos(-20F + f9, -10 + byte0, 0.0D).color(0.7F, 0.0F, 0.0F, 1.0F).endVertex();
@@ -96,14 +114,14 @@ public class MoCRenderDolphin extends RenderLiving<MoCEntityDolphin> {
         }
     }
 
-    public void doRender2(MoCEntityDolphin entitydolphin, double d, double d1, double d2, float f, float f1) {
-        super.doRender(entitydolphin, d, d1, d2, f, f1);
-        if (entitydolphin.shouldRenderNameAndHealth()) {
+    public void doRender2(MoCEntityDolphin entity, double d, double d1, double d2, float f, float f1) {
+        super.doRender(entity, d, d1, d2, f, f1);
+        if (entity.shouldRenderNameAndHealth()) {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
-            float f4 = entitydolphin.getDistance(this.renderManager.renderViewEntity);
+            float f4 = entity.getDistance(this.renderManager.renderViewEntity);
             String s = "";
-            s = s + entitydolphin.getPetName();
+            s = s + entity.getPetName();
             if ((f4 < 12F) && (s.length() > 0)) {
                 FontRenderer fontrenderer = getFontRendererFromRenderManager();
                 GlStateManager.pushMatrix();
@@ -126,8 +144,8 @@ public class MoCRenderDolphin extends RenderLiving<MoCEntityDolphin> {
                 tessellator.getBuffer().pos(i + 1, 8 + byte0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
                 tessellator.getBuffer().pos(i + 1, -1 + byte0, 0.0D).color(0.0F, 0.0F, 0.0F, 0.25F).endVertex();
                 if (MoCreatures.proxy.getDisplayPetHealth()) {
-                    float f5 = entitydolphin.getHealth();
-                    float f6 = entitydolphin.getMaxHealth();
+                    float f5 = entity.getHealth();
+                    float f6 = entity.getMaxHealth();
                     float f7 = f5 / f6;
                     float f8 = 40F * f7;
                     tessellator.getBuffer().pos(-20F + f8, -10 + byte0, 0.0D).color(0.7F, 0.0F, 0.0F, 1.0F).endVertex();
@@ -154,17 +172,24 @@ public class MoCRenderDolphin extends RenderLiving<MoCEntityDolphin> {
     }
 
     @Override
-    protected float handleRotationFloat(MoCEntityDolphin entitydolphin, float f) {
-        stretch(entitydolphin);
-        return entitydolphin.ticksExisted + f;
+    protected float handleRotationFloat(MoCEntityDolphin entity, float f) {
+        stretch(entity);
+        return entity.ticksExisted + f;
     }
 
-    protected void stretch(MoCEntityDolphin entitydolphin) {
-        GlStateManager.scale(entitydolphin.getAge() * 0.01F, entitydolphin.getAge() * 0.01F, entitydolphin.getAge() * 0.01F);
+    protected void stretch(MoCEntityDolphin entity) {
+        GlStateManager.scale(entity.getAge() * 0.01F, entity.getAge() * 0.01F, entity.getAge() * 0.01F);
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(MoCEntityDolphin entitydolphin) {
-        return entitydolphin.getTexture();
+    protected ResourceLocation getEntityTexture(MoCEntityDolphin entity) {
+        int type = entity.getType();
+        if (type < 1 || type >= TEXTURES.length) {
+            type = 1;
+        }
+        if (MoCreatures.proxy.lowResolutionTextures) {
+            return TEXTURES_LOW[type];
+        }
+        return TEXTURES[type];
     }
 }

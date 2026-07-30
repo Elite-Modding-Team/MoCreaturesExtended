@@ -5,7 +5,6 @@ package drzhark.mocreatures.entity.passive;
 
 import com.google.common.collect.Sets;
 import drzhark.mocreatures.MoCTools;
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.*;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAnimal;
 import drzhark.mocreatures.init.MoCLootTables;
@@ -99,25 +98,6 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
 
         if (getType() == 0) {
             setType(this.rand.nextInt(6) + 1);
-        }
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-
-        switch (getType()) {
-            case 1:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/bird_white.png") : MoCreatures.proxy.getModelTexture("bird_white.png");
-            case 2:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/bird_black.png") : MoCreatures.proxy.getModelTexture("bird_black.png");
-            case 3:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/bird_green.png") : MoCreatures.proxy.getModelTexture("bird_green.png");
-            case 5:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/bird_yellow.png") : MoCreatures.proxy.getModelTexture("bird_yellow.png");
-            case 6:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/bird_red.png") : MoCreatures.proxy.getModelTexture("bird_red.png");
-            default:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/bird_blue.png") : MoCreatures.proxy.getModelTexture("bird_blue.png");
         }
     }
 

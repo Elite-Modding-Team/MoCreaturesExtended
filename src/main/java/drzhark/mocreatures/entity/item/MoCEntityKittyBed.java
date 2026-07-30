@@ -28,7 +28,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
-// TODO: Fix hitbox
+// TODO: Fix hitbox, turn this to a tile entity instead of an entity
 public class MoCEntityKittyBed extends EntityLiving {
 
     private static final DataParameter<Boolean> HAS_MILK = EntityDataManager.createKey(MoCEntityKittyBed.class, DataSerializers.BOOLEAN);
@@ -54,10 +54,6 @@ public class MoCEntityKittyBed extends EntityLiving {
     public MoCEntityKittyBed(World world, int i) {
         this(world);
         setSheetColor(i);
-    }
-
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("kitty_bed.png");
     }
 
     @Override

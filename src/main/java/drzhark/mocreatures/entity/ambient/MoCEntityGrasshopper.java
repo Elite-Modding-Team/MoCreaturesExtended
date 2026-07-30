@@ -4,7 +4,6 @@
 package drzhark.mocreatures.entity.ambient;
 
 //import drzhark.mocreatures.MoCTools;
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityInsect;
 import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
@@ -41,15 +40,6 @@ public class MoCEntityGrasshopper extends MoCEntityInsect {
             } else {
                 setType(2);
             }
-        }
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (getType() == 1) {
-            return MoCreatures.proxy.getModelTexture("grasshopper_bright_green.png");
-        } else {
-            return MoCreatures.proxy.getModelTexture("grasshopper_olive_green.png");
         }
     }
 

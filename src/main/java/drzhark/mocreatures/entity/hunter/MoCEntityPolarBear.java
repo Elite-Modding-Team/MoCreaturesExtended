@@ -19,7 +19,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityPolarBear extends MoCEntityBear {
-
     public MoCEntityPolarBear(World world) {
         super(world);
         setSize(1.5F, 1.834F);
@@ -39,11 +38,6 @@ public class MoCEntityPolarBear extends MoCEntityBear {
             setType(1);
         }
         super.selectType();
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/bear_polar.png") : MoCreatures.proxy.getModelTexture("bear_polar.png");
     }
 
     @Override

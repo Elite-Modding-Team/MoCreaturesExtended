@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.ambient;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityInsect;
 import drzhark.mocreatures.init.MoCLootTables;
 import net.minecraft.init.Blocks;
@@ -34,32 +33,6 @@ public class MoCEntityButterfly extends MoCEntityInsect {
     public void selectType() {
         if (getType() == 0) {
             setType(this.rand.nextInt(10) + 1);
-        }
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 1:
-                return MoCreatures.proxy.getModelTexture("butterfly_agalais_urticae.png");
-            case 2:
-                return MoCreatures.proxy.getModelTexture("butterfly_argyreus_hyperbius.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("butterfly_athyma_nefte.png");
-            case 4:
-                return MoCreatures.proxy.getModelTexture("butterfly_catopsilia_pomona.png");
-            case 5:
-                return MoCreatures.proxy.getModelTexture("butterfly_morpho_peleides.png");
-            case 6:
-                return MoCreatures.proxy.getModelTexture("butterfly_vanessa_atalanta.png");
-            case 8:
-                return MoCreatures.proxy.getModelTexture("moth_camptogramma_bilineata.png");
-            case 9:
-                return MoCreatures.proxy.getModelTexture("moth_idia_aemula.png");
-            case 10:
-                return MoCreatures.proxy.getModelTexture("moth_thyatira_batis.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("butterfly_pieris_rapae.png");
         }
     }
 

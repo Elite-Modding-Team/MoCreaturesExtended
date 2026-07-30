@@ -3,6 +3,7 @@
  */
 package drzhark.mocreatures.entity.hostile;
 
+import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.init.MoCLootTables;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,7 +16,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityDirtScorpion extends MoCEntityScorpion {
-
     public MoCEntityDirtScorpion(World world) {
         super(world, 1);
     }

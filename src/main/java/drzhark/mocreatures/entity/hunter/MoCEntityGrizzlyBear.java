@@ -19,7 +19,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityGrizzlyBear extends MoCEntityBear {
-
     public MoCEntityGrizzlyBear(World world) {
         super(world);
         setSize(1.125F, 1.57F);
@@ -39,11 +38,6 @@ public class MoCEntityGrizzlyBear extends MoCEntityBear {
             setType(1);
         }
         super.selectType();
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/bear_grizzly.png") : MoCreatures.proxy.getModelTexture("bear_grizzly.png");
     }
 
     @Override

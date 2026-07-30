@@ -3,6 +3,7 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
+import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.proxy.MoCProxyClient;
 import drzhark.mocreatures.client.model.MoCModelWerehuman;
@@ -19,25 +20,55 @@ import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderWerewolf extends RenderLiving<MoCEntityWerewolf> {
-
     private final MoCModelWerewolf tempWerewolf;
 
-    public MoCRenderWerewolf(MoCModelWerehuman modelwerehuman, ModelBase modelbase, float f) {
-        super(MoCProxyClient.mc.getRenderManager(), modelbase, f);
+    public MoCRenderWerewolf(MoCModelWerehuman model, ModelBase modelBase, float f) {
+        super(MoCProxyClient.mc.getRenderManager(), modelBase, f);
         this.addLayer(new LayerMoCWereHuman(this));
-        this.tempWerewolf = (MoCModelWerewolf) modelbase;
+        this.tempWerewolf = (MoCModelWerewolf) modelBase;
+    }
+
+    private ResourceLocation getWerewolfTexture(boolean lowRes, String texturePath) {
+        String fullPath = "textures/entity/werewolf/" + texturePath;
+        return new ResourceLocation(MoCConstants.MOD_ID, fullPath);
     }
 
     @Override
-    public void doRender(MoCEntityWerewolf entitywerewolf, double d, double d1, double d2, float f, float f1) {
-        this.tempWerewolf.hunched = entitywerewolf.getIsHunched();
-        super.doRender(entitywerewolf, d, d1, d2, f, f1);
+    protected ResourceLocation getEntityTexture(MoCEntityWerewolf entity) {
+        boolean lowRes = MoCreatures.proxy.lowResolutionTextures;
+        String tempTexture;
 
+        if (entity.getIsHumanForm()) {
+            return getWerewolfTexture(false, "wereblank.png");
+        }
+
+        switch (entity.getType()) {
+            case 1:
+                tempTexture = "werewolf_black.png";
+                break;
+            case 3:
+                tempTexture = "werewolf_white.png";
+                break;
+            case 4:
+                if (!MoCreatures.proxy.getAnimateTextures()) {
+                    tempTexture = "werewolf_fire.png";
+                    break;
+                }
+                tempTexture = "werewolf_fire_animated.png";
+                break;
+            default:
+                tempTexture = "werewolf_brown.png";
+                break;
+        }
+
+        return getWerewolfTexture(lowRes, tempTexture);
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(MoCEntityWerewolf entitywerewolf) {
-        return entitywerewolf.getTexture();
+    public void doRender(MoCEntityWerewolf entity, double d, double d1, double d2, float f, float f1) {
+        this.tempWerewolf.hunched = entity.getIsHunched();
+        super.doRender(entity, d, d1, d2, f, f1);
+
     }
 
     @Override
@@ -78,21 +109,21 @@ public class MoCRenderWerewolf extends RenderLiving<MoCEntityWerewolf> {
             int myType = entity.getType();
 
             if (!entity.getIsHumanForm()) {
-                bindTexture(MoCreatures.proxy.getModelTexture("wereblank.png"));
+                bindTexture(getWerewolfTexture(false, "wereblank.png"));
             } else {
                 switch (myType) {
 
                     case 1:
-                        bindTexture(MoCreatures.proxy.getModelTexture("werehuman_dude.png"));
+                        bindTexture(getWerewolfTexture(false, "werehuman_dude.png"));
                         break;
                     case 2:
-                        bindTexture(MoCreatures.proxy.getModelTexture("werehuman_classic.png"));
+                        bindTexture(getWerewolfTexture(false, "werehuman_classic.png"));
                         break;
                     case 4:
-                        bindTexture(MoCreatures.proxy.getModelTexture("werehuman_woman.png"));
+                        bindTexture(getWerewolfTexture(false, "werehuman_woman.png"));
                         break;
                     default:
-                        bindTexture(MoCreatures.proxy.getModelTexture("werehuman_oldie.png"));
+                        bindTexture(getWerewolfTexture(false, "werehuman_oldie.png"));
                 }
             }
 

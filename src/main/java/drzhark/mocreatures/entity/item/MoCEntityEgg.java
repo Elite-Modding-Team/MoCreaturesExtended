@@ -20,7 +20,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
@@ -49,10 +48,6 @@ public class MoCEntityEgg extends EntityLiving {
         setSize(0.25F, 0.25F);
         this.tCounter = 0;
         this.lCounter = 0;
-    }
-
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("egg.png");
     }
 
     @Override

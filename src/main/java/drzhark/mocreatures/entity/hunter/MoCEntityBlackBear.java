@@ -20,7 +20,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityBlackBear extends MoCEntityBear {
-
     public MoCEntityBlackBear(World world) {
         super(world);
         setSize(0.85F, 1.175F);
@@ -40,11 +39,6 @@ public class MoCEntityBlackBear extends MoCEntityBear {
             setType(1);
         }
         super.selectType();
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/bear_black.png") : MoCreatures.proxy.getModelTexture("bear_black.png");
     }
 
     @Override

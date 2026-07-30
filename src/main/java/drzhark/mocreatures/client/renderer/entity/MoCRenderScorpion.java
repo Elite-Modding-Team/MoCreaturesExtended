@@ -6,62 +6,55 @@ package drzhark.mocreatures.client.renderer.entity;
 import drzhark.mocreatures.client.model.MoCModelScorpion;
 import drzhark.mocreatures.entity.hostile.MoCEntityScorpion;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderScorpion extends MoCRenderMoC<MoCEntityScorpion> {
-
-    public MoCRenderScorpion(MoCModelScorpion modelbase, float f) {
-        super(modelbase, f);
+    public MoCRenderScorpion() {
+        super(new MoCModelScorpion(), 0.4F);
     }
 
     @Override
-    public void doRender(MoCEntityScorpion entityscorpion, double d, double d1, double d2, float f, float f1) {
-        super.doRender(entityscorpion, d, d1, d2, f, f1);
+    public void doRender(MoCEntityScorpion entity, double d, double d1, double d2, float f, float f1) {
+        super.doRender(entity, d, d1, d2, f, f1);
     }
 
     @Override
-    protected float getDeathMaxRotation(MoCEntityScorpion entityscorpion) {
+    protected float getDeathMaxRotation(MoCEntityScorpion entity) {
         return 180.0F;
     }
 
     @Override
-    protected void preRenderCallback(MoCEntityScorpion entityscorpion, float f) {
+    protected void preRenderCallback(MoCEntityScorpion entity, float f) {
         /* TODO: Fix rider rotation
-        if (entityscorpion.isOnLadder()) {
-            rotateAnimal(entityscorpion);
+        if (entity.isOnLadder()) {
+            rotateAnimal(entity);
         }
         */
 
-        if (!entityscorpion.getIsAdult()) {
-            stretch(entityscorpion);
+        if (!entity.getIsAdult()) {
+            stretch(entity);
         } else {
-            adjustHeight(entityscorpion);
+            adjustHeight(entity);
         }
     }
 
-    protected void adjustHeight(MoCEntityScorpion entityscorpion) {
+    protected void adjustHeight(MoCEntityScorpion entity) {
         GlStateManager.translate(0.0F, -0.1F, 0.0F);
     }
 
-    protected void rotateAnimal(MoCEntityScorpion entityscorpion) {
+    protected void rotateAnimal(MoCEntityScorpion entity) {
         GlStateManager.rotate(90.0F, -1.0F, 0.0F, 0.0F);
         GlStateManager.translate(0.0F, 1.0F, 0.0F);
     }
 
-    protected void stretch(MoCEntityScorpion entityscorpion) {
+    protected void stretch(MoCEntityScorpion entity) {
 
         float f = 1.1F;
-        if (!entityscorpion.getIsAdult()) {
-            f = entityscorpion.getAge() * 0.01F;
+        if (!entity.getIsAdult()) {
+            f = entity.getAge() * 0.01F;
         }
         GlStateManager.scale(f, f, f);
-    }
-
-    @Override
-    protected ResourceLocation getEntityTexture(MoCEntityScorpion entityscorpion) {
-        return entityscorpion.getTexture();
     }
 }

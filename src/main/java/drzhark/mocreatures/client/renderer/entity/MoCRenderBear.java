@@ -6,35 +6,29 @@ package drzhark.mocreatures.client.renderer.entity;
 import drzhark.mocreatures.client.model.MoCModelBear;
 import drzhark.mocreatures.entity.hunter.MoCEntityBear;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderBear extends MoCRenderMoC<MoCEntityBear> {
 
-    public MoCRenderBear(MoCModelBear modelbase, float f) {
-        super(modelbase, f);
+    public MoCRenderBear() {
+        super(new MoCModelBear(), 0.7F);
     }
 
     @Override
-    protected void preRenderCallback(MoCEntityBear entitybear, float f) {
-        stretch(entitybear);
-        super.preRenderCallback(entitybear, f);
+    protected void preRenderCallback(MoCEntityBear entity, float f) {
+        stretch(entity);
+        super.preRenderCallback(entity, f);
 
     }
 
-    protected void stretch(MoCEntityBear entitybear) {
-        float sizeFactor = entitybear.getAge() * 0.01F;
-        if (entitybear.getIsAdult()) {
+    protected void stretch(MoCEntityBear entity) {
+        float sizeFactor = entity.getAge() * 0.01F;
+        if (entity.getIsAdult()) {
             sizeFactor = 1.0F;
         }
-        sizeFactor *= entitybear.getBearSize();
+        sizeFactor *= entity.getBearSize();
         GlStateManager.scale(sizeFactor, sizeFactor, sizeFactor);
-    }
-
-    @Override
-    protected ResourceLocation getEntityTexture(MoCEntityBear entitybear) {
-        return entitybear.getTexture();
     }
 }

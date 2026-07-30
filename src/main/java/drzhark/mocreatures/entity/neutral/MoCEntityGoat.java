@@ -180,24 +180,6 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
         return (thisIsFemale && otherIsMale) || (thisIsMale && otherIsFemale);
     }
 
-    @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 2:
-                return MoCreatures.proxy.getModelTexture("goat_brown_light.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("goat_brown_spotted.png");
-            case 4:
-                return MoCreatures.proxy.getModelTexture("goat_gray_spotted.png");
-            case 5:
-                return MoCreatures.proxy.getModelTexture("goat_gray.png");
-            case 6:
-                return MoCreatures.proxy.getModelTexture("goat_brown.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("goat_white.png");
-        }
-    }
-
     public void calm() {
         setAttackTarget(null);
         setUpset(false);

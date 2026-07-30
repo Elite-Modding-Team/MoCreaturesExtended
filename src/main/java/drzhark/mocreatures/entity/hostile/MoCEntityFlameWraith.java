@@ -18,12 +18,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityFlameWraith extends MoCEntityWraith implements IMob {
-
     protected int burningTime;
 
     public MoCEntityFlameWraith(World world) {
         super(world);
-        this.texture = MoCreatures.proxy.alphaWraithEyes ? "wraith_flame_alpha.png" : "wraith_flame.png";
         this.isImmuneToFire = true;
         this.burningTime = 30;
         experienceValue = 7;
@@ -75,11 +73,5 @@ public class MoCEntityFlameWraith extends MoCEntityWraith implements IMob {
             entityLivingBaseIn.setFire(this.burningTime);
         }
         super.applyEnchantments(entityLivingBaseIn, entityIn);
-    }
-    
-    // TODO: Overhaul this
-    @Override
-    public ResourceLocation getTexture() {
-    	return MoCreatures.proxy.getModelTexture(MoCreatures.proxy.alphaWraithEyes ? "wraith_flame_alpha.png" : "wraith_flame.png");
     }
 }

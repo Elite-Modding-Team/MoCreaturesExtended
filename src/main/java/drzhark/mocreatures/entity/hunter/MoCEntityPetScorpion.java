@@ -52,7 +52,7 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     public int transformType;
     private boolean isPoisoning;
     private int poisontimer;
-    private int transformCounter;
+    public int transformCounter;
 
     public MoCEntityPetScorpion(World world) {
         super(world);
@@ -91,68 +91,6 @@ public class MoCEntityPetScorpion extends MoCEntityTameableAnimal {
     public void selectType() {
         if (getType() == 0) {
             setType(1);
-        }
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        boolean saddle = getIsRideable();
-
-        // Textures based on type for transforming
-        if (this.transformCounter != 0 && this.transformType != 0) {
-            String newText;
-            switch (this.transformType) {
-                case 2: // Cave Scorpion
-                    newText = saddle ? "scorpion_cave_saddled.png" : "scorpion_cave.png";
-                    break;
-                case 3: // Fire Scorpion
-                    newText = saddle ? "scorpion_fire_saddled.png" : "scorpion_fire.png";
-                    break;
-                case 4: // Frost Scorpion
-                    newText = saddle ? "scorpion_frost_saddled.png" : "scorpion_frost.png";
-                    break;
-                case 5: // Undead Scorpion
-                    newText = saddle ? "scorpion_undead_saddled.png" : "scorpion_undead.png";
-                    break;
-                default:
-                    newText = saddle ? "scorpion_undead_saddled.png" : "scorpion_undead.png";
-                    break;
-            }
-
-            // Textures flashing during transformation
-            if (this.transformCounter > 60 && (this.transformCounter % 3) == 0) {
-                return MoCreatures.proxy.getModelTexture(newText);
-            }
-        }
-
-        switch (getType()) {
-            case 1:
-                if (!saddle) {
-                    return MoCreatures.proxy.getModelTexture("scorpion_dirt.png");
-                }
-                return MoCreatures.proxy.getModelTexture("scorpion_dirt_saddled.png");
-            case 2:
-                if (!saddle) {
-                    return MoCreatures.proxy.getModelTexture("scorpion_cave.png");
-                }
-                return MoCreatures.proxy.getModelTexture("scorpion_cave_saddled.png");
-            case 3:
-                if (!saddle) {
-                    return MoCreatures.proxy.getModelTexture("scorpion_fire.png");
-                }
-                return MoCreatures.proxy.getModelTexture("scorpion_fire_saddled.png");
-            case 4:
-                if (!saddle) {
-                    return MoCreatures.proxy.getModelTexture("scorpion_frost.png");
-                }
-                return MoCreatures.proxy.getModelTexture("scorpion_frost_saddled.png");
-            case 5:
-                if (!saddle) {
-                    return MoCreatures.proxy.getModelTexture("scorpion_undead.png");
-                }
-                return MoCreatures.proxy.getModelTexture("scorpion_undead_saddled.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("scorpion_dirt.png");
         }
     }
 

@@ -78,18 +78,6 @@ public class MoCEntityMouse extends MoCEntityAnimal {
     }
 
     @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 2:
-                return MoCreatures.proxy.getModelTexture("mouse_brown.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("mouse_white.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("mouse_beige.png");
-        }
-    }
-
-    @Override
     public boolean checkSpawningBiome() {
         BlockPos pos = new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(getEntityBoundingBox().minY), this.posZ);
         Biome currentbiome = MoCTools.biomeKind(this.world, pos);

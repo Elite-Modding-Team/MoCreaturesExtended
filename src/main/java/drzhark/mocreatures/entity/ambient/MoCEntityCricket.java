@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.ambient;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.MoCEntityAmbient;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
 import drzhark.mocreatures.init.MoCLootTables;
@@ -47,15 +46,6 @@ public class MoCEntityCricket extends MoCEntityAmbient {
             } else {
                 setType(2);
             }
-        }
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (getType() == 1) {
-            return MoCreatures.proxy.getModelTexture("cricket_light_brown.png");
-        } else {
-            return MoCreatures.proxy.getModelTexture("cricket_brown.png");
         }
     }
 

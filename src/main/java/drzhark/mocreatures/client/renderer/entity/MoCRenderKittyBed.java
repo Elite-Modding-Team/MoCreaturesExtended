@@ -3,6 +3,7 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
+import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.proxy.MoCProxyClient;
 import drzhark.mocreatures.client.model.MoCModelKittyBed;
 import drzhark.mocreatures.client.model.MoCModelKittyBed2;
@@ -17,6 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SuppressWarnings("unused")
 @SideOnly(Side.CLIENT)
 public class MoCRenderKittyBed extends RenderLiving<MoCEntityKittyBed> {
+    private static final ResourceLocation TEXTURE = new ResourceLocation(MoCConstants.MOD_ID, "textures/models/kitty_bed.png");
 
     public static float[][] fleeceColorTable = {{1.0F, 1.0F, 1.0F}, {0.95F, 0.7F, 0.2F}, {0.9F, 0.5F, 0.85F}, {0.6F, 0.7F, 0.95F},
             {0.9F, 0.9F, 0.2F}, {0.5F, 0.8F, 0.1F}, {0.95F, 0.7F, 0.8F}, {0.3F, 0.3F, 0.3F}, {0.6F, 0.6F, 0.6F}, {0.3F, 0.6F, 0.7F},
@@ -24,24 +26,24 @@ public class MoCRenderKittyBed extends RenderLiving<MoCEntityKittyBed> {
     public MoCModelKittyBed kittybed;
     private int mycolor;
 
-    public MoCRenderKittyBed(MoCModelKittyBed modelkittybed, MoCModelKittyBed2 modelkittybed2, float f) {
-        super(MoCProxyClient.mc.getRenderManager(), modelkittybed, f);
-        this.kittybed = modelkittybed;
+    public MoCRenderKittyBed(MoCModelKittyBed model, MoCModelKittyBed2 model2, float f) {
+        super(MoCProxyClient.mc.getRenderManager(), model, f);
+        this.kittybed = model;
         this.addLayer(new LayerMoCKittyBed(this));
     }
 
     @Override
-    protected void preRenderCallback(MoCEntityKittyBed entitykittybed, float f) {
-        this.mycolor = entitykittybed.getSheetColor();
-        this.kittybed.hasMilk = entitykittybed.getHasMilk();
-        this.kittybed.hasFood = entitykittybed.getHasFood();
-        this.kittybed.pickedUp = entitykittybed.getPickedUp();
-        this.kittybed.milklevel = entitykittybed.milkLevel;
+    protected void preRenderCallback(MoCEntityKittyBed entity, float f) {
+        this.mycolor = entity.getSheetColor();
+        this.kittybed.hasMilk = entity.getHasMilk();
+        this.kittybed.hasFood = entity.getHasFood();
+        this.kittybed.pickedUp = entity.getPickedUp();
+        this.kittybed.milklevel = entity.milkLevel;
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(MoCEntityKittyBed entitykittybed) {
-        return entitykittybed.getTexture();
+    protected ResourceLocation getEntityTexture(MoCEntityKittyBed entity) {
+        return TEXTURE;
     }
 
     private static class LayerMoCKittyBed implements LayerRenderer<MoCEntityKittyBed> {
@@ -53,13 +55,13 @@ public class MoCRenderKittyBed extends RenderLiving<MoCEntityKittyBed> {
             this.mocRenderer = render;
         }
 
-        public void doRenderLayer(MoCEntityKittyBed entitykittybed, float f, float f1, float f2, float f3, float f4, float f5, float f6) {
+        public void doRenderLayer(MoCEntityKittyBed entity, float f, float f1, float f2, float f3, float f4, float f5, float f6) {
             float f8 = 0.35F;
             int j = this.mocRenderer.mycolor;
             GlStateManager.color(f8 * fleeceColorTable[j][0], f8 * fleeceColorTable[j][1], f8 * fleeceColorTable[j][2]);
             this.mocModel.setModelAttributes(this.mocRenderer.getMainModel());
-            this.mocModel.setLivingAnimations(entitykittybed, f, f1, f2);
-            this.mocModel.render(entitykittybed, f, f1, f3, f4, f5, f6);
+            this.mocModel.setLivingAnimations(entity, f, f1, f2);
+            this.mocModel.render(entity, f, f1, f3, f4, f5, f6);
         }
 
         @Override

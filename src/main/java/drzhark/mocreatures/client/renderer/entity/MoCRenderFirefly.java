@@ -3,7 +3,7 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
-import drzhark.mocreatures.MoCreatures;
+import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.client.model.MoCModelFirefly;
 import drzhark.mocreatures.entity.ambient.MoCEntityFirefly;
 import net.minecraft.client.model.ModelBase;
@@ -17,30 +17,32 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderFirefly extends MoCRenderInsect<MoCEntityFirefly> {
+    private static final ResourceLocation TEXTURE = new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/firefly/firefly.png");
+    private static final ResourceLocation TEXTURE_LAYER = new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/firefly/firefly_glow.png");
 
-    public MoCRenderFirefly(ModelBase modelbase) {
-        super(modelbase);
+    public MoCRenderFirefly(ModelBase model) {
+        super(model);
         this.addLayer(new LayerMoCFirefly(this));
     }
 
     @Override
-    protected void preRenderCallback(MoCEntityFirefly entityfirefly, float par2) {
-        if (entityfirefly.getIsFlying()) {
-            rotateFirefly(entityfirefly);
-        } else if (entityfirefly.climbing()) {
-            rotateAnimal(entityfirefly);
+    protected void preRenderCallback(MoCEntityFirefly entity, float par2) {
+        if (entity.getIsFlying()) {
+            rotateFirefly(entity);
+        } else if (entity.climbing()) {
+            rotateAnimal(entity);
         }
 
     }
 
-    protected void rotateFirefly(MoCEntityFirefly entityfirefly) {
+    protected void rotateFirefly(MoCEntityFirefly entity) {
         GlStateManager.rotate(40F, -1F, 0.0F, 0.0F);
 
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(MoCEntityFirefly entityfirefly) {
-        return entityfirefly.getTexture();
+    protected ResourceLocation getEntityTexture(MoCEntityFirefly entity) {
+        return TEXTURE;
     }
 
     private class LayerMoCFirefly implements LayerRenderer {
@@ -58,8 +60,8 @@ public class MoCRenderFirefly extends MoCRenderInsect<MoCEntityFirefly> {
             this.mocModel.render(p_177162_1_, p_177162_2_, p_177162_3_, p_177162_5_, p_177162_6_, p_177162_7_, p_177162_8_);
         }
 
-        protected void setTailBrightness(MoCEntityFirefly entityliving, float par3) {
-            this.mocRenderer.bindTexture(MoCreatures.proxy.getModelTexture("firefly_glow.png"));
+        protected void setTailBrightness(MoCEntityFirefly entity, float par3) {
+            this.mocRenderer.bindTexture(TEXTURE_LAYER);
             float var4 = 1.0F;
             GlStateManager.enableBlend();
             GlStateManager.disableAlpha();

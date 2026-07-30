@@ -3,7 +3,6 @@
  */
 package drzhark.mocreatures.entity.hostile;
 
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.init.MoCLootTables;
 import drzhark.mocreatures.init.MoCSoundEvents;
 import net.minecraft.entity.Entity;
@@ -37,14 +36,6 @@ public class MoCEntityHellRat extends MoCEntityRat {
     @Override
     public void selectType() {
         setType(4);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (!MoCreatures.proxy.getAnimateTextures()) {
-            return MoCreatures.proxy.getModelTexture("hell_rat.png");
-        }
-        return MoCreatures.proxy.getModelTexture("hell_rat_animated.png");
     }
 
     @Override

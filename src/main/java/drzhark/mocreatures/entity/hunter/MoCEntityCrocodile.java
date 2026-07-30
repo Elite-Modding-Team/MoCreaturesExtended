@@ -41,7 +41,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
-
     private static final DataParameter<Boolean> IS_RESTING = EntityDataManager.createKey(MoCEntityCrocodile.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> EATING_PREY = EntityDataManager.createKey(MoCEntityCrocodile.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IS_BITING = EntityDataManager.createKey(MoCEntityCrocodile.class, DataSerializers.BOOLEAN);
@@ -52,7 +51,6 @@ public class MoCEntityCrocodile extends MoCEntityTameableAnimal {
 
     public MoCEntityCrocodile(World world) {
         super(world);
-        this.texture = MoCreatures.proxy.lowResolutionTextures ? "16x/crocodile.png" : "crocodile.png";
         setSize(0.9F, 0.5F);
         setAdult(true);
         // TODO: Make hitboxes adjust depending on size

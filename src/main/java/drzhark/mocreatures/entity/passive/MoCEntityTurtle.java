@@ -114,31 +114,6 @@ public class MoCEntityTurtle extends MoCEntityTameableAnimal {
         }
     }
 
-    @Override
-    public ResourceLocation getTexture() {
-        String tempText = "turtle.png";
-
-        if (MoCreatures.proxy.easterEggs) {
-            if (getPetName().equals("Donatello") || getPetName().equals("donatello")) {
-                tempText = "turtle_donatello.png";
-            }
-
-            if (getPetName().equals("Leonardo") || getPetName().equals("leonardo")) {
-                tempText = "turtle_leonardo.png";
-            }
-
-            if (getPetName().equals("raphael") || getPetName().equals("Raphael")) {
-                tempText = "turtle_raphael.png";
-            }
-
-            if (getPetName().equals("Michelangelo") || getPetName().equals("michelangelo")) {
-                tempText = "turtle_michelangelo.png";
-            }
-        }
-
-        return MoCreatures.proxy.getModelTexture(tempText);
-    }
-
     public boolean getIsHiding() {
         return this.dataManager.get(IS_HIDING);
     }

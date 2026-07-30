@@ -101,27 +101,6 @@ public class MoCEntityWerewolf extends MoCEntityMob {
         }
     }
 
-    @Override
-    public ResourceLocation getTexture() {
-        if (this.getIsHumanForm()) {
-            return MoCreatures.proxy.getModelTexture("wereblank.png");
-        }
-
-        switch (getType()) {
-            case 1:
-                return MoCreatures.proxy.getModelTexture("werewolf_black.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("werewolf_white.png");
-            case 4:
-                if (!MoCreatures.proxy.getAnimateTextures()) {
-                    return MoCreatures.proxy.getModelTexture("werewolf_fire.png");
-                }
-                return MoCreatures.proxy.getModelTexture("werewolf_fire_animated.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("werewolf_brown.png");
-        }
-    }
-
     public boolean getIsHumanForm() {
         return this.dataManager.get(IS_HUMAN);
     }

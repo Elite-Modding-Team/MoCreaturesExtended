@@ -4,7 +4,6 @@
 package drzhark.mocreatures.entity.aquatic;
 
 import drzhark.mocreatures.MoCTools;
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.EntityAIFleeFromEntityMoC;
 import drzhark.mocreatures.entity.ai.EntityAIPanicMoC;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
@@ -64,32 +63,6 @@ public class MoCEntityFishy extends MoCEntityTameableAquatic {
     public void selectType() {
         if (getType() == 0) {
             setType(this.rand.nextInt(fishNames.length) + 1);
-        }
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 2:
-                return MoCreatures.proxy.getModelTexture("fishy_orange.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("fishy_light_blue.png");
-            case 4:
-                return MoCreatures.proxy.getModelTexture("fishy_lime.png");
-            case 5:
-                return MoCreatures.proxy.getModelTexture("fishy_green.png");
-            case 6:
-                return MoCreatures.proxy.getModelTexture("fishy_purple.png");
-            case 7:
-                return MoCreatures.proxy.getModelTexture("fishy_yellow.png");
-            case 8:
-                return MoCreatures.proxy.getModelTexture("fishy_cyan.png");
-            case 9:
-                return MoCreatures.proxy.getModelTexture("fishy_striped.png");
-            case 10:
-                return MoCreatures.proxy.getModelTexture("fishy_red.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("fishy_blue.png");
         }
     }
 

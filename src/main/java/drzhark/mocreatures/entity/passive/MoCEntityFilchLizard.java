@@ -72,20 +72,6 @@ public class MoCEntityFilchLizard extends MoCEntityAnimal {
     }
 
     @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 2:
-                return MoCreatures.proxy.getModelTexture("lizard_filch_sand.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("lizard_filch_sand_red.png");
-            case 4:
-                return MoCreatures.proxy.getModelTexture("lizard_filch_sand_silver.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("lizard_filch.png");
-        }
-    }
-
-    @Override
     public boolean checkSpawningBiome() {
         BlockPos pos = new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(getEntityBoundingBox().minY), this.posZ);
         Biome biome = MoCTools.biomeKind(this.world, pos);

@@ -88,18 +88,6 @@ public class MoCEntityRat extends MoCEntityMob {
     }
 
     @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 2:
-                return MoCreatures.proxy.getModelTexture("rat_black.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("rat_white.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("rat_brown.png");
-        }
-    }
-
-    @Override
     public boolean checkSpawningBiome() {
         BlockPos pos = new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(getEntityBoundingBox().minY), this.posZ);
         Biome currentbiome = MoCTools.biomeKind(this.world, pos);

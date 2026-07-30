@@ -3,6 +3,8 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
+import drzhark.mocreatures.MoCConstants;
+import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.passive.MoCEntityBunny;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -12,49 +14,66 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderBunny extends MoCRenderMoC<MoCEntityBunny> {
+    private static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/bunny/bunny_golden.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/bunny/bunny_beige.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/bunny/bunny_white.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/bunny/bunny_black.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/bunny/bunny_spotted.png")
+    };
 
-    public MoCRenderBunny(ModelBase modelbase, float f) {
-        super(modelbase, f);
+    private static final ResourceLocation[] TEXTURES_LOW = new ResourceLocation[] {
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/bunny/legacy/bunny_golden.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/bunny/legacy/bunny_beige.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/bunny/legacy/bunny_white.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/bunny/legacy/bunny_black.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/bunny/legacy/bunny_spotted.png")
+    };
+
+    public MoCRenderBunny(ModelBase model, float f) {
+        super(model, f);
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(MoCEntityBunny entitybunny) {
-        return entitybunny.getTexture();
-    }
-
-    @Override
-    public void doRender(MoCEntityBunny entitybunny, double d, double d1, double d2, float f, float f1) {
-        super.doRender(entitybunny, d, d1, d2, f, f1);
-    }
-
-    @Override
-    protected float handleRotationFloat(MoCEntityBunny entitybunny, float f) {
-        if (!entitybunny.getIsAdult()) {
-            stretch(entitybunny);
+    protected ResourceLocation getEntityTexture(MoCEntityBunny entity) {
+        int type = entity.getType();
+        if (type < 1 || type >= TEXTURES.length) {
+            type = 1;
         }
-        return entitybunny.ticksExisted + f;
+        if (MoCreatures.proxy.legacyBunnyTextures) {
+            return TEXTURES_LOW[type];
+        }
+        return TEXTURES[type];
     }
 
     @Override
-    protected void preRenderCallback(MoCEntityBunny entitybunny, float f) {
-        rotBunny(entitybunny);
-        adjustOffsets(entitybunny.getAdjustedXOffset(), entitybunny.getAdjustedYOffset(), entitybunny.getAdjustedZOffset());
+    protected float handleRotationFloat(MoCEntityBunny entity, float f) {
+        if (!entity.getIsAdult()) {
+            stretch(entity);
+        }
+        return entity.ticksExisted + f;
     }
 
-    protected void rotBunny(MoCEntityBunny entitybunny) {
-        if (!entitybunny.onGround && (entitybunny.getRidingEntity() == null)) {
-            if (entitybunny.motionY > 0.5D) {
+    @Override
+    protected void preRenderCallback(MoCEntityBunny entity, float f) {
+        rotBunny(entity);
+        adjustOffsets(entity.getAdjustedXOffset(), entity.getAdjustedYOffset(), entity.getAdjustedZOffset());
+    }
+
+    protected void rotBunny(MoCEntityBunny entity) {
+        if (!entity.onGround && (entity.getRidingEntity() == null)) {
+            if (entity.motionY > 0.5D) {
                 GlStateManager.rotate(35F, -1F, 0.0F, 0.0F);
-            } else if (entitybunny.motionY < -0.5D) {
+            } else if (entity.motionY < -0.5D) {
                 GlStateManager.rotate(-35F, -1F, 0.0F, 0.0F);
             } else {
-                GlStateManager.rotate((float) (entitybunny.motionY * 70D), -1F, 0.0F, 0.0F);
+                GlStateManager.rotate((float) (entity.motionY * 70D), -1F, 0.0F, 0.0F);
             }
         }
     }
 
-    protected void stretch(MoCEntityBunny entitybunny) {
-        float f = entitybunny.getAge() * 0.01F;
+    protected void stretch(MoCEntityBunny entity) {
+        float f = entity.getAge() * 0.01F;
         GlStateManager.scale(f, f, f);
     }
 }

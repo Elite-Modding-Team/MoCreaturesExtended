@@ -92,11 +92,6 @@ public class MoCEntityScorpion extends MoCEntityMob {
     }
 
     @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/scorpion_dirt.png") : MoCreatures.proxy.getModelTexture("scorpion_dirt.png");
-    }
-
-    @Override
     protected PathNavigate createNavigator(World worldIn) {
         return new PathNavigateClimber(this, worldIn);
     }

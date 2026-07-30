@@ -22,7 +22,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityPandaBear extends MoCEntityBear {
-
     public MoCEntityPandaBear(World world) {
         super(world);
         setSize(0.8F, 1.05F);
@@ -42,11 +41,6 @@ public class MoCEntityPandaBear extends MoCEntityBear {
             setType(1);
         }
         super.selectType();
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/bear_panda.png") : MoCreatures.proxy.getModelTexture("bear_panda.png");
     }
 
     @Override

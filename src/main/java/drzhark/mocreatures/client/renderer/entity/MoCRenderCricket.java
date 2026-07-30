@@ -3,6 +3,7 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
+import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.entity.ambient.MoCEntityCricket;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -12,30 +13,38 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderCricket extends MoCRenderMoC<MoCEntityCricket> {
+    private static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/cricket/cricket_light_brown.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/cricket/cricket_brown.png")
+    };
 
-    public MoCRenderCricket(ModelBase modelbase) {
-        super(modelbase, 0.0F);
+    public MoCRenderCricket(ModelBase model) {
+        super(model, 0.0F);
     }
 
     @Override
-    protected void preRenderCallback(MoCEntityCricket entitycricket, float par2) {
-        rotateCricket(entitycricket);
+    protected void preRenderCallback(MoCEntityCricket entity, float par2) {
+        rotateCricket(entity);
     }
 
-    protected void rotateCricket(MoCEntityCricket entitycricket) {
-        if (!entitycricket.onGround) {
-            if (entitycricket.motionY > 0.5D) {
+    protected void rotateCricket(MoCEntityCricket entity) {
+        if (!entity.onGround) {
+            if (entity.motionY > 0.5D) {
                 GlStateManager.rotate(35F, -1F, 0.0F, 0.0F);
-            } else if (entitycricket.motionY < -0.5D) {
+            } else if (entity.motionY < -0.5D) {
                 GlStateManager.rotate(-35F, -1F, 0.0F, 0.0F);
             } else {
-                GlStateManager.rotate((float) (entitycricket.motionY * 70D), -1F, 0.0F, 0.0F);
+                GlStateManager.rotate((float) (entity.motionY * 70D), -1F, 0.0F, 0.0F);
             }
         }
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(MoCEntityCricket par1Entity) {
-        return par1Entity.getTexture();
+    protected ResourceLocation getEntityTexture(MoCEntityCricket entity) {
+        int type = entity.getType();
+        if (type < 1 || type >= TEXTURES.length) {
+            type = 1;
+        }
+        return TEXTURES[type];
     }
 }

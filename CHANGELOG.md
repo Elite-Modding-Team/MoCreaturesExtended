@@ -4,7 +4,8 @@
 - Improved how animated textures are rendered and significantly improved performance.
 ### Fixed
 - Fixed `AnimateTextures` config option not working with every mob that has animated textures.
-- Fixed a potential crash caused by mob animations.
+- Fixed `legacySharkModel` config option not also changing the shark texture to the legacy version.
+- Fixed the texture of the brown Werewolf variant.
 ---
 ## 12.4.9
 ### Update Notes

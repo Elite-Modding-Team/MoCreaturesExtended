@@ -57,7 +57,6 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
 
     public MoCEntityGolem(World world) {
         super(world);
-        this.texture = "golem.png";
         this.setSize(1.8F, 4.3F);
         experienceValue = 20;
     }
@@ -758,24 +757,6 @@ public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpa
     @Override
     public float getAIMoveSpeed() {
         return 0.15F * (countLegBlocks() / 6F);
-    }
-
-    /**
-     * Used for the power texture used on the golem
-     */
-    public ResourceLocation getEffectTexture() {
-        switch (getGolemState()) {
-            case 1:
-                return MoCreatures.proxy.getModelTexture("golem_effect_red.png");
-            case 2:
-                return MoCreatures.proxy.getModelTexture("golem_effect_yellow.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("golem_effect_orange.png");
-            case 4:
-                return MoCreatures.proxy.getModelTexture("golem_effect_blue.png");
-            default:
-                return null;
-        }
     }
 
     /**

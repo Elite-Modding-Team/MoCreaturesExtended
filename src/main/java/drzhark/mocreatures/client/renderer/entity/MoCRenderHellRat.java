@@ -3,6 +3,7 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
+import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.hostile.MoCEntityHellRat;
 import net.minecraft.client.model.ModelBase;
@@ -12,15 +13,20 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
+import javax.annotation.Nonnull;
+
 @SideOnly(Side.CLIENT)
 public class MoCRenderHellRat extends MoCRenderRat<MoCEntityHellRat> {
+    private static final ResourceLocation TEXTURE = !MoCreatures.proxy.getAnimateTextures()
+            ? new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/rat/hell_rat.png")
+            : new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/rat/hell_rat_animated.png");
 
-    public MoCRenderHellRat(ModelBase modelbase, float f) {
-        super(modelbase, f);
+    public MoCRenderHellRat(ModelBase model, float f) {
+        super(model, f);
     }
 
     @Override
-    protected void stretch(MoCEntityHellRat entityhellrat) {
+    protected void stretch(MoCEntityHellRat entity) {
         float f = 1.3F;
         GlStateManager.scale(f, f, f);
     }
@@ -51,7 +57,7 @@ public class MoCRenderHellRat extends MoCRenderRat<MoCEntityHellRat> {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(MoCEntityHellRat entityhellrat) {
-        return entityhellrat.getTexture();
+    protected ResourceLocation getEntityTexture(@Nonnull MoCEntityHellRat entity) {
+        return TEXTURE;
     }
 }

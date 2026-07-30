@@ -3,6 +3,7 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
+import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.client.model.MoCModelKitty;
 import drzhark.mocreatures.entity.neutral.MoCEntityKitty;
@@ -16,27 +17,44 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderKitty extends MoCRenderMoC<MoCEntityKitty> {
+    private static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/kitty/kitty_cream.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/kitty/kitty_gray.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/kitty/kitty_black.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/kitty/kitty_calico.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/kitty/kitty_tuxedo.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/kitty/kitty_white_black.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/kitty/kitty_white.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/kitty/kitty_orange_tabby.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/kitty/kitty_cream_dark.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/kitty/kitty_gray_tabby.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/kitty/kitty_yellow_tabby.png")
+    };
 
     public MoCModelKitty kitty;
 
-    public MoCRenderKitty(ModelBase modelkitty, float f) {
-        super(modelkitty, f);
-        this.kitty = (MoCModelKitty) modelkitty;
+    public MoCRenderKitty(ModelBase model, float f) {
+        super(model, f);
+        this.kitty = (MoCModelKitty) model;
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(MoCEntityKitty entitykitty) {
-        return entitykitty.getTexture();
+    protected ResourceLocation getEntityTexture(MoCEntityKitty entity) {
+        int type = entity.getType();
+        if (type < 1 || type >= TEXTURES.length) {
+            type = 1;
+        }
+        return TEXTURES[type];
     }
 
     @Override
-    public void doRender(MoCEntityKitty entitykitty, double d, double d1, double d2, float f, float f1) {
-        super.doRender(entitykitty, d, d1, d2, f, f1);
+    public void doRender(MoCEntityKitty entity, double d, double d1, double d2, float f, float f1) {
+        super.doRender(entity, d, d1, d2, f, f1);
         boolean displayPetIcons = MoCreatures.proxy.getDisplayPetIcons();
-        if (entitykitty.getIsTamed()) {
+        if (entity.getIsTamed()) {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
-            float f4 = entitykitty.getDistance(this.renderManager.renderViewEntity);
+            float f4 = entity.getDistance(this.renderManager.renderViewEntity);
             if (f4 < 12F) {
                 float f5 = 0.2F;
                 if (this.kitty.isSitting) {
@@ -51,8 +69,8 @@ public class MoCRenderKitty extends MoCRenderMoC<MoCEntityKitty> {
                 GlStateManager.disableLighting();
                 Tessellator tessellator = Tessellator.getInstance();
 
-                if (displayPetIcons && entitykitty.getShowEmoteIcon()) {
-                    this.bindTexture(entitykitty.getEmoteIcon());
+                if (displayPetIcons && entity.getShowEmoteIcon()) {
+                    this.bindTexture(entity.getEmoteIcon());
                     int i = -90;
                     int k = 32;
                     int l = (k / 2) * -1;
@@ -74,16 +92,16 @@ public class MoCRenderKitty extends MoCRenderMoC<MoCEntityKitty> {
     }
 
     @Override
-    protected float handleRotationFloat(MoCEntityKitty entitykitty, float f) {
-        if (!entitykitty.getIsAdult()) {
-            stretch(entitykitty);
+    protected float handleRotationFloat(MoCEntityKitty entity, float f) {
+        if (!entity.getIsAdult()) {
+            stretch(entity);
         }
-        return entitykitty.ticksExisted + f;
+        return entity.ticksExisted + f;
     }
 
-    protected void onMaBack(MoCEntityKitty entitykitty) {
+    protected void onMaBack(MoCEntityKitty entity) {
         GlStateManager.rotate(90F, 0.0F, 0.0F, -1F);
-        if (!entitykitty.world.isRemote && (entitykitty.getRidingEntity() != null)) {
+        if (!entity.world.isRemote && (entity.getRidingEntity() != null)) {
             GlStateManager.translate(-1.5F, 0.2F, -0.2F);
         } else {
             GlStateManager.translate(0.1F, 0.2F, -0.2F);
@@ -91,41 +109,41 @@ public class MoCRenderKitty extends MoCRenderMoC<MoCEntityKitty> {
 
     }
 
-    protected void onTheSide(MoCEntityKitty entityliving) {
+    protected void onTheSide(MoCEntityKitty entity) {
         GlStateManager.rotate(90F, 0.0F, 0.0F, -1F);
         GlStateManager.translate(0.2F, 0.0F, -0.2F);
     }
 
     @Override
-    protected void preRenderCallback(MoCEntityKitty entitykitty, float f) {
-        this.kitty.isSitting = entitykitty.getIsSitting();
-        this.kitty.isSwinging = entitykitty.getIsSwinging();
-        this.kitty.swingProgress = entitykitty.swingProgress;
-        this.kitty.kittystate = entitykitty.getKittyState();
-        if (entitykitty.getKittyState() == 20) {
-            onTheSide(entitykitty);
+    protected void preRenderCallback(MoCEntityKitty entity, float f) {
+        this.kitty.isSitting = entity.getIsSitting();
+        this.kitty.isSwinging = entity.getIsSwinging();
+        this.kitty.swingProgress = entity.swingProgress;
+        this.kitty.kittystate = entity.getKittyState();
+        if (entity.getKittyState() == 20) {
+            onTheSide(entity);
         }
-        if (entitykitty.climbingTree()) {
-            rotateAnimal(entitykitty);
+        if (entity.climbingTree()) {
+            rotateAnimal(entity);
         }
-        if (entitykitty.upsideDown()) {
-            upsideDown(entitykitty);
+        if (entity.upsideDown()) {
+            upsideDown(entity);
         }
-        if (entitykitty.onMaBack()) {
-            onMaBack(entitykitty);
+        if (entity.onMaBack()) {
+            onMaBack(entity);
         }
     }
 
-    protected void rotateAnimal(MoCEntityKitty entitykitty) {
+    protected void rotateAnimal(MoCEntityKitty entity) {
         GlStateManager.rotate(90F, -1.0F, 0.0F, 0.0F);
         GlStateManager.translate(0.0F, 0.5F, 0.0F);
     }
 
-    protected void stretch(MoCEntityKitty entitykitty) {
-        GlStateManager.scale(entitykitty.getAge() * 0.01F, entitykitty.getAge() * 0.01F, entitykitty.getAge() * 0.01F);
+    protected void stretch(MoCEntityKitty entity) {
+        GlStateManager.scale(entity.getAge() * 0.01F, entity.getAge() * 0.01F, entity.getAge() * 0.01F);
     }
 
-    protected void upsideDown(MoCEntityKitty entitykitty) {
+    protected void upsideDown(MoCEntityKitty entity) {
         GlStateManager.rotate(180F, 0.0F, 0.0F, -1F);
         GlStateManager.translate(-0.35F, 0F, -0.55F);
     }

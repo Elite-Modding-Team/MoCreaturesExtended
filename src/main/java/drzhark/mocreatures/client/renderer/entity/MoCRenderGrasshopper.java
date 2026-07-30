@@ -3,6 +3,7 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
+import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.entity.ambient.MoCEntityGrasshopper;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
@@ -12,9 +13,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderGrasshopper extends MoCRenderMoC<MoCEntityGrasshopper> {
+    private static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/grasshopper/grasshopper_bright_green.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/grasshopper/grasshopper_olive_green.png")
+    };
 
-    public MoCRenderGrasshopper(ModelBase modelbase) {
-        super(modelbase, 0.0F);
+    public MoCRenderGrasshopper(ModelBase model) {
+        super(model, 0.0F);
     }
 
     @Override
@@ -35,7 +40,11 @@ public class MoCRenderGrasshopper extends MoCRenderMoC<MoCEntityGrasshopper> {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(MoCEntityGrasshopper par1Entity) {
-        return par1Entity.getTexture();
+    protected ResourceLocation getEntityTexture(MoCEntityGrasshopper entity) {
+        int type = entity.getType();
+        if (type < 1 || type >= TEXTURES.length) {
+            type = 1;
+        }
+        return TEXTURES[type];
     }
 }

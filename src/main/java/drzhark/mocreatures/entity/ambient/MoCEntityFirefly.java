@@ -17,12 +17,10 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityFirefly extends MoCEntityInsect {
-
     private int soundCount;
 
     public MoCEntityFirefly(World world) {
         super(world);
-        this.texture = "firefly.png";
     }
 
     @Override

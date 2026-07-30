@@ -29,7 +29,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoCEntityShark extends MoCEntityTameableAquatic {
-
     public MoCEntityShark(World world) {
         super(world);
         this.texture = "shark.png";
@@ -66,13 +65,6 @@ public class MoCEntityShark extends MoCEntityTameableAquatic {
         this.getAttributeMap().registerAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(5.0D);
         this.getEntityAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(32.0D);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        if (MoCreatures.proxy.legacyBigCatModels)
-            return MoCreatures.proxy.getModelTexture("shark_legacy.png");
-        return MoCreatures.proxy.getModelTexture("shark.png");
     }
 
     @Override

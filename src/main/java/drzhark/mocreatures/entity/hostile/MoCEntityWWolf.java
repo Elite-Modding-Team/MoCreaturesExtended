@@ -72,22 +72,6 @@ public class MoCEntityWWolf extends MoCEntityMob {
         }
     }
 
-    @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 1:
-                return MoCreatures.proxy.getModelTexture("wild_wolf_black.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("wild_wolf_timber.png");
-            case 4:
-                return MoCreatures.proxy.getModelTexture("wild_wolf_dark.png");
-            case 5:
-                return MoCreatures.proxy.getModelTexture("wild_wolf_bright.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("wild_wolf_classic.png");
-        }
-    }
-
     private void openMouth() {
         this.mouthCounter = 1;
     }

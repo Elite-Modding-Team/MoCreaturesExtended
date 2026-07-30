@@ -3,6 +3,7 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
+import drzhark.mocreatures.MoCConstants;
 import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.proxy.MoCProxyClient;
 import drzhark.mocreatures.client.model.MoCModelGoat;
@@ -19,6 +20,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderGoat extends RenderLiving<MoCEntityGoat> {
+    private static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/goat/goat_white.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/goat/goat_brown_light.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/goat/goat_brown_spotted.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/goat/goat_gray_spotted.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/goat/goat_gray.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/goat/goat_brown.png")
+    };
 
     private final MoCModelGoat tempGoat;
     float depth = 0F;
@@ -29,36 +38,40 @@ public class MoCRenderGoat extends RenderLiving<MoCEntityGoat> {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(MoCEntityGoat entitygoat) {
-        return entitygoat.getTexture();
+    protected ResourceLocation getEntityTexture(MoCEntityGoat entity) {
+        int type = entity.getType();
+        if (type < 1 || type >= TEXTURES.length) {
+            type = 1;
+        }
+        return TEXTURES[type];
     }
 
     @Override
-    protected void preRenderCallback(MoCEntityGoat entitygoat, float f) {
+    protected void preRenderCallback(MoCEntityGoat entity, float f) {
         GlStateManager.translate(0.0F, this.depth, 0.0F);
-        stretch(entitygoat);
+        stretch(entity);
     }
 
     @Override
-    public void doRender(MoCEntityGoat entitygoat, double d, double d1, double d2, float f, float f1) {
-        this.tempGoat.typeInt = entitygoat.getType();
-        this.tempGoat.age = entitygoat.getAge() * 0.01F;
-        this.tempGoat.bleat = entitygoat.getBleating();
-        this.tempGoat.attacking = entitygoat.getAttacking();
-        this.tempGoat.legMov = entitygoat.legMovement();
-        this.tempGoat.earMov = entitygoat.earMovement();
-        this.tempGoat.tailMov = entitygoat.tailMovement();
-        this.tempGoat.eatMov = entitygoat.mouthMovement();
-        super.doRender(entitygoat, d, d1, d2, f, f1);
-        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entitygoat.getPetName()).isEmpty();
+    public void doRender(MoCEntityGoat entity, double d, double d1, double d2, float f, float f1) {
+        this.tempGoat.typeInt = entity.getType();
+        this.tempGoat.age = entity.getAge() * 0.01F;
+        this.tempGoat.bleat = entity.getBleating();
+        this.tempGoat.attacking = entity.getAttacking();
+        this.tempGoat.legMov = entity.legMovement();
+        this.tempGoat.earMov = entity.earMovement();
+        this.tempGoat.tailMov = entity.tailMovement();
+        this.tempGoat.eatMov = entity.mouthMovement();
+        super.doRender(entity, d, d1, d2, f, f1);
+        boolean flag = MoCreatures.proxy.getDisplayPetName() && !(entity.getPetName()).isEmpty();
         boolean flag1 = MoCreatures.proxy.getDisplayPetHealth();
-        if (entitygoat.shouldRenderNameAndHealth()) {
+        if (entity.shouldRenderNameAndHealth()) {
             float f2 = 1.6F;
             float f3 = 0.01666667F * f2;
-            float f4 = entitygoat.getDistance(this.renderManager.renderViewEntity);
+            float f4 = entity.getDistance(this.renderManager.renderViewEntity);
             if (f4 < 16F) {
                 String s = "";
-                s = s + entitygoat.getPetName();
+                s = s + entity.getPetName();
                 float f5 = 0.1F;
                 FontRenderer fontrenderer = getFontRendererFromRenderManager();
                 GlStateManager.pushMatrix();
@@ -68,7 +81,7 @@ public class MoCRenderGoat extends RenderLiving<MoCEntityGoat> {
                 GlStateManager.scale(-f3, -f3, f3);
                 GlStateManager.disableLighting();
                 Tessellator tessellator = Tessellator.getInstance();
-                byte byte0 = (byte) (-15 + (-40 * entitygoat.getAge() * 0.01F));
+                byte byte0 = (byte) (-15 + (-40 * entity.getAge() * 0.01F));
                 if (flag1) {
                     GlStateManager.disableTexture2D();
                     if (!flag) {
@@ -76,9 +89,9 @@ public class MoCRenderGoat extends RenderLiving<MoCEntityGoat> {
                     }
                     tessellator.getBuffer().begin(7, DefaultVertexFormats.POSITION_COLOR);
                     // might break SSP
-                    float f6 = entitygoat.getHealth();
+                    float f6 = entity.getHealth();
                     // max health is always 30 for dolphins, so we do not need to use a data watcher
-                    float f7 = entitygoat.getMaxHealth();
+                    float f7 = entity.getMaxHealth();
                     float f8 = f6 / f7;
                     float f9 = 40F * f8;
                     tessellator.getBuffer().pos(-20F + f9, -10 + byte0, 0.0D).color(0.7F, 0.0F, 0.0F, 1.0F).endVertex();

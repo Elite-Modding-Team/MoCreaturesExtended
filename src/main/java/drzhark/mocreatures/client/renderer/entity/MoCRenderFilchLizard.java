@@ -3,6 +3,8 @@
  */
 package drzhark.mocreatures.client.renderer.entity;
 
+import drzhark.mocreatures.MoCConstants;
+import drzhark.mocreatures.entity.passive.MoCEntityMouse;
 import drzhark.mocreatures.proxy.MoCProxyClient;
 import drzhark.mocreatures.entity.passive.MoCEntityFilchLizard;
 import net.minecraft.client.Minecraft;
@@ -18,15 +20,25 @@ import net.minecraft.util.ResourceLocation;
 
 // Courtesy of Daveyx0, permission given
 public class MoCRenderFilchLizard extends RenderLiving<MoCEntityFilchLizard> {
+    private static final ResourceLocation[] TEXTURES = new ResourceLocation[] {
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/filch_lizard/filch_lizard_classic.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/filch_lizard/filch_lizard_sand.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/filch_lizard/filch_lizard_red_sand.png"),
+            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/filch_lizard/filch_lizard_silver_sand.png")
+    };
 
-    public MoCRenderFilchLizard(ModelBase modelBase, float f) {
-        super(MoCProxyClient.mc.getRenderManager(), modelBase, f);
+    public MoCRenderFilchLizard(ModelBase model, float f) {
+        super(MoCProxyClient.mc.getRenderManager(), model, f);
         this.addLayer(new LayerHeldItemCustom(this));
     }
 
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityFilchLizard entity) {
-        return entity.getTexture();
+        int type = entity.getType();
+        if (type < 1 || type >= TEXTURES.length) {
+            type = 1;
+        }
+        return TEXTURES[type];
     }
 
     private class LayerHeldItemCustom implements LayerRenderer<MoCEntityFilchLizard> {

@@ -29,9 +29,6 @@ public class MoCRenderWWolf extends RenderLiving<MoCEntityWWolf> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityWWolf entity) {
         int type = entity.getType();
-        if (type < 1 || type >= TEXTURES.length) {
-            type = 1;
-        }
-        return TEXTURES[type];
+        return TEXTURES[type - 1];
     }
 }

@@ -56,7 +56,6 @@ import java.util.List;
  */
 
 public class MoCEntitySnake extends MoCEntityTameableAnimal {
-
     public float bodyswing;
     private float fTongue;
     private float fMouth;

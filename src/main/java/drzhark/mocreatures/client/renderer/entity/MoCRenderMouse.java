@@ -64,9 +64,6 @@ public class MoCRenderMouse extends MoCRenderMoC<MoCEntityMouse> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityMouse entity) {
         int type = entity.getType();
-        if (type < 1 || type >= TEXTURES.length) {
-            type = 1;
-        }
-        return TEXTURES[type];
+        return TEXTURES[type - 1];
     }
 }

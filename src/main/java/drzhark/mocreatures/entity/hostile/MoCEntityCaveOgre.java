@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityCaveOgre extends MoCEntityOgre {
-
     public MoCEntityCaveOgre(World world) {
         super(world);
     }
@@ -24,11 +23,6 @@ public class MoCEntityCaveOgre extends MoCEntityOgre {
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(60.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(10.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(8.0D);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("ogre_cave.png");
     }
 
     /**

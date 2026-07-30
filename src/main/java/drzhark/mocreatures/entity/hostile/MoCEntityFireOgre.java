@@ -13,7 +13,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityFireOgre extends MoCEntityOgre {
-
     public MoCEntityFireOgre(World world) {
         super(world);
         this.isImmuneToFire = true;
@@ -25,11 +24,6 @@ public class MoCEntityFireOgre extends MoCEntityOgre {
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(65.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(9.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.5D);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("ogre_fire.png");
     }
 
     @Override

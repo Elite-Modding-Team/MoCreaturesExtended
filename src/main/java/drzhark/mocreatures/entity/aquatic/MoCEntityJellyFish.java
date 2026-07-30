@@ -4,7 +4,6 @@
 package drzhark.mocreatures.entity.aquatic;
 
 import drzhark.mocreatures.MoCTools;
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAquatic;
 import drzhark.mocreatures.init.MoCLootTables;
@@ -70,36 +69,6 @@ public class MoCEntityJellyFish extends MoCEntityTameableAquatic {
     @Override
     public float getAIMoveSpeed() {
         return 0.02F;
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 2:
-                return MoCreatures.proxy.getModelTexture("jellyfish_purple_gray.png");
-            case 3:
-                return MoCreatures.proxy.getModelTexture("jellyfish_blue_dark.png");
-            case 4:
-                return MoCreatures.proxy.getModelTexture("jellyfish_green.png");
-            case 5:
-                return MoCreatures.proxy.getModelTexture("jellyfish_orange_red.png");
-            case 6:
-                return MoCreatures.proxy.getModelTexture("jellyfish_orange_yellow.png");
-            case 7:
-                return MoCreatures.proxy.getModelTexture("jellyfish_blue_speckled.png");
-            case 8:
-                return MoCreatures.proxy.getModelTexture("jellyfish_white.png");
-            case 9:
-                return MoCreatures.proxy.getModelTexture("jellyfish_purple.png");
-            case 10:
-                return MoCreatures.proxy.getModelTexture("jellyfish_orange_light.png");
-            case 11:
-                return MoCreatures.proxy.getModelTexture("jellyfish_red.png");
-            case 12:
-                return MoCreatures.proxy.getModelTexture("jellyfish_blue_light.png");
-            default:
-                return MoCreatures.proxy.getModelTexture("jellyfish_orange_dark.png");
-        }
     }
 
     @Override

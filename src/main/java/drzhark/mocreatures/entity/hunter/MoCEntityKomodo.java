@@ -4,6 +4,7 @@
 package drzhark.mocreatures.entity.hunter;
 
 import drzhark.mocreatures.MoCTools;
+import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.EntityAIFleeFromPlayer;
 import drzhark.mocreatures.entity.ai.EntityAIHunt;
 import drzhark.mocreatures.entity.ai.EntityAIPanicMoC;
@@ -47,7 +48,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoCEntityKomodo extends MoCEntityTameableAnimal {
-
     private static final DataParameter<Boolean> RIDEABLE = EntityDataManager.createKey(MoCEntityKomodo.class, DataSerializers.BOOLEAN);
     public int tailCounter;
     public int tongueCounter;
@@ -57,7 +57,6 @@ public class MoCEntityKomodo extends MoCEntityTameableAnimal {
     public MoCEntityKomodo(World world) {
         super(world);
         setSize(1.25F, 0.9F);
-        this.texture = "komodo_dragon.png";
         setTamed(false);
         setAdult(true);
         this.stepHeight = 1.0F;

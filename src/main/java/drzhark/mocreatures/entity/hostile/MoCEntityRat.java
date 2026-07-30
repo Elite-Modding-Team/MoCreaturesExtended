@@ -33,7 +33,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class MoCEntityRat extends MoCEntityMob {
-
     private static final DataParameter<Boolean> CLIMBING = EntityDataManager.createKey(MoCEntityRat.class, DataSerializers.BOOLEAN);
 
     public MoCEntityRat(World world) {

@@ -37,13 +37,10 @@ public class MoCRenderBunny extends MoCRenderMoC<MoCEntityBunny> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityBunny entity) {
         int type = entity.getType();
-        if (type < 1 || type >= TEXTURES.length) {
-            type = 1;
-        }
         if (MoCreatures.proxy.legacyBunnyTextures) {
-            return TEXTURES_LOW[type];
+            return TEXTURES_LOW[type - 1];
         }
-        return TEXTURES[type];
+        return TEXTURES[type - 1];
     }
 
     @Override

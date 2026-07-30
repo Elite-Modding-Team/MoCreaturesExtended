@@ -42,9 +42,6 @@ public class MoCRenderCricket extends MoCRenderMoC<MoCEntityCricket> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityCricket entity) {
         int type = entity.getType();
-        if (type < 1 || type >= TEXTURES.length) {
-            type = 1;
-        }
-        return TEXTURES[type];
+        return TEXTURES[type - 1];
     }
 }

@@ -48,7 +48,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoCEntityGolem extends MoCEntityMob implements IEntityAdditionalSpawnData {
-
     private static final DataParameter<Integer> GOLEM_STATE = EntityDataManager.createKey(MoCEntityGolem.class, DataSerializers.VARINT);
     public int tCounter;
     private byte[] golemCubes;

@@ -40,7 +40,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoCEntityFox extends MoCEntityTameableAnimal {
-
     public MoCEntityFox(World world) {
         super(world);
         setSize(0.7F, 0.85F);
@@ -86,21 +85,6 @@ public class MoCEntityFox extends MoCEntityTameableAnimal {
         if (getType() == 0) {
             setType(1);
         }
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-
-        if (!getIsAdult()) {
-            if (getType() == 2) {
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/fox_snow.png") : MoCreatures.proxy.getModelTexture("fox_snow.png");
-            }
-            return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/fox_cub.png") : MoCreatures.proxy.getModelTexture("fox_cub.png");
-        }
-        if (getType() == 2) {
-            return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/fox_snow.png") : MoCreatures.proxy.getModelTexture("fox_snow.png");
-        }
-        return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/fox.png") : MoCreatures.proxy.getModelTexture("fox.png");
     }
 
     @Override

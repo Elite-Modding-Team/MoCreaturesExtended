@@ -22,7 +22,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 
 public class MoCEntityOgre extends MoCEntityMob {
-
     public int attackCounterLeft;
     public int attackCounterRight;
     public int smashCounter;

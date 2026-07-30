@@ -49,9 +49,6 @@ public class MoCRenderButterfly extends MoCRenderInsect<MoCEntityButterfly> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityButterfly entity) {
         int type = entity.getType();
-        if (type < 1 || type >= TEXTURES.length) {
-            type = 1;
-        }
-        return TEXTURES[type];
+        return TEXTURES[type - 1];
     }
 }

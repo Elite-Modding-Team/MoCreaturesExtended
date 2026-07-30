@@ -32,8 +32,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import javax.annotation.Nullable;
 
 public class MoCEntitySilverSkeleton extends MoCEntityMob {
-    private static final ResourceLocation TEXTURE = MoCreatures.proxy.getModelTexture("silver_skeleton.png");
-
     public int attackCounterLeft;
     public int attackCounterRight;
 
@@ -123,11 +121,6 @@ public class MoCEntitySilverSkeleton extends MoCEntityMob {
         }
         
         return 0.25F;
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return TEXTURE;
     }
 
     @Override

@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityAnchovy extends MoCEntitySmallFish {
+    private static final ResourceLocation TEXTURE = MoCreatures.proxy.getModelTexture("smallfish_anchovy.png");
 
     public MoCEntityAnchovy(World world) {
         super(world);
@@ -19,7 +20,7 @@ public class MoCEntityAnchovy extends MoCEntitySmallFish {
 
     @Override
     public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("smallfish_anchovy.png");
+        return TEXTURE;
     }
 
     @Nullable

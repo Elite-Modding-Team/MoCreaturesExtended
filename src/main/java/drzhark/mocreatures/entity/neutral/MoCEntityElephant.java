@@ -38,7 +38,6 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -51,7 +50,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import java.util.List;
 
 public class MoCEntityElephant extends MoCEntityTameableAnimal {
-
     private static final DataParameter<Integer> TUSK_TYPE = EntityDataManager.createKey(MoCEntityElephant.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> STORAGE_TYPE = EntityDataManager.createKey(MoCEntityElephant.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> HARNESS_TYPE = EntityDataManager.createKey(MoCEntityElephant.class, DataSerializers.VARINT);
@@ -147,22 +145,6 @@ public class MoCEntityElephant extends MoCEntityTameableAnimal {
 
     public void setStorage(int i) {
         this.dataManager.set(STORAGE_TYPE, i);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        switch (getType()) {
-            case 2:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/elephant_asian.png") : MoCreatures.proxy.getModelTexture("elephant_asian.png");
-            case 3:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/mammoth_woolly.png") : MoCreatures.proxy.getModelTexture("mammoth_woolly.png");
-            case 4:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/mammoth_songhua.png") : MoCreatures.proxy.getModelTexture("mammoth_songhua.png");
-            case 5:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/elephant_asian_decorated.png") : MoCreatures.proxy.getModelTexture("elephant_asian_decorated.png");
-            default:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/elephant_african.png") : MoCreatures.proxy.getModelTexture("elephant_african.png");
-        }
     }
 
     @Override

@@ -14,7 +14,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityFireScorpion extends MoCEntityScorpion {
-
     public MoCEntityFireScorpion(World world) {
         super(world, 3);
         this.isImmuneToFire = true;
@@ -28,11 +27,6 @@ public class MoCEntityFireScorpion extends MoCEntityScorpion {
         this.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.34D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(4.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(5.0D);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/scorpion_fire.png") : MoCreatures.proxy.getModelTexture("scorpion_fire.png");
     }
 
     @Override

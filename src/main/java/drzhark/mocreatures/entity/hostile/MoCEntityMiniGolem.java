@@ -29,7 +29,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityMiniGolem extends MoCEntityMob {
-
     private static final DataParameter<Boolean> ANGRY = EntityDataManager.createKey(MoCEntityMiniGolem.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> HAS_ROCK = EntityDataManager.createKey(MoCEntityMiniGolem.class, DataSerializers.BOOLEAN);
     public int tCounter;
@@ -37,7 +36,6 @@ public class MoCEntityMiniGolem extends MoCEntityMob {
 
     public MoCEntityMiniGolem(World world) {
         super(world);
-        this.texture = "mini_golem.png";
         setSize(0.9F, 1.2F);
         experienceValue = 5;
     }

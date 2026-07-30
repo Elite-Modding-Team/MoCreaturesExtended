@@ -34,11 +34,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MoCEntityRaccoon extends MoCEntityTameableAnimal {
-
     public MoCEntityRaccoon(World world) {
         super(world);
         setSize(0.6F, 0.525F);
-        this.texture = MoCreatures.proxy.lowResolutionTextures ? "16x/raccoon.png" : "raccoon.png";
         // TODO: Make hitboxes adjust depending on size
         //setAge(50 + this.rand.nextInt(15));
         setAge(60);

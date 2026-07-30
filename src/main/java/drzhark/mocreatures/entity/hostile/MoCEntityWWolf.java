@@ -36,7 +36,6 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class MoCEntityWWolf extends MoCEntityMob {
-
     public int mouthCounter;
     public int tailCounter;
 

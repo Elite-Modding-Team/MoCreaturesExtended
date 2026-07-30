@@ -184,12 +184,9 @@ public class MoCRenderDolphin extends RenderLiving<MoCEntityDolphin> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityDolphin entity) {
         int type = entity.getType();
-        if (type < 1 || type >= TEXTURES.length) {
-            type = 1;
-        }
         if (MoCreatures.proxy.lowResolutionTextures) {
-            return TEXTURES_LOW[type];
+            return TEXTURES_LOW[type - 1];
         }
-        return TEXTURES[type];
+        return TEXTURES[type - 1];
     }
 }

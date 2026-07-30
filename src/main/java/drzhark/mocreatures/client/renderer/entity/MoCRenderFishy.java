@@ -60,9 +60,6 @@ public class MoCRenderFishy extends RenderLiving<MoCEntityFishy> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityFishy entity) {
         int type = entity.getType();
-        if (type < 1 || type >= TEXTURES.length) {
-            type = 1;
-        }
-        return TEXTURES[type];
+        return TEXTURES[type - 1];
     }
 }

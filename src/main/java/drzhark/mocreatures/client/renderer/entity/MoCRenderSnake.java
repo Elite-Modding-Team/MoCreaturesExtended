@@ -44,13 +44,10 @@ public class MoCRenderSnake extends MoCRenderMoC<MoCEntitySnake> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntitySnake entity) {
         int type = entity.getType();
-        if (type < 1 || type >= TEXTURES.length) {
-            type = 1;
-        }
         if (MoCreatures.proxy.lowResolutionTextures) {
-            return TEXTURES_LOW[type];
+            return TEXTURES_LOW[type - 1];
         }
-        return TEXTURES[type];
+        return TEXTURES[type - 1];
     }
 
     protected void adjustHeight(MoCEntitySnake entity, float FHeight) {

@@ -35,10 +35,7 @@ public class MoCRenderFilchLizard extends RenderLiving<MoCEntityFilchLizard> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityFilchLizard entity) {
         int type = entity.getType();
-        if (type < 1 || type >= TEXTURES.length) {
-            type = 1;
-        }
-        return TEXTURES[type];
+        return TEXTURES[type - 1];
     }
 
     private class LayerHeldItemCustom implements LayerRenderer<MoCEntityFilchLizard> {

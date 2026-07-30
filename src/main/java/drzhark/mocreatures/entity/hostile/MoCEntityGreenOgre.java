@@ -12,7 +12,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nullable;
 
 public class MoCEntityGreenOgre extends MoCEntityOgre {
-
     public MoCEntityGreenOgre(World world) {
         super(world);
     }
@@ -23,11 +22,6 @@ public class MoCEntityGreenOgre extends MoCEntityOgre {
         this.getEntityAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(50.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(8.0D);
         this.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).setBaseValue(7.0D);
-    }
-
-    @Override
-    public ResourceLocation getTexture() {
-        return MoCreatures.proxy.getModelTexture("ogre_green.png");
     }
 
     /**

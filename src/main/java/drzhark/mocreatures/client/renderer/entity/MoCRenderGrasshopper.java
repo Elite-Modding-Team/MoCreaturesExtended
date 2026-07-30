@@ -42,9 +42,6 @@ public class MoCRenderGrasshopper extends MoCRenderMoC<MoCEntityGrasshopper> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityGrasshopper entity) {
         int type = entity.getType();
-        if (type < 1 || type >= TEXTURES.length) {
-            type = 1;
-        }
-        return TEXTURES[type];
+        return TEXTURES[type - 1];
     }
 }

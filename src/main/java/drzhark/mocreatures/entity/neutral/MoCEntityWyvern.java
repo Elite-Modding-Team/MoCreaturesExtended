@@ -50,7 +50,6 @@ import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import javax.annotation.Nullable;
 
 public class MoCEntityWyvern extends MoCEntityTameableAnimal {
-
     private static final DataParameter<Boolean> RIDEABLE = EntityDataManager.createKey(MoCEntityWyvern.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> CHESTED = EntityDataManager.createKey(MoCEntityWyvern.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> SITTING = EntityDataManager.createKey(MoCEntityWyvern.class, DataSerializers.BOOLEAN);
@@ -63,8 +62,8 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     public int wingFlapCounter;
     public int diveCounter;
     protected EntityAIWanderMoC2 wander;
-    private int transformType;
-    private int transformCounter;
+    public int transformType;
+    public int transformCounter;
     private int tCounter;
     private float fTransparency;
 
@@ -232,7 +231,7 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
     }
 
     public double calculateMaxHealth() {
-        if (this.getType() == 13) {
+        if (this.getType() == 5) {
             return 100.0D;
         }
         return 80.0D;
@@ -243,68 +242,6 @@ public class MoCEntityWyvern extends MoCEntityTameableAnimal {
             return 12.0D;
         }
         return 10.0D;
-    }
-
-    /**
-     * 1-4 regular wyverns
-     * 5 mother wyvern
-     * 6 undead
-     * 7 light
-     * 8 darkness
-     * 9-12 extra wyverns
-     */
-    @Override
-    public ResourceLocation getTexture() {
-        if (this.transformCounter != 0 && this.transformType > 5) {
-            String newText = MoCreatures.proxy.lowResolutionTextures ? "16x/wyvern_mother_dark.png" : "wyvern_mother_dark.png";
-            if (this.transformType == 6) {
-                newText = MoCreatures.proxy.lowResolutionTextures ? "16x/wyvern_mother_undead.png" : "wyvern_mother_undead.png";
-            }
-            if (this.transformType == 7) {
-                newText = MoCreatures.proxy.lowResolutionTextures ? "16x/wyvern_mother_light.png" : "wyvern_mother_light.png";
-            }
-            if (this.transformType == 8) {
-                newText = MoCreatures.proxy.lowResolutionTextures ? "16x/wyvern_mother_dark.png" : "wyvern_mother_dark.png";
-            }
-
-            if ((this.transformCounter % 5) == 0) {
-                return MoCreatures.proxy.getModelTexture(newText);
-            }
-            if (this.transformCounter > 50 && (this.transformCounter % 3) == 0) {
-                return MoCreatures.proxy.getModelTexture(newText);
-            }
-
-            if (this.transformCounter > 75 && (this.transformCounter % 4) == 0) {
-                return MoCreatures.proxy.getModelTexture(newText);
-            }
-        }
-
-        switch (getType()) {
-            case 1:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_jungle.png") : MoCreatures.proxy.getModelTexture("wyvern_jungle.png");
-            case 2:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_swamp.png") : MoCreatures.proxy.getModelTexture("wyvern_swamp.png");
-            case 3:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_sand.png") : MoCreatures.proxy.getModelTexture("wyvern_sand.png");
-            case 5:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_mother.png") : MoCreatures.proxy.getModelTexture("wyvern_mother.png");
-            case 6:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_mother_undead.png") : MoCreatures.proxy.getModelTexture("wyvern_mother_undead.png");
-            case 7:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_mother_light.png") : MoCreatures.proxy.getModelTexture("wyvern_mother_light.png");
-            case 8:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_mother_dark.png") : MoCreatures.proxy.getModelTexture("wyvern_mother_dark.png");
-            case 9:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_arctic.png") : MoCreatures.proxy.getModelTexture("wyvern_arctic.png");
-            case 10:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_cave.png") : MoCreatures.proxy.getModelTexture("wyvern_cave.png");
-            case 11:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_mountain.png") : MoCreatures.proxy.getModelTexture("wyvern_mountain.png");
-            case 12:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_sea.png") : MoCreatures.proxy.getModelTexture("wyvern_sea.png");
-            default:
-                return MoCreatures.proxy.lowResolutionTextures ? MoCreatures.proxy.getModelTexture("16x/wyvern_sun.png") : MoCreatures.proxy.getModelTexture("wyvern_sun.png");
-        }
     }
 
     public void transform(int tType) {

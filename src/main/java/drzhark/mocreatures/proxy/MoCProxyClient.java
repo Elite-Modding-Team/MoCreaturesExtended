@@ -93,7 +93,7 @@ public class MoCProxyClient extends MoCProxy {
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityFilchLizard.class, new MoCRenderFilchLizard(new MoCModelFilchLizard(), 0.5F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityFox.class, new MoCRenderFox());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityDolphin.class, new MoCRenderDolphin(new MoCModelDolphin(), 0.6F));
-        RenderingRegistry.registerEntityRenderingHandler(MoCEntityFishy.class, new MoCRenderMoC(new MoCModelFishy(), 0.1F));
+        RenderingRegistry.registerEntityRenderingHandler(MoCEntityFishy.class, new MoCRenderFishy());
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityEgg.class, new MoCRenderEgg(new MoCModelEgg(), 0.0F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityKitty.class, new MoCRenderKitty(new MoCModelKitty(0.0F, 15F), 0.4F));
         RenderingRegistry.registerEntityRenderingHandler(MoCEntityKittyBed.class, new MoCRenderKittyBed(new MoCModelKittyBed(), new MoCModelKittyBed2(), 0.3F));

@@ -4,9 +4,9 @@
 package drzhark.mocreatures.client.renderer.entity;
 
 import drzhark.mocreatures.MoCConstants;
+import drzhark.mocreatures.client.model.MoCModelFishy;
 import drzhark.mocreatures.proxy.MoCProxyClient;
 import drzhark.mocreatures.entity.aquatic.MoCEntityFishy;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.util.ResourceLocation;
@@ -28,8 +28,8 @@ public class MoCRenderFishy extends RenderLiving<MoCEntityFishy> {
             new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/fishy/fishy_red.png")
     };
 
-    public MoCRenderFishy(ModelBase model, float f) {
-        super(MoCProxyClient.mc.getRenderManager(), model, f);
+    public MoCRenderFishy() {
+        super(MoCProxyClient.mc.getRenderManager(), new MoCModelFishy(), 0.1F);
     }
 
     @Override

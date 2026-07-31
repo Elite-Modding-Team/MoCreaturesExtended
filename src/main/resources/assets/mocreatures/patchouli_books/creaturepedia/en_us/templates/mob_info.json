@@ -1,0 +1,338 @@
+{
+  "components": [
+    {
+      "type": "header",
+      "text": "#title",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "separator",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "item",
+      "item": "#potion",
+      "framed": "false",
+      "x": 0,
+      "y": 16
+    },
+    {
+      "type": "item",
+      "item": "#helmet",
+      "framed": "false",
+      "x": 50,
+      "y": 16
+    },
+    {
+      "type": "item",
+      "item": "#chestplate",
+      "framed": "false",
+      "x": 50,
+      "y": 32
+    },
+    {
+      "type": "item",
+      "item": "#leggings",
+      "framed": "false",
+      "x": 50,
+      "y": 48
+    },
+    {
+      "type": "item",
+      "item": "#boots",
+      "framed": "false",
+      "x": 50,
+      "y": 64
+    },
+    {
+      "type": "item",
+      "item": "#hand",
+      "framed": "false",
+      "x": 66,
+      "y": 32
+    },
+    {
+      "type": "item",
+      "item": "#offhand",
+      "framed": "false",
+      "x": 34,
+      "y": 32
+    },
+    {
+      "type": "item",
+      "item": "#drop1",
+      "framed": "false",
+      "x": 10,
+      "y": 111
+    },
+    {
+      "type": "item",
+      "item": "#drop2",
+      "framed": "false",
+      "x": 26,
+      "y": 111
+    },
+    {
+      "type": "item",
+      "item": "#drop3",
+      "framed": "false",
+      "x": 42,
+      "y": 111
+    },
+    {
+      "type": "item",
+      "item": "#drop4",
+      "framed": "false",
+      "x": 58,
+      "y": 111
+    },
+    {
+      "type": "item",
+      "item": "#drop5",
+      "framed": "false",
+      "x": 74,
+      "y": 111
+    },
+    {
+      "type": "item",
+      "item": "#drop6",
+      "framed": "false",
+      "x": 90,
+      "y": 111
+    },
+    {
+      "type": "item",
+      "item": "#drop7",
+      "framed": "false",
+      "x": 10,
+      "y": 125
+    },
+    {
+      "type": "item",
+      "item": "#drop8",
+      "framed": "false",
+      "x": 26,
+      "y": 125
+    },
+    {
+      "type": "item",
+      "item": "#drop9",
+      "framed": "false",
+      "x": 42,
+      "y": 125
+    },
+    {
+      "type": "item",
+      "item": "#drop10",
+      "framed": "false",
+      "x": 58,
+      "y": 125
+    },
+    {
+      "type": "item",
+      "item": "#drop11",
+      "framed": "false",
+      "x": 74,
+      "y": 125
+    },
+    {
+      "type": "item",
+      "item": "#drop12",
+      "framed": "false",
+      "x": 90,
+      "y": 125
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/#piece#.png",
+      "x": 96,
+      "y": 16,
+      "height": 16,
+      "width": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/armor_border.png",
+      "x": 50,
+      "y": 16,
+      "height": 16,
+      "width": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/armor_border.png",
+      "x": 50,
+      "y": 32,
+      "height": 16,
+      "width": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/armor_border.png",
+      "x": 50,
+      "y": 48,
+      "height": 16,
+      "width": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/armor_border.png",
+      "x": 50,
+      "y": 64,
+      "height": 16,
+      "width": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/armor_border.png",
+      "x": 66,
+      "y": 32,
+      "height": 16,
+      "width": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/armor_border.png",
+      "x": 34,
+      "y": 32,
+      "height": 16,
+      "width": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/resistance.png",
+      "x": -4,
+      "y": 79,
+      "height": 24,
+      "width": 24,
+      "texture_width": 24,
+      "texture_height": 24
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/knockback_resistance.png",
+      "x": 20,
+      "y": 79,
+      "height": 24,
+      "width": 24,
+      "texture_width": 24,
+      "texture_height": 24
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/max_hp.png",
+      "x": 44,
+      "y": 79,
+      "height": 24,
+      "width": 24,
+      "texture_width": 24,
+      "texture_height": 24
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/damage.png",
+      "x": 68,
+      "y": 79,
+      "height": 24,
+      "width": 24,
+      "texture_width": 24,
+      "texture_height": 24
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/movement_speed.png",
+      "x": 92,
+      "y": 79,
+      "height": 24,
+      "width": 24,
+      "texture_width": 24,
+      "texture_height": 24
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/drop_border_1.png",
+      "x": 0,
+      "y": 101,
+      "height": 16,
+      "width": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/drop_border_2.png",
+      "x": 0,
+      "y": 134,
+      "height": 16,
+      "width": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/drop_border_3.png",
+      "x": 100,
+      "y": 101,
+      "height": 16,
+      "width": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "image",
+      "image": "mocreatures:textures/gui/guidebook/drop_border_4.png",
+      "x": 100,
+      "y": 133,
+      "height": 16,
+      "width": 16,
+      "texture_width": 16,
+      "texture_height": 16
+    },
+    {
+      "type": "text",
+      "text": "$(c)$(l)#resistance#",
+      "x": -8,
+      "y": 86
+    },
+    {
+      "type": "text",
+      "text": "$(c)$(l)#knockback#",
+      "x": 18,
+      "y": 86
+    },
+    {
+      "type": "text",
+      "text": "$(c)$(l)#health#",
+      "x": 40,
+      "y": 86
+    },
+    {
+      "type": "text",
+      "text": "$(c)$(l)#damage#",
+      "x": 66,
+      "y": 86
+    },
+    {
+      "type": "text",
+      "text": "$(c)$(l)#speed#",
+      "x": 90,
+      "y": 86
+    }
+  ]
+}

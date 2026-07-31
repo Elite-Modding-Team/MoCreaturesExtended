@@ -1,0 +1,6 @@
+{
+  "name": "Mod Integration",
+  "description": "Special integration with other third party mods.",
+  "icon": "mocreatures:textures/gui/guidebook/icon/icon_indiana.png",
+  "sortnum": 5
+}

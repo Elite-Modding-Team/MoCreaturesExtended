@@ -1,0 +1,23 @@
+{
+  "name": "Dolphin",
+  "icon": "minecraft:fish",
+  "category": "creatures_aquatic",
+  "pages": [
+    {
+      "type": "mob_info",
+      "title": "Dolphin",
+      "piece": "none",
+      "resistance": "   0",
+      "knockback": "   0",
+      "health": "  N/A",
+      "damage": "  N/A",
+      "speed": "  N/A",
+      "drop1": "minecraft:fish"
+    },
+    {
+      "type": "entity",
+      "name": " ",
+      "entity": "mocreatures:dolphin{Edad:40}"
+    }
+  ]
+}

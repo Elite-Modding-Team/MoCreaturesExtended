@@ -1,7 +1,10 @@
 # Mo' Creatures Extended Changelog (12.4.9+)
 ## 12.5.0
+### Added
+- Added a config option to enable 16x textures for most mobs. A heavily requested feature!
 ### Changed
 - Improved how animated textures are rendered and significantly improved performance.
+- Significantly improved texture rendering for all mobs.
 ### Fixed
 - Fixed `AnimateTextures` config option not working with every mob that has animated textures.
 - Fixed `legacySharkModel` config option not also changing the shark texture to the legacy version.

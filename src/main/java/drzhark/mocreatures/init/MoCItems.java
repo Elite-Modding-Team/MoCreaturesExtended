@@ -95,8 +95,8 @@ public class MoCItems {
     public static MoCItem chitinNether;
     @GameRegistry.ObjectHolder("chitinundead")
     public static MoCItem chitinUndead;
-    @GameRegistry.ObjectHolder("creaturepedia")
-    public static MoCItemGuidebook creaturepedia;
+    /*@GameRegistry.ObjectHolder("creaturepedia")
+    public static MoCItemGuidebook creaturepedia;*/
     @GameRegistry.ObjectHolder("crabcooked")
     public static MoCItemFood crabcooked;
     @GameRegistry.ObjectHolder("duckcooked")
@@ -430,11 +430,12 @@ public class MoCItems {
         final IForgeRegistry<Item> registry = event.getRegistry();
 
         // ITEMS
-        if (Loader.isModLoaded("patchouli")) {
+        // TODO: Work in progress, disabled for now!
+        /*if (Loader.isModLoaded("patchouli")) {
             registry.registerAll(
                     setup(new MoCItemGuidebook(), "creaturepedia")
             );
-        }
+        }*/
 
         registry.registerAll
                 (

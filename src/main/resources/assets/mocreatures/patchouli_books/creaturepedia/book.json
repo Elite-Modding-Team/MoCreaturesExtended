@@ -11,7 +11,7 @@
   "custom_book_item": "mocreatures:creaturepedia",
   "dont_generate_book": true,
   "show_progress": false,
-  "index_icon": "mocreatures:textures/items/creaturepedia.png",
+  "index_icon": "mocreatures:textures/items/scroll_of_sale.png",
   "model": "mocreatures:creaturepedia",
   "pause_game": true,
   "open_sound": "patchouli:book_flip",

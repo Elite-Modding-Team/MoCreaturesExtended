@@ -1,0 +1,21 @@
+{
+  "conditions": [
+    {
+      "type": "minecraft:item_exists",
+      "item": "mocreatures:creaturepedia"
+    }
+  ],
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:book"
+    },
+    {
+      "item": "mocreatures:fur"
+    }
+  ],
+  "result": {
+    "item": "mocreatures:creaturepedia",
+    "count": 1
+  }
+}

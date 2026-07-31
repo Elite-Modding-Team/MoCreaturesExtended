@@ -1,0 +1,18 @@
+{
+  "name": "Welcome!",
+  "icon": "mocreatures:textures/items/creaturepedia.png",
+  "category": "getting_started",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "text",
+      "text": "If you've played Mo' Creatures previously, expect bugfixes, quality of life, and new content!$(br2)You can craft yourself another Creaturepedia by combining a vanilla book with fur, hide, or reptile hide."
+    },
+    {
+      "type": "crafting",
+      "title": " ",
+      "recipe": "mocreatures:creaturepedia_1",
+      "recipe2": "mocreatures:creaturepedia_2"
+    }
+  ]
+}

@@ -4,7 +4,6 @@
 package drzhark.mocreatures.entity.ambient;
 
 import drzhark.mocreatures.MoCTools;
-import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.entity.ai.EntityAIFollowOwnerPlayer;
 import drzhark.mocreatures.entity.ai.EntityAIWanderMoC2;
 import drzhark.mocreatures.entity.tameable.MoCEntityTameableAnimal;
@@ -59,10 +58,7 @@ public class MoCEntityCrab extends MoCEntityTameableAnimal {
 
     @Override
     public void selectType() {
-        if (getType() == 0) {
-            setType(this.rand.nextInt(5) + 1);
-        }
-
+        this.setType(this.rand.nextInt(5));
     }
 
     @Override
@@ -153,7 +149,7 @@ public class MoCEntityCrab extends MoCEntityTameableAnimal {
     protected SoundEvent getHurtSound(DamageSource source) {
         return null;
     }
-    
+
     @Override
     public int getMaxSpawnedInChunk() {
         return 4;

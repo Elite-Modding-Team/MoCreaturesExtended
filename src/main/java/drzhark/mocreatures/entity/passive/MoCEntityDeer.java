@@ -78,7 +78,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         } else {
             MoCEntityDeer otherDeer = (MoCEntityDeer) otherAnimal;
 
-            // Type 1 is Stag (Male), Type 2 is Doe (Female)
+            // Type 0 is Stag (Male), Type 1 is Doe (Female)
             if (this.getType() == otherDeer.getType()) {
                 return false;
             }
@@ -92,7 +92,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
         MoCEntityDeer baby = new MoCEntityDeer(entity.world);
         baby.setGrowingAge(-24000);
         baby.setAdult(false);
-        baby.setType(3); // Type 3 is Fawn (Baby)
+        baby.setType(2); // Type 2 is Fawn (Baby)
         return baby;
     }
 
@@ -119,16 +119,14 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
 
     @Override
     public void selectType() {
-        if (getType() == 0) {
-            int i = this.rand.nextInt(100);
-            if (i <= 20) {
-                setType(1);
-            } else if (i <= 70) {
-                setType(2);
-            } else {
-                setAdult(false);
-                setType(3);
-            }
+        int i = this.rand.nextInt(100);
+        if (i <= 20) {
+            setType(0);
+        } else if (i <= 70) {
+            setType(1);
+        } else {
+            setAdult(false);
+            setType(2);
         }
     }
 
@@ -170,11 +168,11 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
     }
 
     public double getMyAISpeed() {
-        /*if (getType() == 1) {
+        if (getType() == 0) {
             return 1.1D;
-        } else if (getType() == 2) {
+        } else if (getType() == 1) {
             return 1.3D;
-        }*/
+        }
         return 1.1D;
     }
 
@@ -198,7 +196,7 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
 
     @Override
     public boolean getIsAdult() {
-        return this.getType() != 3 && super.getIsAdult();
+        return this.getType() != 2 && super.getIsAdult();
     }
 
     @Override
@@ -236,10 +234,10 @@ public class MoCEntityDeer extends MoCEntityTameableAnimal {
 
     @Override
     public float getSizeFactor() {
-        if (getType() == 1) {
+        if (getType() == 0) {
             return 1.6F;
         }
-        if (getType() == 2) {
+        if (getType() == 1) {
             return 1.3F;
         }
         return getAge() * 0.01F;

@@ -52,11 +52,6 @@ public class MoCEntityPiranha extends MoCEntitySmallFish {
     }
 
     @Override
-    public void selectType() {
-        setType(1);
-    }
-
-    @Override
     protected int getExperiencePoints(EntityPlayer player) {
         return experienceValue;
     }

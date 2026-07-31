@@ -71,10 +71,7 @@ public class MoCEntityMouse extends MoCEntityAnimal {
     @Override
     public void selectType() {
         checkSpawningBiome();
-
-        if (getType() == 0) {
-            setType(this.rand.nextInt(3) + 1);
-        }
+        setType(this.rand.nextInt(3));
     }
 
     @Override
@@ -84,11 +81,11 @@ public class MoCEntityMouse extends MoCEntityAnimal {
 
         try {
             if (BiomeDictionary.hasType(currentbiome, Type.MESA)) {
-                setType(2); // only brown mice
+                setType(1); // only brown mice
             }
 
             if (BiomeDictionary.hasType(currentbiome, Type.SNOWY)) {
-                setType(3); // only white mice
+                setType(2); // only white mice
             }
         } catch (Exception ignored) {
         }

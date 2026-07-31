@@ -41,9 +41,7 @@ public class MoCEntityDragonfly extends MoCEntityInsect {
 
     @Override
     public void selectType() {
-        if (getType() == 0) {
-            setType(this.rand.nextInt(4) + 1);
-        }
+        setType(this.rand.nextInt(4));
     }
 
     @Override

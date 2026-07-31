@@ -4,6 +4,7 @@
 package drzhark.mocreatures.client.renderer.entity.legacy;
 
 import drzhark.mocreatures.MoCConstants;
+import drzhark.mocreatures.MoCreatures;
 import drzhark.mocreatures.client.model.legacy.MoCLegacyModelBigCat1;
 import drzhark.mocreatures.client.model.legacy.MoCLegacyModelBigCat2;
 import drzhark.mocreatures.entity.hunter.MoCEntityBigCat;
@@ -13,18 +14,30 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class MoCLegacyRenderLeopard extends MoCLegacyRenderBigCat {
-    private static final ResourceLocation[] TEXTURES = new ResourceLocation[]{
-            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/big_cat/legacy/big_cat_leopard_legacy.png"),
-            new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/big_cat/legacy/big_cat_snow_leopard_legacy.png")
-    };
-
     public MoCLegacyRenderLeopard() {
         super(new MoCLegacyModelBigCat2(), new MoCLegacyModelBigCat1(), 0.5F);
     }
 
+    private ResourceLocation getLeopardTexture(boolean lowRes, String texturePath) {
+        String fullPath = "textures/entity/big_cat/legacy/" + texturePath;
+        return new ResourceLocation(MoCConstants.MOD_ID, fullPath);
+    }
+
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityBigCat entity) {
-        int type = entity.getType();
-        return TEXTURES[type - 1];
+        boolean lowRes = MoCreatures.proxy.lowResolutionTextures;
+        String tempTexture;
+
+        switch (entity.getType()) {
+            case 2:
+            case 3:
+                tempTexture = "big_cat_snow_leopard_legacy.png";
+                break;
+            default:
+                tempTexture = "big_cat_leopard_legacy.png";
+                break;
+        }
+
+        return getLeopardTexture(lowRes, tempTexture);
     }
 }

@@ -74,15 +74,13 @@ public class MoCEntityRat extends MoCEntityMob {
     public void selectType() {
         checkSpawningBiome();
 
-        if (getType() == 0) {
-            int i = this.rand.nextInt(100);
-            if (i <= 65) {
-                setType(1);
-            } else if (i <= 98) {
-                setType(2);
-            } else {
-                setType(3);
-            }
+        int i = this.rand.nextInt(100);
+        if (i <= 65) {
+            setType(0);
+        } else if (i <= 98) {
+            setType(1);
+        } else {
+            setType(2);
         }
     }
 
@@ -93,11 +91,11 @@ public class MoCEntityRat extends MoCEntityMob {
 
         try {
             if (BiomeDictionary.hasType(currentbiome, BiomeDictionary.Type.MESA)) {
-                setType(1); // only brown rats
+                setType(0); // only brown rats
             }
 
             if (BiomeDictionary.hasType(currentbiome, BiomeDictionary.Type.SNOWY)) {
-                setType(3); // only white rats
+                setType(2); // only white rats
             }
         } catch (Exception ignored) {
         }

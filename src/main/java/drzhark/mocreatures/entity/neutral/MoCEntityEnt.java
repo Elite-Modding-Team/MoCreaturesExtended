@@ -66,9 +66,7 @@ public class MoCEntityEnt extends MoCEntityAnimal {
 
     @Override
     public void selectType() {
-        if (getType() == 0) {
-            setType(this.rand.nextInt(2) + 1);
-        }
+        setType(this.rand.nextInt(2));
     }
 
     @Override
@@ -101,7 +99,7 @@ public class MoCEntityEnt extends MoCEntityAnimal {
         int i = this.rand.nextInt(3);
         int qty = this.rand.nextInt(12) + 4;
         int typ = 0;
-        if (getType() == 2) {
+        if (getType() == 1) {
             typ = 2;
         }
         if (i == 0) {
@@ -262,7 +260,7 @@ public class MoCEntityEnt extends MoCEntityAnimal {
                 break;
             case 19:
                 blockID = 6; //sapling
-                if (getType() == 2) {
+                if (getType() == 1) {
                     metaData = 2; //to place the right sapling
                 }
                 break;

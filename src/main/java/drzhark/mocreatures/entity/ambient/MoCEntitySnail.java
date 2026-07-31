@@ -54,9 +54,7 @@ public class MoCEntitySnail extends MoCEntityAmbient {
 
     @Override
     public void selectType() {
-        if (getType() == 0) {
-            setType(this.rand.nextInt(6) + 1);
-        }
+        setType(this.rand.nextInt(6));
     }
 
     public boolean getIsHiding() {
@@ -82,7 +80,7 @@ public class MoCEntitySnail extends MoCEntityAmbient {
                 setIsHiding(false);
             }
             // Slugs won't hide
-            if (getIsHiding() && this.getType() > 4) {
+            if (getIsHiding() && this.getType() > 3) {
                 setIsHiding(false);
             }
         }

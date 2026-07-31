@@ -76,13 +76,13 @@ public class MoCEntityFilchLizard extends MoCEntityAnimal {
         BlockPos pos = new BlockPos(MathHelper.floor(this.posX), MathHelper.floor(getEntityBoundingBox().minY), this.posZ);
         Biome biome = MoCTools.biomeKind(this.world, pos);
         if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.SANDY)) {
-            setType(2);
-        } else if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.MESA)) {
-            setType(3);
-        } else if (this.dimension == MoCreatures.proxy.wyvernDimension) {
-            setType(4);
-        } else {
             setType(1);
+        } else if (BiomeDictionary.hasType(biome, BiomeDictionary.Type.MESA)) {
+            setType(2);
+        } else if (this.dimension == MoCreatures.proxy.wyvernDimension) {
+            setType(3);
+        } else {
+            setType(0);
         }
         return true;
     }

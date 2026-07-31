@@ -50,7 +50,7 @@ public class MoCRenderWerewolf extends RenderLiving<MoCEntityWerewolf> {
                 tempTexture = "werewolf_white.png";
                 break;
             case 4:
-                if (!MoCreatures.proxy.getAnimateTextures()) {
+                if (entity.world == null || !MoCreatures.proxy.getAnimateTextures()) {
                     tempTexture = "werewolf_fire.png";
                     break;
                 }
@@ -73,7 +73,7 @@ public class MoCRenderWerewolf extends RenderLiving<MoCEntityWerewolf> {
 
     @Override
     protected void renderModel(MoCEntityWerewolf entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-        boolean isAnimated = entity.getType() == 4 && !entity.getIsHumanForm() && MoCreatures.proxy.getAnimateTextures();
+        boolean isAnimated = entity.world != null && entity.getType() == 4 && !entity.getIsHumanForm() && MoCreatures.proxy.getAnimateTextures();
         int frameCount = 3;
         int ticksPerFrame = 2;
 

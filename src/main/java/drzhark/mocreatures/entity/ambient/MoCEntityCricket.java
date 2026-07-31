@@ -39,14 +39,7 @@ public class MoCEntityCricket extends MoCEntityAmbient {
 
     @Override
     public void selectType() {
-        if (getType() == 0) {
-            int i = this.rand.nextInt(100);
-            if (i <= 50) {
-                setType(1);
-            } else {
-                setType(2);
-            }
-        }
+        this.setType(this.rand.nextInt(2));
     }
 
     @Override

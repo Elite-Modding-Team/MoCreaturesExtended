@@ -49,7 +49,7 @@ public class MoCRenderHorseMob extends RenderLiving<MoCEntityHorseMob> {
 
         switch (entity.getType()) {
             case 23: // Undead Horse
-                if (!MoCreatures.proxy.getAnimateTextures() || lowRes) {
+                if ((!MoCreatures.proxy.getAnimateTextures() || lowRes) || entity.world == null) {
                     return getHorseTexture(lowRes, "horse_undead_0.png");
                 }
                 return getHorseTexture(lowRes, "horse_undead_animated_0.png");
@@ -61,7 +61,7 @@ public class MoCRenderHorseMob extends RenderLiving<MoCEntityHorseMob> {
                 return getHorseTexture(lowRes, "horsebat.png");
 
             case 38:
-                if (!MoCreatures.proxy.getAnimateTextures()) {
+                if (!MoCreatures.proxy.getAnimateTextures() || entity.world == null) {
                     return getHorseTexture(lowRes, "horse_nightmare.png");
                 }
                 return getHorseTexture(lowRes, "horse_nightmare_animated.png");
@@ -73,7 +73,7 @@ public class MoCRenderHorseMob extends RenderLiving<MoCEntityHorseMob> {
 
     @Override
     protected void renderModel(MoCEntityHorseMob entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-        boolean isAnimated = MoCreatures.proxy.getAnimateTextures();
+        boolean isAnimated = entity.world != null && MoCreatures.proxy.getAnimateTextures();
         boolean isLowResolution = MoCreatures.proxy.lowResolutionTextures;
         int frameCount = 1;
         int ticksPerFrame = 2;

@@ -33,14 +33,6 @@ public class MoCRenderFishy extends RenderLiving<MoCEntityFishy> {
     }
 
     @Override
-    public void doRender(MoCEntityFishy entity, double d, double d1, double d2, float f, float f1) {
-        if (entity.getType() == 0) { // && !MoCreatures.mc.isMultiplayerWorld())
-            entity.selectType();
-        }
-        super.doRender(entity, d, d1, d2, f, f1);
-    }
-
-    @Override
     protected void preRenderCallback(MoCEntityFishy entity, float f) {
         GlStateManager.translate(0.0F, 0.3F, 0.0F);
     }
@@ -60,6 +52,9 @@ public class MoCRenderFishy extends RenderLiving<MoCEntityFishy> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityFishy entity) {
         int type = entity.getType();
-        return TEXTURES[type - 1];
+        if (type < 0 || type >= TEXTURES.length) {
+            type = 0;
+        }
+        return TEXTURES[type];
     }
 }

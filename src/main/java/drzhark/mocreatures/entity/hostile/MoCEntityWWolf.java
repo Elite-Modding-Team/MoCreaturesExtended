@@ -66,9 +66,7 @@ public class MoCEntityWWolf extends MoCEntityMob {
 
     @Override
     public void selectType() {
-        if (getType() == 0) {
-            setType(this.rand.nextInt(4) + 1);
-        }
+        setType(this.rand.nextInt(4));
     }
 
     private void openMouth() {
@@ -104,7 +102,7 @@ public class MoCEntityWWolf extends MoCEntityMob {
 
         Biome biome = MoCTools.biomeKind(this.world, new BlockPos(i, j, k));
         if (BiomeDictionary.hasType(biome, Type.SNOWY)) {
-            setType(3);
+            setType(2);
         }
         selectType();
         return true;

@@ -68,14 +68,6 @@ public class MoCEntitySmallFish extends MoCEntityTameableAquatic {
     }
 
     @Override
-    public void selectType() {
-        if (getType() == 0) {
-            setType(this.rand.nextInt(fishNames.length) + 1);
-        }
-
-    }
-
-    @Override
     protected boolean canBeTrappedInNet() {
         return true;
     }

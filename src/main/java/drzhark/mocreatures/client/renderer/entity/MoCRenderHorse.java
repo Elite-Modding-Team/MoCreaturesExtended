@@ -34,7 +34,7 @@ public class MoCRenderHorse extends MoCRenderMoC<MoCEntityHorse> {
             String newText;
             switch (entity.transformType) {
                 case 24:
-                    newText = (MoCreatures.proxy.getAnimateTextures() && !MoCreatures.proxy.lowResolutionTextures) ? "horse_undead_unicorn_animated_0.png" : "horse_undead_unicorn_0.png";
+                    newText = (entity.world != null && MoCreatures.proxy.getAnimateTextures() && !MoCreatures.proxy.lowResolutionTextures) ? "horse_undead_unicorn_animated_0.png" : "horse_undead_unicorn_0.png";
                     break;
                 case 25:
                     newText = (MoCreatures.proxy.getAnimateTextures() && !MoCreatures.proxy.lowResolutionTextures) ? "horse_undead_pegasus_animated_0.png" : "horse_undead_pegasus_0.png";
@@ -169,7 +169,7 @@ public class MoCRenderHorse extends MoCRenderMoC<MoCEntityHorse> {
                 if (lowRes) {
                     resolvedTex = baseTex + "_" + decayStage + ".png";
                 } else {
-                    resolvedTex = MoCreatures.proxy.getAnimateTextures() ? baseTex + "_animated_" + decayStage + ".png" : baseTex + "_" + decayStage + ".png";
+                    resolvedTex = (MoCreatures.proxy.getAnimateTextures() && entity.world != null) ? baseTex + "_animated_" + decayStage + ".png" : baseTex + "_" + decayStage + ".png";
                 }
 
                 return getHorseTexture(lowRes, resolvedTex);
@@ -190,7 +190,7 @@ public class MoCRenderHorse extends MoCRenderMoC<MoCEntityHorse> {
                 tempTexture = "horseunicorn.png";
                 break;
             case 38:
-                if (!MoCreatures.proxy.getAnimateTextures()) {
+                if (!MoCreatures.proxy.getAnimateTextures() || entity.world == null) {
                     String nmTex = "horse_nightmare.png";
                     return getHorseTexture(lowRes, nmTex);
                 }
@@ -304,7 +304,7 @@ public class MoCRenderHorse extends MoCRenderMoC<MoCEntityHorse> {
 
     @Override
     protected void renderModel(MoCEntityHorse entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-        boolean isAnimated = MoCreatures.proxy.getAnimateTextures();
+        boolean isAnimated = entity.world != null && MoCreatures.proxy.getAnimateTextures();
         boolean isLowResolution = MoCreatures.proxy.lowResolutionTextures;
         int frameCount = 1;
         int ticksPerFrame = 2;

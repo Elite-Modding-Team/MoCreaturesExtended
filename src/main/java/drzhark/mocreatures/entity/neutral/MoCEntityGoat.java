@@ -119,33 +119,31 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     @Override
     public void selectType() {
         /*
-         * type 1 = baby type 2 = female type 3 = female 2 type 4 = female 3
-         * type 5 = male 1 type 6 = male 2 type 7 = male 3
+         * type 0 = baby type 1 = female type 2 = female 2 type 3 = female 3
+         * type 4 = male 1 type 5 = male 2 type 6 = male 3
          */
-        if (getType() == 0) {
-            int i = this.rand.nextInt(100);
-            if (i <= 15) {
-                setType(1);
-                setAge(50);
-            } else if (i <= 30) {
-                setType(2);
-                setAge(70);
-            } else if (i <= 45) {
-                setType(3);
-                setAge(70);
-            } else if (i <= 60) {
-                setType(4);
-                setAge(70);
-            } else if (i <= 75) {
-                setType(5);
-                setAge(90);
-            } else if (i <= 90) {
-                setType(6);
-                setAge(90);
-            } else {
-                setType(7);
-                setAge(90);
-            }
+        int i = this.rand.nextInt(100);
+        if (i <= 15) {
+            setType(0);
+            setAge(50);
+        } else if (i <= 30) {
+            setType(1);
+            setAge(70);
+        } else if (i <= 45) {
+            setType(2);
+            setAge(70);
+        } else if (i <= 60) {
+            setType(3);
+            setAge(70);
+        } else if (i <= 75) {
+            setType(4);
+            setAge(90);
+        } else if (i <= 90) {
+            setType(5);
+            setAge(90);
+        } else {
+            setType(6);
+            setAge(90);
         }
     }
 
@@ -159,7 +157,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
         MoCEntityGoat baby = new MoCEntityGoat(entity.world);
         baby.setGrowingAge(-24000);
         baby.setAdult(false);
-        baby.setType(1);
+        baby.setType(0);
         baby.setAge(50);
         return baby;
     }
@@ -173,10 +171,10 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
         if (!this.isInLove() || !otherGoat.isInLove()) return false;
 
         // Goats have different genders based on type, we'll need to use the correct ones
-        boolean thisIsFemale = this.getType() >= 2 && this.getType() <= 4;
-        boolean thisIsMale = this.getType() >= 5 && this.getType() <= 7;
-        boolean otherIsFemale = otherGoat.getType() >= 2 && otherGoat.getType() <= 4;
-        boolean otherIsMale = otherGoat.getType() >= 5 && otherGoat.getType() <= 7;
+        boolean thisIsFemale = this.getType() >= 1 && this.getType() <= 3;
+        boolean thisIsMale = this.getType() >= 4 && this.getType() <= 6;
+        boolean otherIsFemale = otherGoat.getType() >= 1 && otherGoat.getType() <= 3;
+        boolean otherIsMale = otherGoat.getType() >= 4 && otherGoat.getType() <= 6;
         return (thisIsFemale && otherIsMale) || (thisIsMale && otherIsFemale);
     }
 
@@ -190,9 +188,9 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
 
     @Override
     protected void jump() {
-        if (getType() == 1) {
+        if (getType() == 0) {
             this.motionY = 0.41D;
-        } else if (getType() < 5) {
+        } else if (getType() < 4) {
             this.motionY = 0.45D;
         } else {
             this.motionY = 0.5D;
@@ -230,9 +228,9 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
             this.hungry = false;
         }
 
-        if (!this.world.isRemote && (getAge() < 90 || getType() > 4 && getAge() < 100) && this.rand.nextInt(500) == 0) {
+        if (!this.world.isRemote && (getAge() < 90 || getType() > 3 && getAge() < 100) && this.rand.nextInt(500) == 0) {
             setAge(getAge() + 1);
-            if (getType() == 1 && getAge() > 70) {
+            if (getType() == 0 && getAge() > 70) {
                 int i = this.rand.nextInt(6) + 2;
                 setType(i);
                 setAdult(true);
@@ -301,9 +299,9 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
                 }
 
                 // Find other goat to play!
-                if (getType() > 4 && this.rand.nextInt(200) == 0 && !this.isInLove()) {
+                if (getType() > 3 && this.rand.nextInt(200) == 0 && !this.isInLove()) {
                     MoCEntityGoat entitytarget = (MoCEntityGoat) getClosestEntityLiving(this, 14D);
-                    if (entitytarget != null && entitytarget.getType() > 4 && !entitytarget.isInLove()) {
+                    if (entitytarget != null && entitytarget.getType() > 3 && !entitytarget.isInLove()) {
                         setUpset(true);
                         setAttackTarget(entitytarget);
                         entitytarget.setUpset(true);
@@ -330,7 +328,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
 
     @Override
     public boolean entitiesToIgnore(Entity entity) {
-        return ((!(entity instanceof MoCEntityGoat)) || ((((MoCEntityGoat) entity).getType() < 5)));
+        return ((!(entity instanceof MoCEntityGoat)) || ((((MoCEntityGoat) entity).getType() < 4)));
     }
 
     @Override
@@ -359,7 +357,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
 
     @Override
     public boolean isNotScared() {
-        return getType() > 4;
+        return getType() > 3;
     }
 
     private void swingLeg() {
@@ -406,7 +404,7 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
         if (super.attackEntityFrom(damagesource, i)) {
             Entity entity = damagesource.getTrueSource();
 
-            if (entity != this && entity instanceof EntityLivingBase && super.shouldAttackPlayers() && getType() > 4) {
+            if (entity != this && entity instanceof EntityLivingBase && super.shouldAttackPlayers() && getType() > 3) {
                 setAttackTarget((EntityLivingBase) entity);
                 setUpset(true);
             }
@@ -545,12 +543,12 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
         }
 
         if (!stack.isEmpty() && stack.getItem() == Items.BUCKET) {
-            if (getType() > 4) {
+            if (getType() > 3) {
                 setUpset(true);
                 setAttackTarget(player);
                 return false;
             }
-            if (getType() == 1) {
+            if (getType() == 0) {
                 return false;
             }
 
@@ -586,10 +584,10 @@ public class MoCEntityGoat extends MoCEntityTameableAnimal {
     @Override
     protected SoundEvent getAmbientSound() {
         setBleating(true);
-        if (getType() == 1) {
+        if (getType() == 0) {
             return MoCSoundEvents.ENTITY_GOAT_AMBIENT_BABY;
         }
-        if (getType() > 2 && getType() < 5) {
+        if (getType() > 1 && getType() < 4) {
             return MoCSoundEvents.ENTITY_GOAT_AMBIENT_FEMALE;
         }
 

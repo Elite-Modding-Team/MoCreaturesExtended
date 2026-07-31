@@ -21,7 +21,6 @@ import java.util.List;
 public class MoCEntityAngler extends MoCEntitySmallFish {
     public MoCEntityAngler(World world) {
         super(world);
-        this.setType(3);
         experienceValue = 3;
     }
 

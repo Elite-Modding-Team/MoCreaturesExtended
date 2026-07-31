@@ -12,7 +12,6 @@ import javax.annotation.Nullable;
 public class MoCEntitySalmon extends MoCEntityMediumFish {
     public MoCEntitySalmon(World world) {
         super(world);
-        this.setType(1);
     }
 
     @Nullable

@@ -25,6 +25,9 @@ public class MoCRenderDeer extends MoCRenderMoC<MoCEntityDeer> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityDeer entity) {
         int type = entity.getType();
-        return TEXTURES[type - 1];
+        if (type < 0 || type >= TEXTURES.length) {
+            type = 0;
+        }
+        return TEXTURES[type];
     }
 }

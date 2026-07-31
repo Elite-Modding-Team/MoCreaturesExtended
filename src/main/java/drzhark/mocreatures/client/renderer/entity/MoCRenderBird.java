@@ -37,14 +37,16 @@ public class MoCRenderBird extends MoCRenderMoC<MoCEntityBird> {
         super(model, f);
     }
 
-    // TODO: Fix types! Mo' Creatures sets 0 as 1, and so on and so on
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityBird entity) {
         int type = entity.getType();
-        if (MoCreatures.proxy.lowResolutionTextures) {
-            return TEXTURES_LOW[type - 1];
+        if (type < 0 || type >= TEXTURES.length) {
+            type = 0;
         }
-        return TEXTURES[type - 1];
+        if (MoCreatures.proxy.lowResolutionTextures) {
+            return TEXTURES_LOW[type];
+        }
+        return TEXTURES[type];
     }
 
     @Override

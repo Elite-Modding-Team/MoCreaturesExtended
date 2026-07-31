@@ -41,7 +41,7 @@ public class MoCRenderKitty extends MoCRenderMoC<MoCEntityKitty> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityKitty entity) {
         int type = entity.getType();
-        return TEXTURES[type - 1];
+        return TEXTURES[type];
     }
 
     @Override

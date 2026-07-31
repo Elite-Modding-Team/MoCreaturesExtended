@@ -95,10 +95,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
     @Override
     public void selectType() {
         checkSpawningBiome();
-
-        if (getType() == 0) {
-            setType(this.rand.nextInt(6) + 1);
-        }
+        setType(this.rand.nextInt(6));
     }
 
     @Override
@@ -108,7 +105,7 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
 
         try {
             if (BiomeDictionary.hasType(currentbiome, BiomeDictionary.Type.MESA)) {
-                setType(2); // only black birds
+                setType(1); // only black birds
             }
         } catch (Exception ignored) {
         }
@@ -285,19 +282,19 @@ public class MoCEntityBird extends MoCEntityTameableAnimal {
 
     @Override
     protected SoundEvent getAmbientSound() {
-        if (getType() == 1) {
+        if (getType() == 0) {
             return MoCSoundEvents.ENTITY_BIRD_AMBIENT_WHITE;
         }
-        if (getType() == 2) {
+        if (getType() == 1) {
             return MoCSoundEvents.ENTITY_BIRD_AMBIENT_BLACK;
         }
-        if (getType() == 3) {
+        if (getType() == 2) {
             return MoCSoundEvents.ENTITY_BIRD_AMBIENT_GREEN;
         }
-        if (getType() == 4) {
+        if (getType() == 3) {
             return MoCSoundEvents.ENTITY_BIRD_AMBIENT_BLUE;
         }
-        if (getType() == 5) {
+        if (getType() == 4) {
             return MoCSoundEvents.ENTITY_BIRD_AMBIENT_YELLOW;
         } else {
             return MoCSoundEvents.ENTITY_BIRD_AMBIENT_RED;

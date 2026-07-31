@@ -40,7 +40,10 @@ public class MoCRenderGoat extends RenderLiving<MoCEntityGoat> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityGoat entity) {
         int type = entity.getType();
-        return TEXTURES[type - 1];
+        if (type < 0 || type >= TEXTURES.length) {
+            type = 0;
+        }
+        return TEXTURES[type];
     }
 
     @Override

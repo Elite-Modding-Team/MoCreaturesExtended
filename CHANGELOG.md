@@ -1,4 +1,9 @@
 # Mo' Creatures Extended Changelog (12.4.9+)
+## 12.5.1
+### Fixed
+- Fixed out of bounds texture type spam when using minimap mods.
+- Fixed mobs with animated textures appearing bugged when rendered on guis.
+---
 ## 12.5.0
 ### Added
 - Added a config option to enable 16x textures for most mobs. A heavily requested feature!

@@ -56,6 +56,9 @@ public class MoCRenderRat<T extends MoCEntityRat> extends RenderLiving<T> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityRat entity) {
         int type = entity.getType();
-        return TEXTURES[type - 1];
+        if (type < 0 || type >= TEXTURES.length) {
+            type = 0;
+        }
+        return TEXTURES[type];
     }
 }

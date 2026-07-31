@@ -31,9 +31,7 @@ public class MoCEntityButterfly extends MoCEntityInsect {
 
     @Override
     public void selectType() {
-        if (getType() == 0) {
-            setType(this.rand.nextInt(10) + 1);
-        }
+        this.setType(this.rand.nextInt(10));
     }
 
     public float tFloat() {

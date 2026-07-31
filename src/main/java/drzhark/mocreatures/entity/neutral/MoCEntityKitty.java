@@ -91,9 +91,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
 
     @Override
     public void selectType() {
-        if (getType() == 0) {
-            setType(this.rand.nextInt(11) + 1);
-        }
+        setType(this.rand.nextInt(11));
     }
 
     @Override
@@ -706,7 +704,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                             if (this.rand.nextInt(10) < 1) {
                                 float force = 0.2F;
                                 if (getTemper() == 2) force = 0.3F;
-                                if (getType() == 10) force = 0.1F;
+                                if (getType() == 9) force = 0.1F;
                                 MoCTools.bigSmack(this, itemAttackTarget, force);
                             }
                         } else {
@@ -984,7 +982,7 @@ public class MoCEntityKitty extends MoCEntityTameableAnimal {
                         MoCEntityKitty kitty1 = new MoCEntityKitty(this.world);
                         int babyType = this.getType();
                         if (this.rand.nextInt(2) < 1) {
-                            babyType = (this.rand.nextInt(8) + 1);
+                            babyType = (this.rand.nextInt(8));
                         }
                         kitty1.setType(babyType);
                         kitty1.setPosition(this.posX, this.posY, this.posZ);

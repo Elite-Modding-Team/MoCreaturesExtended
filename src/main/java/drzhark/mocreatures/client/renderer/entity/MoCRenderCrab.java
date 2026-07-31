@@ -27,6 +27,9 @@ public class MoCRenderCrab extends MoCRenderMoC<MoCEntityCrab> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntityCrab entity) {
         int type = entity.getType();
-        return TEXTURES[type - 1];
+        if (type < 0 || type >= TEXTURES.length) {
+            type = 0;
+        }
+        return TEXTURES[type];
     }
 }

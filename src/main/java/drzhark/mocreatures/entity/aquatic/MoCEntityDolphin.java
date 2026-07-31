@@ -64,21 +64,19 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 
     @Override
     public void selectType() {
-        if (getType() == 0) {
-            int i = this.rand.nextInt(100);
-            if (i <= 35) {
-                setType(1);
-            } else if (i <= 60) {
-                setType(2);
-            } else if (i <= 85) {
-                setType(3);
-            } else if (i <= 96) {
-                setType(4);
-            } else if (i <= 98) {
-                setType(5);
-            } else {
-                setType(6);
-            }
+        int i = this.rand.nextInt(100);
+        if (i <= 35) {
+            this.setType(0);
+        } else if (i <= 60) {
+            this.setType(1);
+        } else if (i <= 85) {
+            this.setType(2);
+        } else if (i <= 96) {
+            this.setType(3);
+        } else if (i <= 98) {
+            this.setType(4);
+        } else {
+            this.setType(5);
         }
     }
 
@@ -86,15 +84,15 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     public int getMaxTemper() {
 
         switch (getType()) {
-            case 1:
+            case 0:
                 return 50;
-            case 3:
+            case 2:
                 return 150;
-            case 4:
+            case 3:
                 return 200;
-            case 5:
+            case 4:
                 return 250;
-            case 6:
+            case 5:
                 return 300;
             default:
                 return 100;
@@ -103,15 +101,15 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
 
     public int getInitialTemper() {
         switch (getType()) {
-            case 2:
+            case 1:
                 return 100;
-            case 3:
+            case 2:
                 return 150;
-            case 4:
+            case 3:
                 return 200;
-            case 5:
+            case 4:
                 return 250;
-            case 6:
+            case 5:
                 return 300;
             default:
                 return 50;
@@ -121,15 +119,15 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     @Override
     public double getCustomSpeed() {
         switch (getType()) {
-            case 2:
+            case 1:
                 return 2.0D;
-            case 3:
+            case 2:
                 return 2.5D;
-            case 4:
+            case 3:
                 return 3.D;
-            case 5:
+            case 4:
                 return 3.5D;
-            case 6:
+            case 5:
                 return 4.D;
             default:
                 return 1.5D;
@@ -228,7 +226,7 @@ public class MoCEntityDolphin extends MoCEntityTameableAquatic {
     protected SoundEvent getAngrySound() {
         return MoCSoundEvents.ENTITY_DOLPHIN_ANGRY;
     }
-    
+
     @Override
     protected SoundEvent getSwimSound() {
         return MoCSoundEvents.ENTITY_FISH_SWIM;

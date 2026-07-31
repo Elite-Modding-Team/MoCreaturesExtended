@@ -17,9 +17,8 @@ import javax.annotation.Nonnull;
 
 @SideOnly(Side.CLIENT)
 public class MoCRenderHellRat extends MoCRenderRat<MoCEntityHellRat> {
-    private static final ResourceLocation TEXTURE = !MoCreatures.proxy.getAnimateTextures()
-            ? new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/rat/hell_rat.png")
-            : new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/rat/hell_rat_animated.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/rat/hell_rat.png");
+    private static final ResourceLocation TEXTURE_ANIMATED = new ResourceLocation(MoCConstants.MOD_ID, "textures/entity/rat/hell_rat_animated.png");
 
     public MoCRenderHellRat(ModelBase model, float f) {
         super(model, f);
@@ -33,7 +32,7 @@ public class MoCRenderHellRat extends MoCRenderRat<MoCEntityHellRat> {
 
     @Override
     protected void renderModel(MoCEntityHellRat entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-        boolean isAnimated = entity.getType() == 4 && MoCreatures.proxy.getAnimateTextures();
+        boolean isAnimated = entity.world != null && MoCreatures.proxy.getAnimateTextures();
         int frameCount = 2;
         int ticksPerFrame = 3;
 
@@ -58,6 +57,9 @@ public class MoCRenderHellRat extends MoCRenderRat<MoCEntityHellRat> {
 
     @Override
     protected ResourceLocation getEntityTexture(@Nonnull MoCEntityHellRat entity) {
-        return TEXTURE;
+        if (entity.world == null || !MoCreatures.proxy.getAnimateTextures()) {
+            return TEXTURE;
+        }
+        return TEXTURE_ANIMATED;
     }
 }

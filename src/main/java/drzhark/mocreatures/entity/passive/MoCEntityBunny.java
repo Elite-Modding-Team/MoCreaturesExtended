@@ -132,11 +132,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
     @Override
     public void selectType() {
         checkSpawningBiome();
-
-        if (getType() == 0) {
-            setType(getRNG().nextInt(5) + 1);
-        }
-
+        setType(getRNG().nextInt(5));
     }
 
     @Override
@@ -149,7 +145,7 @@ public class MoCEntityBunny extends MoCEntityTameableAnimal {
         Biome currentbiome = MoCTools.biomeKind(this.world, pos);
         try {
             if (BiomeDictionary.hasType(currentbiome, Type.SNOWY)) {
-                setType(3); //snow-white bunnies!
+                setType(2); //snow-white bunnies!
                 return true;
             }
         } catch (Exception ignored) {

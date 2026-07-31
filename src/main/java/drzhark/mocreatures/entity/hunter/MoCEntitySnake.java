@@ -115,18 +115,16 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     public void selectType() {
         checkSpawningBiome();
         // snake types:
-        // 1 small blackish/dark snake (passive)
-        // 2 dark green /brown snake (passive)
-        // 3 bright orangy snake aggressive venomous swamp, jungle, forest
-        // 4 bright green snake aggressive venomous swamp, jungle, forest
-        // 5 coral (aggressive - venomous) small / plains, forest
-        // 6 cobra (aggressive - venomous - spitting) plains, forest
-        // 7 rattlesnake (aggressive - venomous) desert
-        // 8 python (aggressive - non-venomous) big - swamp
-        // 9 sea snake (aggressive - venomous) - unused
-        if (getType() == 0) {
-            setType(this.rand.nextInt(8) + 1);
-        }
+        // 0 small blackish/dark snake (passive)
+        // 1 dark green /brown snake (passive)
+        // 2 bright orangy snake aggressive venomous swamp, jungle, forest
+        // 3 bright green snake aggressive venomous swamp, jungle, forest
+        // 4 coral (aggressive - venomous) small / plains, forest
+        // 5 cobra (aggressive - venomous - spitting) plains, forest
+        // 6 rattlesnake (aggressive - venomous) desert
+        // 7 python (aggressive - non-venomous) big - swamp
+        // 8 sea snake (aggressive - venomous) - unused
+        setType(this.rand.nextInt(8));
     }
 
     @Override
@@ -179,7 +177,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 
     @Override
     public boolean isNotScared() {
-        return getType() > 2 && getAge() > 50;
+        return getType() > 1 && getAge() > 50;
     }
 
     /**
@@ -221,22 +219,22 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 
     public float getSizeF() {
         float factor = 1.0F;
-        if (getType() == 1 || getType() == 2)// small shy snakes
+        if (getType() == 0 || getType() == 1)// small shy snakes
         {
             factor = 0.8F;
-        } else if (getType() == 5)// coral
+        } else if (getType() == 4)// coral
         {
             factor = 0.6F;
         }
-        if (getType() == 6)// cobra 1.1
+        if (getType() == 5)// cobra 1.1
         {
             factor = 1.1F;
         }
-        if (getType() == 7)// rattlesnake
+        if (getType() == 6)// rattlesnake
         {
             factor = 0.9F;
         }
-        if (getType() == 8)// python
+        if (getType() == 7)// python
         {
             factor = 1.5F;
         }
@@ -263,7 +261,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
                 }
             }
 
-            if (getType() == 7 && getfRattle() != 0.0F) // rattling
+            if (getType() == 6 && getfRattle() != 0.0F) // rattling
             {
                 setfRattle(getfRattle() + 0.2F);
                 if (getfRattle() == 1.0F) {
@@ -288,7 +286,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             if (this.rand.nextInt(100) == 0 && getfMouth() == 0.0F) {
                 setfMouth(0.1F);
             }
-            if (getType() == 7) {
+            if (getType() == 6) {
                 int chance;
                 if (getNearPlayer()) {
                     chance = 30;
@@ -426,7 +424,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
 
     @Override
     public boolean attackEntityAsMob(Entity entityIn) {
-        if ((getType() < 3 || getIsTamed()) && entityIn instanceof EntityPlayer) {
+        if ((getType() < 2 || getIsTamed()) && entityIn instanceof EntityPlayer) {
             return false;
         }
 
@@ -465,7 +463,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     @Override
     public boolean attackEntityFrom(DamageSource damagesource, float i) {
 
-        if (getType() < 3) {
+        if (getType() < 2) {
             return super.attackEntityFrom(damagesource, i);
         }
 
@@ -554,90 +552,90 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
             if (BiomeDictionary.hasType(currentbiome, Type.SANDY) || BiomeDictionary.hasType(currentbiome, Type.MESA)) {
                 // rattlesnake or spotted
                 if (l < 5) {
-                    setType(7);
+                    setType(6);
                 } else {
-                    setType(2);
+                    setType(1);
                 }
             }
 
             if (BiomeDictionary.hasType(currentbiome, Type.PLAINS)) {
                 // dark green or coral or spotted
                 if (l < 3) {
-                    setType(1);
-                } else if (l < 5) {
-                    setType(5);
+                    setType(0);
+                } else if (l < 4) {
+                    setType(4);
                 } else {
-                    setType(2);
+                    setType(1);
                 }
             }
 
             if (BiomeDictionary.hasType(currentbiome, Type.SAVANNA)) {
                 // python or spotted or rattlesnake
                 if (l < 4) {
-                    setType(8);
-                } else if (l < 8) {
-                    setType(2);
-                } else {
                     setType(7);
+                } else if (l < 7) {
+                    setType(1);
+                } else {
+                    setType(6);
                 }
             }
 
             if (BiomeDictionary.hasType(currentbiome, Type.FOREST)) {
                 // dark green or spotted
                 if (l < 5) {
-                    setType(1);
+                    setType(0);
                 } else {
-                    setType(2);
+                    setType(1);
                 }
             }
 
             if (BiomeDictionary.hasType(currentbiome, Type.SWAMP)) {
                 // python or cobra or dark green
-                if (l < 5) {
-                    setType(8);
-                } else if (l < 7) {
-                    setType(6);
+                if (l < 4) {
+                    setType(7);
+                } else if (l < 6) {
+                    setType(5);
                 } else {
-                    setType(1);
+                    setType(0);
                 }
             }
 
             if (BiomeDictionary.hasType(currentbiome, Type.JUNGLE)) {
                 // bright green or bright orange or cobra or python or dark green
-                if (l < 3) {
-                    setType(4);
-                } else if (l < 5) {
+                if (l < 2) {
                     setType(3);
-                } else if (l < 7) {
-                    setType(6);
-                } else if (l < 9) {
-                    setType(8);
+                } else if (l < 4) {
+                    setType(2);
+                } else if (l < 6) {
+                    setType(5);
+                } else if (l < 8) {
+                    setType(7);
                 } else {
-                    setType(1);
+                    setType(0);
                 }
             }
 
             if (BiomeDictionary.hasType(currentbiome, Type.MAGICAL)) {
                 // dark green
-                setType(1);
+                setType(0);
             }
 
             if (BiomeDictionary.hasType(currentbiome, MoCEntities.WYVERN_LAIR)) {
                 // bright green or bright orange or spotted or dark green
-                if (l < 3) {
-                    setType(4);
-                } else if (l < 5) {
+                if (l < 2) {
                     setType(3);
-                } else if (l < 7) {
+                } else if (l < 4) {
                     setType(2);
-                } else {
+                } else if (l < 6) {
                     setType(1);
+                } else {
+                    setType(0);
                 }
             }
 
-            if (getType() == 7 && !(BiomeDictionary.hasType(currentbiome, Type.SANDY) && !(BiomeDictionary.hasType(currentbiome, Type.SAVANNA)))) {
+            if (getType() == 6 && !(BiomeDictionary.hasType(currentbiome, Type.SANDY) && !(BiomeDictionary.hasType(currentbiome, Type.SAVANNA)))) {
                 // spotted
-                setType(2);
+                setType(1);
             }
         } catch (Exception ignored) {
         }
@@ -673,7 +671,7 @@ public class MoCEntitySnake extends MoCEntityTameableAnimal {
     }
 
     private boolean isVenomous() {
-        return getType() == 3 || getType() == 4 || getType() == 5 || getType() == 6 || getType() == 7 || getType() == 9;
+        return getType() == 2 || getType() == 3 || getType() == 4 || getType() == 5 || getType() == 6 || getType() == 8;
     }
 
     @Override

@@ -28,6 +28,9 @@ public class MoCRenderSnail extends MoCRenderMoC<MoCEntitySnail> {
     @Override
     protected ResourceLocation getEntityTexture(MoCEntitySnail entity) {
         int type = entity.getType();
-        return TEXTURES[type - 1];
+        if (type < 0 || type >= TEXTURES.length) {
+            type = 0;
+        }
+        return TEXTURES[type];
     }
 }
